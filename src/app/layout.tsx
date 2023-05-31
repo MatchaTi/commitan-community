@@ -13,7 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang='en'>
       <body
-        className={`${inter.className} bg-light-main text-sm text-light-text dark:bg-dark-main dark:text-dark-text`}
+        className={`${inter.className} bg-light-main text-sm text-light-text dark:bg-dark-base dark:text-dark-text`}
       >
         <Providers>{children}</Providers>
       </body>
