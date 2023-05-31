@@ -29,14 +29,14 @@ type ButtonProps = {
 } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
 const buttonStyle = ({ color, size, corner }: ButtonProps) => {
-  const base = 'font-semibold shadow-lg';
+  const base = 'font-semibold';
 
   const variants = {
     color: {
-      primary: 'bg-sky-500 hover:bg-sky-300 text-white',
+      primary: 'bg-commitan-main hover:opacity-80 text-white',
       common: 'common-bg',
-      outline: 'bg-transparent border border-sky-500 text-sky-500 hover:bg-sky-500 hover:text-white',
-      disabled: 'cursor-not-allowed grayscale bg-sky-500',
+      outline: 'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white',
+      disabled: 'cursor-not-allowed grayscale bg-commitan-main',
     },
     size: {
       none: 'p-0',
