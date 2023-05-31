@@ -3,6 +3,7 @@
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 import { BsFillMoonFill, BsFillSunFill } from 'react-icons/bs';
+import Button from './button';
 
 interface IProps {
   visibility?: string;
@@ -22,14 +23,17 @@ export default function DarkModeBtn({ visibility }: IProps) {
 
   return (
     <>
-      <button
+      <Button
+        type='button'
+        size='none'
+        color='common'
+        corner='full'
+        className='inline-flex h-8 w-8 items-center justify-center'
+        visibility={visibility}
         onClick={() => setTheme(theme == 'light' ? 'dark' : 'light')}
-        className={`${
-          visibility && visibility
-        } inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-white shadow-lg shadow-light-accent hover:bg-white/80 dark:bg-dark-main dark:shadow-none dark:hover:bg-dark-main/80 xl:inline-flex`}
       >
         {theme == 'light' ? <BsFillMoonFill /> : <BsFillSunFill />}
-      </button>
+      </Button>
     </>
   );
 }
