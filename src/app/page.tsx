@@ -1,3 +1,4 @@
+import Following from '@/components/layout/following';
 import HomeLayout from '@/components/layout/homeLayout';
 import Trending from '@/components/layout/trending';
 
@@ -7,6 +8,7 @@ export default function Home() {
       <main className='order-2 mx-auto flex min-h-[2000px] w-full pt-16 sm:col-span-4 sm:col-start-1 sm:pt-20 xl:col-span-3 xl:col-start-2'>
         <div className='mx-auto w-full'>
           <Trending visibility='xl:hidden' />
+          <Following visibility='xl:hidden' />
         </div>
       </main>
     </HomeLayout>
