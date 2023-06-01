@@ -1,5 +1,6 @@
 import Category from './category';
 import Following from './following';
+import Information from './information';
 import Trending from './trending';
 
 export default function Aside() {
@@ -9,6 +10,7 @@ export default function Aside() {
         <Trending visibility='hidden xl:block' />
         <Following visibility='hidden xl:block' />
         <Category visibility='hidden xl:block' />
+        <Information visibility='hidden xl:block' />
       </aside>
     </div>
   );
