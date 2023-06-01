@@ -1,3 +1,4 @@
+import Category from '@/components/layout/category';
 import Following from '@/components/layout/following';
 import HomeLayout from '@/components/layout/homeLayout';
 import Trending from '@/components/layout/trending';
@@ -9,6 +10,7 @@ export default function Home() {
         <div className='mx-auto w-full'>
           <Trending visibility='xl:hidden' />
           <Following visibility='xl:hidden' />
+          <Category visibility='xl:hidden' />
         </div>
       </main>
     </HomeLayout>
