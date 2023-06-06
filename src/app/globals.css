@@ -4,7 +4,11 @@
 
 @layer components {
   .common-bg {
-    @apply bg-white shadow-lg shadow-light-accent hover:bg-light-secondary dark:bg-dark-main dark:shadow-none dark:hover:bg-dark-secondary;
+    @apply bg-white shadow-lg shadow-light-accent dark:bg-dark-main dark:shadow-none;
+  }
+
+  .common-bg-secondary {
+    @apply bg-light-secondary dark:bg-dark-secondary;
   }
 }
 
