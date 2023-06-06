@@ -12,7 +12,7 @@ export interface Comment {
   code?: Code;
 }
 
-export interface Post {
+export interface UserPost {
   id: string;
   username: string;
   title: string;

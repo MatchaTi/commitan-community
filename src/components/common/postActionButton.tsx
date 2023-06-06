@@ -8,9 +8,10 @@ import Button from './button';
 interface IPostAction {
   isCommentOpen: boolean;
   toggleCommentSection: () => void;
+  lengthComment: number;
 }
 
-export default function PostActionButton({ isCommentOpen, toggleCommentSection }: IPostAction) {
+export default function PostActionButton({ isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
   return (
     <div className='mt-2 flex w-full items-center'>
       <div className='flex flex-1 items-center gap-4'>
@@ -32,7 +33,7 @@ export default function PostActionButton({ isCommentOpen, toggleCommentSection }
           <BiCommentDetail
             className={`${isCommentOpen && 'bg-green-400/25'} rounded-lg p-1 text-3xl group-hover:bg-green-400/25`}
           />
-          <span>288</span>
+          <span>{lengthComment}</span>
         </Button>
         <Button type='button' size='sm' color='transparent' className='group hover:text-sky-400'>
           <FiSend className='rounded-lg p-1 text-3xl group-hover:bg-sky-400/25' />

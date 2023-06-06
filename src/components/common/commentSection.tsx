@@ -7,11 +7,23 @@ import Button from './button';
 import ProfileImage from './profileImage';
 import { GoPrimitiveDot } from 'react-icons/go';
 import Badge from './badge';
+import type { Comment } from '@/interfaces/post';
+
+interface Code {
+  syntax: string;
+  pathFile: string;
+}
+
+interface CommentProps {
+  comments: Comment[];
+  postId: string;
+  mutate: () => void;
+}
 
 const syntaxTest = `console.log('hello world!')`;
 const pathFileTest = 'codeEditor.tsx';
 
-export default function CommentSection() {
+export default function CommentSection({ comments, postId, mutate }: CommentProps) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [heightValue, setHeightValue] = useState('');
   const [showCodeEditor, setShowCodeEditor] = useState(false);
@@ -88,43 +100,47 @@ export default function CommentSection() {
           </div>
         </form>
       </section>
-      <h3 className='text-base font-semibold'>3 Komentar</h3>
-      <div className='mt-4 flex items-start gap-4 rounded-lg'>
-        {/* left side start */}
-        <div className='flex flex-col items-end'>
-          {/* user image */}
-          <ProfileImage size='medium' />
-          {/* hooks */}
-          <div className='mt-2 h-8 w-8 translate-x-2 border-b-4 border-l-4 border-light-accent dark:border-dark-accent '></div>
-        </div>
-        {/* left side end */}
-        {/* right side start */}
-        <div className='w-full'>
-          {/* top information */}
-          <div className='flex items-start justify-between'>
-            <div className='mb-2'>
-              <div className='flex items-center gap-2'>
-                <h2 className='font-semibold'>Kumala</h2>
-                <GoPrimitiveDot />
-                <time>1 jam yang lalu</time>
+      <h3 className='text-base font-semibold'>{comments.length} Komentar</h3>
+      {comments.map((comment) => (
+        <div key={comment.id} className='mt-4 flex items-start gap-4 rounded-lg'>
+          {/* left side start */}
+          <div className='flex flex-col items-end'>
+            {/* user image */}
+            <ProfileImage size='medium' />
+            {/* hooks */}
+            <div className='mt-2 h-8 w-8 translate-x-2 border-b-4 border-l-4 border-light-accent dark:border-dark-accent '></div>
+          </div>
+          {/* left side end */}
+          {/* right side start */}
+          <div className='w-full'>
+            {/* top information */}
+            <div className='flex items-start justify-between'>
+              <div className='mb-2'>
+                <div className='flex items-center gap-2'>
+                  <h2 className='font-semibold'>{comment.username}</h2>
+                  <GoPrimitiveDot />
+                  <time>1 jam yang lalu</time>
+                </div>
+                <Badge>Wengdev</Badge>
               </div>
-              <Badge>Wengdev</Badge>
+            </div>
+            {/* bottom content */}
+            <div className='mt-2'>
+              <div className='mb-4 rounded-lg bg-light-secondary p-4 dark:bg-dark-secondary'>
+                <p>{comment.text}</p>
+                {comment.code && (
+                  <>
+                    {comment.code.syntax && comment.code.pathFile && (
+                      <CodeEditor context='commented' syntax={comment.code.syntax} pathFile={comment.code.pathFile} />
+                    )}
+                  </>
+                )}
+              </div>
             </div>
           </div>
-          {/* bottom content */}
-          <div className='mt-2'>
-            <div className='mb-4 rounded-lg bg-light-secondary p-4 dark:bg-dark-secondary'>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam sed fugiat molestiae repudiandae.
-                Tenetur cupiditate eius, dignissimos iure provident sapiente, laborum commodi incidunt inventore
-                nesciunt ipsum labore possimus facere unde!
-              </p>
-              <CodeEditor context='commented' syntax={syntaxTest} pathFile={pathFileTest} />
-            </div>
-          </div>
+          {/* right side end */}
         </div>
-        {/* right side end */}
-      </div>
+      ))}
     </>
   );
 }
