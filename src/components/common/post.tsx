@@ -1,11 +1,24 @@
-import Badge from './badge';
-import ProfileImage from './profileImage';
+'use client';
+
+import { useState } from 'react';
 import { BiCodeCurly } from 'react-icons/bi';
 import { BsThreeDots } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { HiExternalLink } from 'react-icons/hi';
+import Badge from './badge';
+import CodeEditor from './codeEditor';
+import ProfileImage from './profileImage';
+
+const syntax = `import Image from 'next/image';\nimport commitanLogo from 'public/images/commitan-logo.svg';\nimport DarkModeBtn from '../common/DarkModeBtn';\nimport Notification from '../common/Notification';\nimport ProfileMenu from '../common/ProfileMenu';\nimport SearchModal from '../common/SearchModal';\n\nconst Navbar = () => {\n  return (\n    <header className='fixed left-0 right-0 top-0 z-20 mx-auto w-full max-w-[1440px] backdrop-blur-sm xl:px-20 2xl:px-0'>\n      {/* tablet start */}\n      <div className='grid w-full grid-cols-2 items-center justify-between px-4 py-4 sm:grid-cols-3 sm:pl-20 xl:grid-cols-5 xl:px-0 xl:pl-0'>\n        <div className='inline-flex cursor-pointer items-center xl:gap-4'>\n          <Image src={commitanLogo} alt='Commitan Logo' className='hidden xl:block' width={28} height={28} priority />\n          <h1 className='text-2xl font-bold text-slate-700 dark:text-slate-100 sm:hidden xl:block'>Commitan.</h1>\n        </div>\n        <SearchModal className='hidden sm:inline-flex' />\n        {/* tablet end */}\n        <div className='inline-flex items-center space-x-4 justify-self-end sm:w-full xl:col-start-5'>\n          <SearchModal className='sm:hidden' />\n          <Notification className='cursor-pointer sm:hidden' />\n          <DarkModeBtn className='cursor-pointer sm:hidden xl:hidden 2xl:hidden' />\n          {/* desktop start */}\n          <div className='hidden items-center xl:inline-flex xl:w-full xl:justify-between'>\n            <ProfileMenu />\n            <div className='inline-flex space-x-4'>\n              <DarkModeBtn className='cursor-pointer' />\n              <Notification className='xl:inline-flex' />\n            </div>\n          </div>\n          {/* desktop end */}\n        </div>\n      </div>\n    </header>\n  );\n};\n\nexport default Navbar;`;
+const pathFile = 'codeEditor.tsx';
 
 export default function Post() {
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+
+  function toggleCommentSection() {
+    setIsCommentOpen(!isCommentOpen);
+  }
+
   return (
     <article className='common-bg mt-4 flex items-start gap-4 rounded-lg p-4'>
       {/* left side start */}
@@ -65,6 +78,11 @@ export default function Post() {
             Excepturi nemo perferendis iure illum pariatur sequi adipisci voluptatum incidunt at consequuntur voluptates
             exercitationem earum provident dolor, quae minima.
           </p>
+          <CodeEditor context='posted' syntax={syntax} pathFile={pathFile} />
+          <button type='button' onClick={toggleCommentSection}>
+            {isCommentOpen ? 'Close' : 'Open'}
+          </button>
+          {isCommentOpen && <div>Comment Section</div>}
         </div>
       </div>
       {/* right side end */}
