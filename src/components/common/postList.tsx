@@ -22,7 +22,7 @@ export default function PostList() {
           dataLength={paginatedPosts.length}
         >
           {paginatedPosts.map((post) => (
-            <Post key={post.id} postId={post.id} data={post} mutate={mutate} />
+            <Post key={post.id} postId={post.id} data={post} mutate={mutate} editorContext='posted' />
           ))}
         </InfiniteScroll>
       )}

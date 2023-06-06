@@ -12,13 +12,22 @@ import PostActionButton from './postActionButton';
 import ProfileImage from './profileImage';
 import type { UserPost } from '@/interfaces/post';
 
+interface EditorContext {
+  upload: string;
+  posted: string;
+  comment: string;
+  commented: string;
+  detail: string;
+}
+
 interface PostProps {
   data: UserPost;
   postId: string;
-  mutate: () => void;
+  editorContext: keyof EditorContext;
+  mutate?: () => void;
 }
 
-export default function Post({ data, postId, mutate }: PostProps) {
+export default function Post({ data, postId, editorContext, mutate }: PostProps) {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
 
   function toggleCommentSection() {
@@ -85,16 +94,17 @@ export default function Post({ data, postId, mutate }: PostProps) {
           {data.code && (
             <>
               {data.code.syntax && data.code.pathFile && (
-                <CodeEditor context='posted' syntax={data.code.syntax} pathFile={data.code.pathFile} />
+                <CodeEditor context={editorContext} syntax={data.code.syntax} pathFile={data.code.pathFile} />
               )}
             </>
           )}
           <PostActionButton
+            postId={postId}
             isCommentOpen={isCommentOpen}
             toggleCommentSection={toggleCommentSection}
             lengthComment={data.comments.length}
           />
-          {isCommentOpen && <CommentSection postId={postId} comments={data.comments} mutate={mutate} />}
+          {isCommentOpen && <CommentSection postId={postId} comments={data.comments} mutate={mutate!} />}
         </div>
       </div>
       {/* right side end */}

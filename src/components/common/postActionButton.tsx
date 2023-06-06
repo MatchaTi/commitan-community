@@ -6,12 +6,13 @@ import { HiExternalLink } from 'react-icons/hi';
 import Button from './button';
 
 interface IPostAction {
+  postId: string;
   isCommentOpen: boolean;
   toggleCommentSection: () => void;
   lengthComment: number;
 }
 
-export default function PostActionButton({ isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
+export default function PostActionButton({ postId, isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
   return (
     <div className='mt-2 flex w-full items-center'>
       <div className='flex flex-1 items-center gap-4'>
@@ -38,9 +39,11 @@ export default function PostActionButton({ isCommentOpen, toggleCommentSection, 
         <Button type='button' size='sm' color='transparent' className='group hover:text-sky-400'>
           <FiSend className='rounded-lg p-1 text-3xl group-hover:bg-sky-400/25' />
         </Button>
-        <Button type='button' size='sm' color='transparent' className='group hover:text-orange-400'>
-          <HiExternalLink className='rounded-lg p-1 text-3xl group-hover:bg-orange-400/25' />
-        </Button>
+        <a href={`/posts/${postId}`}>
+          <Button type='button' size='sm' color='transparent' className='group hover:text-orange-400'>
+            <HiExternalLink className='rounded-lg p-1 text-3xl group-hover:bg-orange-400/25' />
+          </Button>
+        </a>
       </div>
       <Button type='button' size='sm' color='transparent' className='group hover:text-yellow-400'>
         <BsBookmark className='rounded-lg p-1 text-3xl group-hover:bg-yellow-400/25' />
