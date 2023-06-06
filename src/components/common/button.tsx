@@ -6,10 +6,12 @@ interface IColors {
   common: string;
   outline: string;
   disabled: string;
+  transparent: string;
 }
 
 interface ISize {
   none: string;
+  sm: string;
   std: string;
   medium: string;
 }
@@ -37,9 +39,11 @@ const buttonStyle = ({ color, size, corner }: ButtonProps) => {
       common: 'common-bg',
       outline: 'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white',
       disabled: 'cursor-not-allowed grayscale bg-commitan-main',
+      transparent: 'bg-transparent',
     },
     size: {
       none: 'p-0',
+      sm: 'p-1',
       std: 'p-4',
       medium: 'px-4 py-2',
     },
