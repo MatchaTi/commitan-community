@@ -7,6 +7,7 @@ import { GoPrimitiveDot } from 'react-icons/go';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge from './badge';
 import CodeEditor from './codeEditor';
+import CommentSection from './commentSection';
 import PostActionButton from './postActionButton';
 import ProfileImage from './profileImage';
 
@@ -39,7 +40,7 @@ export default function Post() {
               <ProfileImage visibility='sm:hidden' size='medium' />
               <div>
                 <div className='flex items-center gap-2'>
-                  <h2>Kumala</h2>
+                  <h2 className='font-semibold'>Kumala</h2>
                   <GoPrimitiveDot />
                   <time>1 jam yang lalu</time>
                 </div>
@@ -81,7 +82,7 @@ export default function Post() {
           </p>
           <CodeEditor context='posted' syntax={syntax} pathFile={pathFile} />
           <PostActionButton isCommentOpen={isCommentOpen} toggleCommentSection={toggleCommentSection} />
-          {isCommentOpen && <div>Comment Section</div>}
+          {isCommentOpen && <CommentSection />}
         </div>
       </div>
       {/* right side end */}
