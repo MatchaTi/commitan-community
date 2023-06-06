@@ -2,6 +2,7 @@ import { AiOutlineHeart } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import { BsBookmark } from 'react-icons/bs';
 import { FiSend } from 'react-icons/fi';
+import { HiExternalLink } from 'react-icons/hi';
 import Button from './button';
 
 interface IPostAction {
@@ -35,6 +36,9 @@ export default function PostActionButton({ isCommentOpen, toggleCommentSection }
         </Button>
         <Button type='button' size='sm' color='transparent' className='group hover:text-sky-400'>
           <FiSend className='rounded-lg p-1 text-3xl group-hover:bg-sky-400/25' />
+        </Button>
+        <Button type='button' size='sm' color='transparent' className='group hover:text-orange-400'>
+          <HiExternalLink className='rounded-lg p-1 text-3xl group-hover:bg-orange-400/25' />
         </Button>
       </div>
       <Button type='button' size='sm' color='transparent' className='group hover:text-yellow-400'>
