@@ -1,6 +1,6 @@
-import { BiEdit } from 'react-icons/bi';
-import { HiCode } from 'react-icons/hi';
 import Button from './button';
+import { BiCodeCurly, BiEdit } from 'react-icons/bi';
+import { HiCode, HiExternalLink } from 'react-icons/hi';
 
 interface OptionContext {
   upload: string;
@@ -14,9 +14,9 @@ interface IOption {
   showCodeEditor?: boolean;
   toggleCodeEditor?: () => void;
   showLinkSourceCode?: boolean;
-  toggleLinkSourceCode?: () => void;
+  toggleLinkSourceCode?: (showLinkSourceCode: boolean) => void;
   showLinkLiveDemo?: boolean;
-  toggleLinkLiveDemo?: () => void;
+  toggleLinkLiveDemo?: (showLinkLiveDemo: boolean) => void;
 }
 
 export default function OptionButton({
@@ -49,6 +49,32 @@ export default function OptionButton({
       >
         <HiCode className={`${showCodeEditor && 'bg-sky-400/25'} rounded-lg p-1 text-3xl group-hover:bg-sky-400/25`} />
       </Button>
+      {context == 'upload' && (
+        <>
+          <Button
+            type='button'
+            size='sm'
+            color='transparent'
+            onClick={() => toggleLinkSourceCode?.(!showLinkSourceCode)}
+            className={`${showLinkSourceCode && 'text-pink-500'} group flex items-center hover:text-pink-400`}
+          >
+            <BiCodeCurly
+              className={`${showLinkSourceCode && 'bg-pink-400/25'} rounded-lg p-1 text-3xl group-hover:bg-pink-400/25`}
+            />
+          </Button>
+          <Button
+            type='button'
+            size='sm'
+            color='transparent'
+            onClick={() => toggleLinkLiveDemo?.(!showLinkLiveDemo)}
+            className={`${showLinkLiveDemo && 'text-green-500'} group flex items-center hover:text-green-400`}
+          >
+            <HiExternalLink
+              className={`${showLinkLiveDemo && 'bg-green-400/25'} rounded-lg p-1 text-3xl group-hover:bg-green-400/25`}
+            />
+          </Button>
+        </>
+      )}
     </div>
   );
 }
