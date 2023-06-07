@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { PostData } from '@/interfaces/post';
+import type { PostComment, PostData } from '@/interfaces/post';
 
 export function cn(...cns: Array<string>) {
   return cns.join(' ');
@@ -34,6 +34,21 @@ export async function postData({
       linkLiveDemo,
       code,
     });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function postComment({ postId, username, text, code }: PostComment) {
+  try {
+    const res = await axiosWithCors.post('/comments', {
+      postId,
+      username,
+      text,
+      code,
+    });
+
     return res.data;
   } catch (error) {
     console.log(error);

@@ -36,3 +36,10 @@ export interface PostData {
   linkLiveDemo: string;
   code: Code;
 }
+
+export interface PostComment {
+  postId: string;
+  username: string;
+  text: string;
+  code: Code;
+}

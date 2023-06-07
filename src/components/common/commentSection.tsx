@@ -8,20 +8,13 @@ import ProfileImage from './profileImage';
 import { GoPrimitiveDot } from 'react-icons/go';
 import Badge from './badge';
 import type { Comment } from '@/interfaces/post';
-
-interface Code {
-  syntax: string;
-  pathFile: string;
-}
+import { postComment } from '@/utils/utils';
 
 interface CommentProps {
   comments: Comment[];
   postId: string;
   mutate: () => void;
 }
-
-const syntaxTest = `console.log('hello world!')`;
-const pathFileTest = 'codeEditor.tsx';
 
 export default function CommentSection({ comments, postId, mutate }: CommentProps) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
@@ -61,8 +54,18 @@ export default function CommentSection({ comments, postId, mutate }: CommentProp
     }
   }, [heightValue]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const username = '@bangalex';
+    try {
+      await postComment({ postId, username, text, code });
+      setText('');
+      setSyntax('');
+      setPathFile('');
+      mutate();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -73,6 +76,7 @@ export default function CommentSection({ comments, postId, mutate }: CommentProp
             name='text'
             id='text'
             ref={textAreaRef}
+            value={text}
             placeholder='Ketik komentar anda disini...'
             className='max-h-96 w-full resize-none bg-transparent sm:max-h-[430px]'
             maxLength={4000}
@@ -90,11 +94,7 @@ export default function CommentSection({ comments, postId, mutate }: CommentProp
               toggleCodeEditor={handleCodeEditor}
               textOnly={textOnly}
             />
-            <Button
-              type='submit'
-              disabled={(!syntax && !pathFile) || !text}
-              color={(syntax && pathFile) || text ? 'primary' : 'disabled'}
-            >
+            <Button type='submit' disabled={!text} color={text ? 'primary' : 'disabled'}>
               Submit
             </Button>
           </div>
