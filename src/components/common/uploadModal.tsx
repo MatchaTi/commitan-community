@@ -9,6 +9,8 @@ import ModalWrapper from './modalWrapper';
 import OptionButton from './optionButton';
 import { listCategory } from '@/utils/data';
 import ProfileImage from './profileImage';
+import { postData } from '@/utils/utils';
+import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
 
 interface IUpload {
   title: string;
@@ -96,16 +98,31 @@ export default function UploadModal() {
     setPathFile('');
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    alert('berhasil dikirim');
+    const username = '@bangalex';
+    const badge = 'wengdev';
+    const { title, desc, category, linkSourceCode, linkLiveDemo } = inputUserUpload;
+    try {
+      await postData({ username, title, desc, badge, category, linkSourceCode, linkLiveDemo, code });
+      setInputUserUpload({
+        title: '',
+        desc: '',
+        category: '',
+        linkSourceCode: '',
+        linkLiveDemo: '',
+      });
+      setSyntax('');
+      setPathFile('');
+      toggleShowUploadModal(false);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
     <>
-      <Button type='button' onClick={handleModal}>
-        Modal
-      </Button>
+      <ConditionalUploadBtn handleModal={handleModal} toggleCodeEditor={toggleCodeEditor} />
       <ModalWrapper showUploadModal={showUploadModal} title='Buat Postingan' toggleUploadModal={handleModal}>
         <form onSubmit={handleSubmit}>
           <div className='mb-2 flex items-center gap-4'>

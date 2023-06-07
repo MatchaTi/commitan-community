@@ -25,3 +25,14 @@ export interface UserPost {
   code?: Code;
   comments: Comment[];
 }
+
+export interface PostData {
+  username: string;
+  title: string;
+  desc: string;
+  badge: string;
+  category: string;
+  linkSourceCode: string;
+  linkLiveDemo: string;
+  code: Code;
+}

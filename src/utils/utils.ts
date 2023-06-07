@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { PostData } from '@/interfaces/post';
 
 export function cn(...cns: Array<string>) {
   return cns.join(' ');
@@ -11,3 +12,30 @@ export const axiosWithCors = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+export async function postData({
+  username,
+  title,
+  desc,
+  badge,
+  category,
+  linkSourceCode,
+  linkLiveDemo,
+  code,
+}: PostData) {
+  try {
+    const res = await axiosWithCors.post('/posts', {
+      username,
+      title,
+      desc,
+      badge,
+      category,
+      linkSourceCode,
+      linkLiveDemo,
+      code,
+    });
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
