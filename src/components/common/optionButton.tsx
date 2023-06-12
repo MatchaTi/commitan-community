@@ -6,6 +6,7 @@ interface OptionContext {
   upload: string;
   home: string;
   comment: string;
+  edit: string;
 }
 
 interface IOption {
@@ -49,7 +50,7 @@ export default function OptionButton({
       >
         <HiCode className={`${showCodeEditor && 'bg-sky-400/25'} rounded-lg p-1 text-3xl group-hover:bg-sky-400/25`} />
       </Button>
-      {context == 'upload' && (
+      {context == 'upload' || context == 'edit' ? (
         <>
           <Button
             type='button'
@@ -74,7 +75,7 @@ export default function OptionButton({
             />
           </Button>
         </>
-      )}
+      ) : null}
     </div>
   );
 }

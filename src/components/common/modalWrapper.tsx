@@ -4,15 +4,15 @@ import { Fragment } from 'react';
 interface IWrapper {
   title: string;
   children: React.ReactNode;
-  showUploadModal: boolean;
-  toggleUploadModal: () => void;
+  showModal: boolean;
+  toggleModal: () => void;
 }
 
-export default function ModalWrapper({ title, children, showUploadModal, toggleUploadModal }: IWrapper) {
+export default function ModalWrapper({ title, children, showModal, toggleModal }: IWrapper) {
   return (
     <>
-      <Transition appear show={showUploadModal} as={Fragment}>
-        <Dialog as='div' className='relative z-[9999]' onClose={toggleUploadModal}>
+      <Transition appear show={showModal} as={Fragment}>
+        <Dialog as='div' className='relative z-[9999]' onClose={toggleModal}>
           <Transition.Child
             as={Fragment}
             enter='ease-out duration-75'

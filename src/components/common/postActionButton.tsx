@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import { BsBookmark } from 'react-icons/bs';
@@ -15,7 +16,7 @@ interface IPostAction {
 export default function PostActionButton({ postId, isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
   return (
     <div className='mt-2 flex w-full items-center'>
-      <div className='flex flex-1 items-center gap-4'>
+      <div className='flex flex-1 items-center gap-1 sm:gap-4'>
         <Button
           type='button'
           size='sm'
@@ -39,11 +40,11 @@ export default function PostActionButton({ postId, isCommentOpen, toggleCommentS
         <Button type='button' size='sm' color='transparent' className='group hover:text-sky-400'>
           <FiSend className='rounded-lg p-1 text-3xl group-hover:bg-sky-400/25' />
         </Button>
-        <a href={`/posts/${postId}`}>
+        <Link href={`/posts/${postId}`}>
           <Button type='button' size='sm' color='transparent' className='group hover:text-orange-400'>
             <HiExternalLink className='rounded-lg p-1 text-3xl group-hover:bg-orange-400/25' />
           </Button>
-        </a>
+        </Link>
       </div>
       <Button type='button' size='sm' color='transparent' className='group hover:text-yellow-400'>
         <BsBookmark className='rounded-lg p-1 text-3xl group-hover:bg-yellow-400/25' />
