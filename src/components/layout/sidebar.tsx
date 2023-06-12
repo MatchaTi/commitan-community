@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import commitanLogo from '../../../public/images/commitan-logo.svg';
 import Image from 'next/image';
 import DarkModeBtn from '../common/darkModeBtn';
+import Link from 'next/link';
 
 interface MenuItem {
   href: string;
@@ -47,22 +48,21 @@ export default function Sidebar() {
   return (
     <div className='order-1'>
       <nav className='fixed bottom-0 left-0 z-[9999] w-full bg-white p-4 px-8 dark:bg-dark-main sm:top-0 sm:w-auto sm:px-4 xl:sticky xl:top-20 xl:bg-transparent xl:p-0 xl:dark:bg-transparent'>
-        <ul className='relative flex items-center justify-between gap-10 sm:h-screen sm:flex-col sm:pt-3 xl:h-auto xl:items-start'>
+        <ul className='relative flex items-center justify-between gap-4 sm:h-screen sm:flex-col sm:gap-10 sm:pt-3 xl:h-auto xl:items-start'>
           <li className='hidden sm:inline xl:hidden'>
             <Image src={commitanLogo} alt='Commitan Logo' width={28} height={28} />
           </li>
           {menuItems.map(({ label, href, icon }, index) => {
             return (
               <li key={index}>
-                <a
+                <Link
                   href={href}
                   className={`${
-                    href == pathName && 'common-bg text-commitan-main'
-                  } hover:common-bg flex items-center gap-4 rounded shadow-none duration-100 hover:text-commitan-main hover:shadow-none xl:w-40 xl:px-2 xl:py-1`}
+                    href == pathName && 'text-commitan-main'
+                  } flex items-center gap-4 duration-100 hover:text-commitan-main xl:w-40`}
                 >
-                  {icon}
-                  <span className='hidden xl:inline'>{label}</span>
-                </a>
+                  {icon} <span className='hidden xl:inline'>{label}</span>
+                </Link>
               </li>
             );
           })}
