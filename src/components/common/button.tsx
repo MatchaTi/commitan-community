@@ -6,6 +6,7 @@ interface IColors {
   common: string;
   outline: string;
   disabled: string;
+  delete: string;
   transparent: string;
 }
 
@@ -18,6 +19,7 @@ interface ISize {
 
 interface ICorner {
   full: string;
+  round: string;
   lg: string;
 }
 
@@ -30,7 +32,7 @@ type ButtonProps = {
   corner?: keyof ICorner;
 } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-const buttonStyle = ({ color, size, corner }: ButtonProps) => {
+const buttonStyle = ({ color, size, corner, className, visibility }: ButtonProps) => {
   const base = 'font-semibold';
 
   const variants = {
@@ -39,6 +41,7 @@ const buttonStyle = ({ color, size, corner }: ButtonProps) => {
       common: 'common-bg',
       outline: 'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white',
       disabled: 'cursor-not-allowed grayscale bg-commitan-main',
+      delete: 'bg-red-400 text-white hover:opacity-80',
       transparent: 'bg-transparent',
     },
     size: {
@@ -49,11 +52,19 @@ const buttonStyle = ({ color, size, corner }: ButtonProps) => {
     },
     corner: {
       full: 'rounded-full',
+      round: 'rounded',
       lg: 'rounded-lg',
     },
   };
 
-  return cn(base, variants.color[color || 'primary'], variants.size[size || 'medium'], variants.corner[corner || 'lg']);
+  return cn(
+    base,
+    variants.color[color || 'primary'],
+    variants.size[size || 'medium'],
+    variants.corner[corner || 'lg'],
+    className!,
+    visibility!
+  );
 };
 
 export default function Button({
@@ -72,7 +83,9 @@ export default function Button({
         color,
         size,
         corner,
-      } as ButtonProps)} ${className} ${visibility}`}
+        className,
+        visibility,
+      } as ButtonProps)}`}
     >
       {children}
     </button>

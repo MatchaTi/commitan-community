@@ -1,5 +1,6 @@
-// import Image from 'next/image';
+import Image from 'next/image';
 import { cn } from '@/utils/utils';
+import noAvatar from '../../../public/images/no-avatar.webp';
 
 interface ISize {
   sm: string;
@@ -17,11 +18,11 @@ type ImageProps = {
   visibility?: string;
   size?: keyof ISize;
   corner?: keyof ICorner;
-  //   src: string
+  src?: string;
 };
 
-const imageStyle = ({ size, corner }: ImageProps) => {
-  const base = 'cursor-pointer bg-slate-300';
+const imageStyle = ({ size, corner, className, visibility }: ImageProps) => {
+  const base = 'cursor-pointer bg-slate-300 overflow-hidden';
 
   const variants = {
     size: {
@@ -35,18 +36,20 @@ const imageStyle = ({ size, corner }: ImageProps) => {
     },
   };
 
-  return cn(base, variants.size[size || 'std'], variants.corner[corner || 'full']);
+  return cn(base, variants.size[size || 'std'], variants.corner[corner || 'full'], className!, visibility!);
 };
 
-export default function ProfileImage({ className, visibility, size, corner }: ImageProps) {
+export default function ProfileImage({ className, visibility, size, corner, src }: ImageProps) {
   return (
     <div
       className={`${imageStyle({
         size,
         corner,
-      } as ImageProps)} ${className} ${visibility}`}
+        className,
+        visibility,
+      } as ImageProps)}`}
     >
-      {/* <Image src={src} alt='Profile Image' width={28} height={28} fill /> */}
+      <Image src={src ? '' : noAvatar} alt='Profile Image' className='w-full translate-y-1 scale-125' />
     </div>
   );
 }

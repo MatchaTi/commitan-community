@@ -14,7 +14,7 @@ interface BadgeProps {
   visibility?: string;
 }
 
-const badgeStyle = ({ color }: BadgeProps) => {
+const badgeStyle = ({ color ,className,visibility}: BadgeProps) => {
   const base =
     'cursor-pointer w-fit flex gap-2 items-center rounded-full bg-light-secondary px-2 py-1 text-xs font-semibold dark:bg-dark-secondary';
   const randomColors = [
@@ -36,9 +36,9 @@ const badgeStyle = ({ color }: BadgeProps) => {
     },
   };
 
-  return cn(base, variants.color[color || 'inherit']);
+  return cn(base, variants.color[color || 'inherit'],className!, visibility!);
 };
 
 export default function Badge({ color, children, className, visibility }: BadgeProps) {
-  return <span className={`${badgeStyle({ color } as BadgeProps)} ${className} ${visibility}`}>{children}</span>;
+  return <span className={`${badgeStyle({ color ,className,visibility} as BadgeProps)} `}>{children}</span>;
 }
