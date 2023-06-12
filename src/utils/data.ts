@@ -17,3 +17,36 @@ export const listCategory: ListCategory[] = [
   { value: 'ruby', label: 'Ruby' },
   { value: 'meme', label: 'Meme' },
 ];
+
+export const infoItems = [
+  {
+    href: 'tentang-kami',
+    label: 'Tentang Kami',
+  },
+  {
+    href: 'kontak',
+    label: 'Kontak',
+  },
+  {
+    href: 'peraturan',
+    label: 'Peraturan',
+  },
+  {
+    href: 'kebijakan-privasi',
+    label: 'Kebijakan Privasi',
+  },
+];
+
+export const pilKategori = [
+  'frontend',
+  'backend',
+  'ui/ux',
+  'web',
+  'mobile',
+  'game',
+  'datascience',
+  'machinelearning',
+  'network',
+  'blockchain',
+  'operatingsystem',
+];

@@ -1,21 +1,10 @@
+import { pilKategori } from '@/utils/data';
+import Link from 'next/link';
+
 interface ICategory {
   className?: string;
   visibility?: string;
 }
-
-const pilKategori = [
-  'frontend',
-  'backend',
-  'ui/ux',
-  'web',
-  'mobile',
-  'game',
-  'datascience',
-  'machinelearning',
-  'network',
-  'blockchain',
-  'operatingsystem',
-];
 
 export default function Category({ className, visibility }: ICategory) {
   return (
@@ -28,7 +17,7 @@ export default function Category({ className, visibility }: ICategory) {
               key={index}
               className='block cursor-pointer rounded-full border border-light-main px-4 py-2 duration-0 hover:border-commitan-main hover:bg-commitan-main hover:text-white dark:border-dark-accent'
             >
-              <a href={`/kategori?kategori=${item}`}>{item}</a>
+              <Link href={`/kategori?kategori=${item}`}>{item}</Link>
             </li>
           );
         })}

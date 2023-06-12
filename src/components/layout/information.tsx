@@ -1,26 +1,10 @@
+import { infoItems } from '@/utils/data';
+import Link from 'next/link';
+
 interface IInfo {
   className?: string;
   visibility?: string;
 }
-
-const infoItems = [
-  {
-    href: 'tentang-kami',
-    label: 'Tentang Kami',
-  },
-  {
-    href: 'kontak',
-    label: 'Kontak',
-  },
-  {
-    href: 'peraturan',
-    label: 'Peraturan',
-  },
-  {
-    href: 'kebijakan-privasi',
-    label: 'Kebijakan Privasi',
-  },
-];
 
 export default function Information({ className, visibility }: IInfo) {
   return (
@@ -29,9 +13,9 @@ export default function Information({ className, visibility }: IInfo) {
         {infoItems.map(({ href, label }, index) => {
           return (
             <li key={index}>
-              <a href={`/${href}`} className='opacity-60 hover:underline hover:opacity-100'>
+              <Link href={`/${href}`} className='opacity-60 hover:underline hover:opacity-100'>
                 {label}
-              </a>
+              </Link>
             </li>
           );
         })}
