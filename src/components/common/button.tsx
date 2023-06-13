@@ -8,6 +8,7 @@ interface IColors {
   disabled: string;
   delete: string;
   transparent: string;
+  loading: string;
 }
 
 interface ISize {
@@ -43,6 +44,7 @@ const buttonStyle = ({ color, size, corner, className, visibility }: ButtonProps
       disabled: 'cursor-not-allowed grayscale bg-commitan-main',
       delete: 'bg-red-400 text-white hover:opacity-80',
       transparent: 'bg-transparent',
+      loading: 'bg-commitan-secondary text-white cursor-not-allowed',
     },
     size: {
       none: 'p-0',
