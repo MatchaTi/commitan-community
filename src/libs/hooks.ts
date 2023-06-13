@@ -6,9 +6,8 @@ const PAGE_SIZE = 2;
 
 export function usePagination<T>(url: string) {
   function getKey(pageIndex: number, previousPageData: T[]) {
-    pageIndex = pageIndex + 1;
     if (previousPageData && !previousPageData.length) return null;
-    return `${url}?_page=${pageIndex}&_limit=${PAGE_SIZE}`;
+    return `${url}/${pageIndex * PAGE_SIZE}/${PAGE_SIZE}`;
   }
 
   const { data, isLoading, error, size, setSize, mutate } = useSWRInfinite(getKey, fetcher, {
@@ -17,12 +16,11 @@ export function usePagination<T>(url: string) {
     revalidateOnReconnect: false,
   });
 
-  const paginatedPosts: T[] = data?.flat()!;
   const isReachingEnd = data && data[data.length - 1].length < PAGE_SIZE;
   const loadingMore = data && typeof data[size - 1] === 'undefined';
 
   return {
-    paginatedPosts,
+    data,
     isReachingEnd,
     loadingMore,
     isLoading,

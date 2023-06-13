@@ -1,32 +1,44 @@
 'use client';
 
-import { usePagination } from '@/libs/hooks';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Post from './post';
 import type { UserPost } from '@/interfaces/post';
+import { usePagination } from '@/libs/hooks';
+import { useUserPostStore } from '@/stores/postsStore';
+import { useEffect } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { shallow } from 'zustand/shallow';
 import PostSkeleton from '../skeleton/postSkeleton';
+import Post from './post';
 
 export default function PostList() {
-  const { paginatedPosts, isReachingEnd, isLoading, error, mutate, size, setSize } = usePagination<UserPost>(
+  const [posts, addPost] = useUserPostStore((state) => [state.posts, state.addPost], shallow);
+  const { data, isReachingEnd, isLoading, error, mutate, size, setSize } = usePagination<UserPost>(
     `${process.env.API_URL}/posts`
   );
+
+  useEffect(() => {
+    if (data) {
+      const newPosts = data.flat();
+      addPost(newPosts);
+    }
+  }, [data, addPost]);
+
   return (
-    <div>
-      {error && <p className='py-4 text-center text-base font-semibold'>Terjadi error ...</p>}
+    <section className='max-w-full'>
+      {error && <p className='py-4 text-center text-base font-semibold'>Mohon maaf, terjadi error ...</p>}
       {isLoading && <PostSkeleton />}
-      {paginatedPosts && (
+      {data && (
         <InfiniteScroll
           next={() => setSize(size + 1)}
           hasMore={!isReachingEnd}
           loader={<PostSkeleton />}
-          endMessage={<p className='py-4 text-center text-base font-semibold'>No more post...</p>}
-          dataLength={paginatedPosts.length}
+          endMessage={<p className='pb-40 pt-10 text-center text-base font-semibold sm:pb-10'>No more post...</p>}
+          dataLength={posts.length}
         >
-          {paginatedPosts.map((post) => (
-            <Post key={post.id} postId={post.id} data={post} mutate={mutate} editorContext='posted' />
+          {posts.map((post) => (
+            <Post key={post._id} context='home' postId={post._id} data={post} editorContext='posted' />
           ))}
         </InfiniteScroll>
       )}
-    </div>
+    </section>
   );
 }
