@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         'commitan-main': '#0ea5e9',
+        'commitan-secondary': '#0369a1',
         'light-main': '#f1f5f9',
         'light-secondary': '#f8fafc',
         'light-accent': '#e2e8f0',
