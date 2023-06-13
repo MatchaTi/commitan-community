@@ -13,10 +13,9 @@ import { postComment } from '@/utils/utils';
 interface CommentProps {
   comments: Comment[];
   postId: string;
-  mutate: () => void;
 }
 
-export default function CommentSection({ comments, postId, mutate }: CommentProps) {
+export default function CommentSection({ comments, postId }: CommentProps) {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const [heightValue, setHeightValue] = useState('');
   const [showCodeEditor, setShowCodeEditor] = useState(false);
@@ -62,7 +61,6 @@ export default function CommentSection({ comments, postId, mutate }: CommentProp
       setText('');
       setSyntax('');
       setPathFile('');
-      mutate();
     } catch (error) {
       console.log(error);
     }
@@ -130,9 +128,9 @@ export default function CommentSection({ comments, postId, mutate }: CommentProp
                 <p>{comment.text}</p>
                 {comment.code && (
                   <>
-                    {comment.code.syntax && comment.code.pathFile && (
+                    {comment.code.syntax && comment.code.pathFile ? (
                       <CodeEditor context='commented' syntax={comment.code.syntax} pathFile={comment.code.pathFile} />
-                    )}
+                    ) : null}
                   </>
                 )}
               </div>
