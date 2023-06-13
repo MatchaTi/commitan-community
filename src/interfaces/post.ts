@@ -19,6 +19,7 @@ export interface UserPost {
   desc?: string;
   createdAt: string;
   badge: string;
+  like: number;
   category: string;
   linkSourceCode?: string;
   linkLiveDemo?: string;
