@@ -1,8 +1,15 @@
 import axios from 'axios';
 import type { PostComment, PostData } from '@/interfaces/post';
+import moment from 'moment';
+import 'moment/locale/id';
 
 export function cn(...cns: Array<string>) {
   return cns.join(' ');
+}
+
+export function timeAgo(time: string): string {
+  moment.locale('id');
+  return moment.utc(Date.parse(time)).fromNow();
 }
 
 export const axiosWithCors = axios.create({
