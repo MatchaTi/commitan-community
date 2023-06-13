@@ -11,4 +11,20 @@ export const useUserPostStore = create<PostStore>()((set) => ({
       };
     });
   },
+  editPost: (postId, updatedPost) => {
+    set((state) => {
+      const updatedPosts = state.posts.map((post) => (post._id === postId ? updatedPost : post));
+      return {
+        posts: updatedPosts,
+      };
+    });
+  },
+  deletePost: (postId) => {
+    set((state) => {
+      const updatedPosts = state.posts.filter((post) => post._id !== postId);
+      return {
+        posts: updatedPosts,
+      };
+    });
+  },
 }));

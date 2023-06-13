@@ -1,14 +1,17 @@
 'use client';
 
 import { UserPost } from '@/interfaces/post';
+import { useUserPostStore } from '@/stores/postsStore';
 import { listCategory } from '@/utils/data';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import { shallow } from 'zustand/shallow';
 import Button from './button';
 import CodeEditor from './codeEditor';
 import ModalWrapper from './modalWrapper';
 import OptionButton from './optionButton';
 import ProfileImage from './profileImage';
+import Spinner from './spinner';
 
 interface IEdit {
   title: string;
@@ -25,6 +28,7 @@ interface IEditPost {
 }
 
 export default function EditModal({ post, showEditModal, handleEditModal }: IEditPost) {
+  const [editPost] = useUserPostStore((state) => [state.editPost], shallow);
   const [showLinkSourceCode, setShowLinkSourceCode] = useState(false);
   const [showLinkLiveDemo, setShowLinkLiveDemo] = useState(false);
   const [showCodeEditor, setShowCodeEditor] = useState(false);
@@ -44,7 +48,6 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
     syntax,
     pathFile,
   };
-  const { _id } = post;
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
     const { name, value } = e.target;
@@ -87,15 +90,18 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
     try {
-      await axios.patch(`${process.env.API_URL}/posts/${_id}`, {
+      const res = await axios.patch(`${process.env.API_URL}/posts/${post._id}`, {
         ...inputUserEdit,
         code,
       });
-      handleEditModal();
       setShowLinkSourceCode(false);
       setShowLinkLiveDemo(false);
       setIsLoading(false);
+      const updatedPost = res.data.post;
+      editPost(post._id, updatedPost);
+      handleEditModal();
     } catch (error) {
       // action error
       console.log(error, 'error');
@@ -196,9 +202,16 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
               <Button
                 type='submit'
                 disabled={!inputUserEdit.title || isLoading}
-                color={!inputUserEdit.title || isLoading ? 'disabled' : 'primary'}
+                color={!inputUserEdit.title ? 'disabled' : isLoading ? 'loading' : 'primary'}
               >
-                Kirim
+                {isLoading ? (
+                  <div className='flex items-center gap-2'>
+                    <Spinner size='sm' width='light' />
+                    <span>Loading...</span>
+                  </div>
+                ) : (
+                  'Kirim'
+                )}
               </Button>
             </div>
           </form>

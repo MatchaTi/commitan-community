@@ -1,8 +1,10 @@
 'use client';
 
+import { useUserPostStore } from '@/stores/postsStore';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { shallow } from 'zustand/shallow';
 import Button from './button';
 import ModalWrapper from './modalWrapper';
 
@@ -20,6 +22,7 @@ interface IDelete {
 }
 
 export default function DeleteModal({ postId, context, showDeleteModal, handleDeleteModal }: IDelete) {
+  const [deletePost] = useUserPostStore((state) => [state.deletePost], shallow);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -29,6 +32,7 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
       await axios.delete(`${process.env.API_URL}/posts/${postId}`);
       handleDeleteModal();
       setIsLoading(false);
+      deletePost(postId);
       if (context == 'detail') {
         router.push('/');
       }
