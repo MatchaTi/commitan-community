@@ -1,16 +1,18 @@
 'use client';
 
+import { useUserPostStore } from '@/stores/postsStore';
 import { useUiStore } from '@/stores/uiStore';
+import { listCategory } from '@/utils/data';
+import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { shallow } from 'zustand/shallow';
+import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
 import Button from './button';
 import CodeEditor from './codeEditor';
 import ModalWrapper from './modalWrapper';
 import OptionButton from './optionButton';
-import { listCategory } from '@/utils/data';
 import ProfileImage from './profileImage';
-import { postData } from '@/utils/utils';
-import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
+import Spinner from './spinner';
 
 interface IUpload {
   title: string;
@@ -21,6 +23,7 @@ interface IUpload {
 }
 
 export default function UploadModal() {
+  const [addPosts] = useUserPostStore((state) => [state.addPost], shallow);
   const [
     showUploadModal,
     toggleShowUploadModal,
@@ -49,6 +52,7 @@ export default function UploadModal() {
   });
   const [syntax, setSyntax] = useState('');
   const [pathFile, setPathFile] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const [heightValue, setHeightValue] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const code = {
@@ -100,11 +104,17 @@ export default function UploadModal() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
     const username = '@bangalex';
     const badge = 'wengdev';
-    const { title, desc, category, linkSourceCode, linkLiveDemo } = inputUserUpload;
     try {
-      await postData({ username, title, desc, badge, category, linkSourceCode, linkLiveDemo, code });
+      const res = await axios.post(`${process.env.API_URL}/posts`, {
+        username,
+        badge,
+        ...inputUserUpload,
+        code,
+      });
       setInputUserUpload({
         title: '',
         desc: '',
@@ -114,6 +124,11 @@ export default function UploadModal() {
       });
       setSyntax('');
       setPathFile('');
+      setIsLoading(false);
+      toggleSourceCode(false);
+      toggleLiveDemo(false);
+      const newPosts = [res.data.post];
+      addPosts(newPosts);
       toggleShowUploadModal(false);
     } catch (error) {
       console.log(error);
@@ -123,7 +138,7 @@ export default function UploadModal() {
   return (
     <>
       <ConditionalUploadBtn handleModal={handleModal} toggleCodeEditor={toggleCodeEditor} />
-      <ModalWrapper showUploadModal={showUploadModal} title='Buat Postingan' toggleUploadModal={handleModal}>
+      <ModalWrapper showModal={showUploadModal} title='Buat Postingan' toggleModal={handleModal}>
         <form onSubmit={handleSubmit}>
           <div className='mb-2 flex items-center gap-4'>
             <ProfileImage />
@@ -213,9 +228,16 @@ export default function UploadModal() {
             <Button
               type='submit'
               disabled={!inputUserUpload.title}
-              color={inputUserUpload.title ? 'primary' : 'disabled'}
+              color={!inputUserUpload.title ? 'disabled' : isLoading ? 'loading' : 'primary'}
             >
-              Kirim
+              {isLoading ? (
+                <div className='flex items-center gap-2'>
+                  <Spinner size='sm' width='light' />
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                'Kirim'
+              )}
             </Button>
           </div>
         </form>
