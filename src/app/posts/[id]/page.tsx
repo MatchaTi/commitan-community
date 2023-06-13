@@ -9,10 +9,11 @@ async function getData(param: string) {
 
 export default async function DetailPost({ params }: { params: { id: string } }) {
   const dataPost = await getData(params.id);
+
   return (
     <main className='order-2 mx-auto flex min-h-[2000px] w-full pt-16 sm:col-span-4 sm:col-start-1 sm:pt-20 xl:col-span-3 xl:col-start-2'>
       <div className='mx-auto w-full'>
-        <Post data={dataPost} postId={dataPost.id} editorContext='detail' />
+        <Post data={dataPost} context='detail' postId={dataPost._id} editorContext='detail' />
       </div>
     </main>
   );

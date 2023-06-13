@@ -227,7 +227,7 @@ export default function UploadModal() {
             />
             <Button
               type='submit'
-              disabled={!inputUserUpload.title}
+              disabled={!inputUserUpload.title || isLoading}
               color={!inputUserUpload.title ? 'disabled' : isLoading ? 'loading' : 'primary'}
             >
               {isLoading ? (
