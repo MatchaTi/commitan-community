@@ -1,15 +1,15 @@
 'use client';
 
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs';
-import { useState, useEffect, useRef } from 'react';
-import 'prismjs/components/prism-jsx';
 import '@/style/CodeEditor.css';
-import { Fira_Code } from 'next/font/google';
+import { JetBrains_Mono } from 'next/font/google';
+import { highlight, languages } from 'prismjs';
+import 'prismjs/components/prism-jsx';
+import { useEffect, useRef, useState } from 'react';
 import { BiCheckDouble } from 'react-icons/bi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
+import Editor from 'react-simple-code-editor';
 
-const firaCode = Fira_Code({ subsets: ['latin'] });
+const jetBrains = JetBrains_Mono({ subsets: ['latin'] });
 
 interface EditorContext {
   upload: string;
@@ -17,6 +17,7 @@ interface EditorContext {
   comment: string;
   commented: string;
   detail: string;
+  edit: string;
 }
 
 interface ICode {
@@ -53,7 +54,7 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
 
   return (
     <div
-      className={`${firaCode.className} mt-4 overflow-hidden rounded-lg border-2 border-light-accent bg-light-code-editor text-xs dark:border-dark-accent dark:bg-dark-code-editor sm:text-sm`}
+      className={`${jetBrains.className} mt-4 overflow-hidden rounded-lg border-2 border-light-accent bg-light-code-editor text-xs dark:border-dark-accent dark:bg-dark-code-editor sm:text-sm`}
     >
       <div className='flex w-full items-center justify-between border-b-2 border-inherit px-4 py-2'>
         <input
