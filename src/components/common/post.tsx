@@ -1,16 +1,19 @@
 'use client';
 
+import type { UserPost } from '@/interfaces/post';
+import { timeAgo } from '@/utils/utils';
 import { useState } from 'react';
 import { BiCodeCurly } from 'react-icons/bi';
-import { BsThreeDots } from 'react-icons/bs';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge from './badge';
 import CodeEditor from './codeEditor';
 import CommentSection from './commentSection';
+import DeleteModal from './deleteModal';
+import EditModal from './editModal';
 import PostActionButton from './postActionButton';
+import PostControl from './postControl';
 import ProfileImage from './profileImage';
-import type { UserPost } from '@/interfaces/post';
 
 interface EditorContext {
   upload: string;
@@ -20,22 +23,38 @@ interface EditorContext {
   detail: string;
 }
 
-interface PostProps {
-  data: UserPost;
-  postId: string;
-  editorContext: keyof EditorContext;
-  mutate?: () => void;
+interface PostContext {
+  home: string;
+  detail: string;
+  profile: string;
 }
 
-export default function Post({ data, postId, editorContext, mutate }: PostProps) {
+interface PostProps {
+  data: UserPost;
+  context: keyof PostContext;
+  postId: string;
+  editorContext: keyof EditorContext;
+}
+
+export default function Post({ data, context, postId, editorContext }: PostProps) {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
 
   function toggleCommentSection() {
     setIsCommentOpen(!isCommentOpen);
   }
 
+  function handleEditModal() {
+    setEditModal(!editModal);
+  }
+
+  function handleDeleteModal() {
+    setDeleteModal(!deleteModal);
+  }
+
   return (
-    <article className='common-bg mt-4 flex items-start gap-4 rounded-lg p-4'>
+    <article className='common-bg mt-4 flex max-w-full items-start gap-4 rounded-lg p-4'>
       {/* left side start */}
       <div className='hidden flex-col items-end sm:flex'>
         {/* user image */}
@@ -51,11 +70,11 @@ export default function Post({ data, postId, editorContext, mutate }: PostProps)
           <div className='mb-2'>
             <div className='flex items-center gap-2'>
               <ProfileImage visibility='sm:hidden' size='medium' />
-              <div>
-                <div className='flex items-center gap-2'>
+              <div className='text-xs sm:text-sm'>
+                <div className='flex items-center gap-1'>
                   <h2 className='font-semibold'>{data.username}</h2>
                   <GoPrimitiveDot />
-                  <time>12 jam yang lalu</time>
+                  <time>{timeAgo(data.createdAt)}</time>
                 </div>
                 <Badge>{data.badge}</Badge>
               </div>
@@ -80,15 +99,13 @@ export default function Post({ data, postId, editorContext, mutate }: PostProps)
                 </Badge>
               </a>
             )}
-            <button type='button'>
-              <BsThreeDots />
-            </button>
+            <PostControl handleEditModal={handleEditModal} handleDeleteModal={handleDeleteModal} />
           </div>
         </div>
         {/* bottom content */}
-        <div className='mt-2'>
-          <div className='mb-4 rounded-lg bg-light-secondary p-4 dark:bg-dark-secondary'>
-            <h3 className='text-lg font-semibold'>{data.title}</h3>
+        <div className='mt-2 max-w-full'>
+          <div className='mb-4 rounded-lg bg-light-secondary p-2 dark:bg-dark-secondary sm:p-4'>
+            <h3 className='font-semibold sm:text-lg'>{data.title}</h3>
           </div>
           <p>{data.desc}</p>
           {data.code && (
@@ -104,7 +121,16 @@ export default function Post({ data, postId, editorContext, mutate }: PostProps)
             toggleCommentSection={toggleCommentSection}
             lengthComment={data.comments.length}
           />
-          {isCommentOpen && <CommentSection postId={postId} comments={data.comments} mutate={mutate!} />}
+          {isCommentOpen && <CommentSection postId={postId} comments={data.comments} />}
+          {editModal && <EditModal post={data} showEditModal={editModal} handleEditModal={handleEditModal} />}
+          {deleteModal && (
+            <DeleteModal
+              context={context}
+              postId={postId}
+              showDeleteModal={deleteModal}
+              handleDeleteModal={handleDeleteModal}
+            />
+          )}
         </div>
       </div>
       {/* right side end */}
