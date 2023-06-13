@@ -13,7 +13,7 @@ export interface Comment {
 }
 
 export interface UserPost {
-  id: string;
+  _id: string;
   username: string;
   title: string;
   desc?: string;
