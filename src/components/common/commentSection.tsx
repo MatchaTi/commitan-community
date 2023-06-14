@@ -2,16 +2,13 @@
 
 import type { Comment } from '@/interfaces/post';
 import { useUserPostStore } from '@/stores/postsStore';
-import { timeAgo } from '@/utils/utils';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
-import { GoPrimitiveDot } from 'react-icons/go';
 import { shallow } from 'zustand/shallow';
-import Badge from './badge';
 import Button from './button';
 import CodeEditor from './codeEditor';
+import Comments from './comments';
 import OptionButton from './optionButton';
-import ProfileImage from './profileImage';
 import Spinner from './spinner';
 
 interface CommentProps {
@@ -126,44 +123,7 @@ export default function CommentSection({ comments, postId }: CommentProps) {
       </section>
       <h3 className='text-base font-semibold'>{comments.length} Komentar</h3>
       {comments.map((comment) => (
-        <div key={comment._id} className='mt-4 flex items-start gap-4 rounded-lg'>
-          {/* left side start */}
-          <div className='flex flex-col items-end'>
-            {/* user image */}
-            <ProfileImage size='medium' />
-            {/* hooks */}
-            <div className='mt-2 h-8 w-8 translate-x-2 border-b-4 border-l-4 border-light-accent dark:border-dark-accent '></div>
-          </div>
-          {/* left side end */}
-          {/* right side start */}
-          <div className='w-full'>
-            {/* top information */}
-            <div className='flex items-start justify-between'>
-              <div className='mb-2'>
-                <div className='flex items-center gap-2'>
-                  <h2 className='font-semibold'>{comment.username}</h2>
-                  <GoPrimitiveDot />
-                  <time>{timeAgo(comment.createdAt)}</time>
-                </div>
-                <Badge>Wengdev</Badge>
-              </div>
-            </div>
-            {/* bottom content */}
-            <div className='mt-2'>
-              <div className='mb-4 rounded-lg bg-light-secondary p-4 dark:bg-dark-secondary'>
-                <p>{comment.text}</p>
-                {comment.code && (
-                  <>
-                    {comment.code.syntax && comment.code.pathFile ? (
-                      <CodeEditor context='commented' syntax={comment.code.syntax} pathFile={comment.code.pathFile} />
-                    ) : null}
-                  </>
-                )}
-              </div>
-            </div>
-          </div>
-          {/* right side end */}
-        </div>
+        <Comments key={comment._id} postId={postId} comment={comment} />
       ))}
     </>
   );
