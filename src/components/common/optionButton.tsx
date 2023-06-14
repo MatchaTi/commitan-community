@@ -7,6 +7,7 @@ interface OptionContext {
   home: string;
   comment: string;
   edit: string;
+  editComment: string;
 }
 
 interface IOption {
