@@ -1,14 +1,18 @@
 'use client';
 
-import OptionButton from './optionButton';
-import { useState, useEffect, useRef } from 'react';
-import CodeEditor from './codeEditor';
-import Button from './button';
-import ProfileImage from './profileImage';
-import { GoPrimitiveDot } from 'react-icons/go';
-import Badge from './badge';
 import type { Comment } from '@/interfaces/post';
-import { postComment } from '@/utils/utils';
+import { useUserPostStore } from '@/stores/postsStore';
+import { timeAgo } from '@/utils/utils';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { GoPrimitiveDot } from 'react-icons/go';
+import { shallow } from 'zustand/shallow';
+import Badge from './badge';
+import Button from './button';
+import CodeEditor from './codeEditor';
+import OptionButton from './optionButton';
+import ProfileImage from './profileImage';
+import Spinner from './spinner';
 
 interface CommentProps {
   comments: Comment[];
@@ -16,12 +20,14 @@ interface CommentProps {
 }
 
 export default function CommentSection({ comments, postId }: CommentProps) {
-  const textAreaRef = useRef<HTMLTextAreaElement>(null);
+  const [addComment] = useUserPostStore((state) => [state.addComment], shallow);
+  const [isLoading, setIsLoading] = useState(false);
   const [heightValue, setHeightValue] = useState('');
   const [showCodeEditor, setShowCodeEditor] = useState(false);
   const [text, setText] = useState('');
   const [syntax, setSyntax] = useState('');
   const [pathFile, setPathFile] = useState('');
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const code = {
     syntax,
     pathFile,
@@ -55,12 +61,21 @@ export default function CommentSection({ comments, postId }: CommentProps) {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
     const username = '@bangalex';
+    const comment = {
+      username,
+      text,
+      code,
+    };
     try {
-      await postComment({ postId, username, text, code });
+      const res = await axios.post(`${process.env.API_URL}/posts/${postId}/comments`, { ...comment });
+      addComment(postId, res.data.comment);
       setText('');
       setSyntax('');
       setPathFile('');
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -92,15 +107,26 @@ export default function CommentSection({ comments, postId }: CommentProps) {
               toggleCodeEditor={handleCodeEditor}
               textOnly={textOnly}
             />
-            <Button type='submit' disabled={!text} color={text ? 'primary' : 'disabled'}>
-              Submit
+            <Button
+              type='submit'
+              disabled={!text || isLoading}
+              color={!text ? 'disabled' : isLoading ? 'loading' : 'primary'}
+            >
+              {isLoading ? (
+                <div className='flex items-center gap-2'>
+                  <Spinner size='sm' width='light' />
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                'Kirim'
+              )}
             </Button>
           </div>
         </form>
       </section>
       <h3 className='text-base font-semibold'>{comments.length} Komentar</h3>
       {comments.map((comment) => (
-        <div key={comment.id} className='mt-4 flex items-start gap-4 rounded-lg'>
+        <div key={comment._id} className='mt-4 flex items-start gap-4 rounded-lg'>
           {/* left side start */}
           <div className='flex flex-col items-end'>
             {/* user image */}
@@ -117,7 +143,7 @@ export default function CommentSection({ comments, postId }: CommentProps) {
                 <div className='flex items-center gap-2'>
                   <h2 className='font-semibold'>{comment.username}</h2>
                   <GoPrimitiveDot />
-                  <time>1 jam yang lalu</time>
+                  <time>{timeAgo(comment.createdAt)}</time>
                 </div>
                 <Badge>Wengdev</Badge>
               </div>

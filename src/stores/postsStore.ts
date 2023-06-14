@@ -27,4 +27,20 @@ export const useUserPostStore = create<PostStore>()((set) => ({
       };
     });
   },
+  addComment: (postId, newComment) => {
+    set((state) => {
+      const updatedPost = state.posts.map((post) => {
+        if (post._id === postId) {
+          return {
+            ...post,
+            comments: [...post.comments, newComment],
+          };
+        }
+        return post;
+      });
+      return {
+        posts: updatedPost,
+      };
+    });
+  },
 }));

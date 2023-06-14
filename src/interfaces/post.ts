@@ -4,7 +4,7 @@ export interface Code {
 }
 
 export interface Comment {
-  id: string;
+  _id: string;
   username: string;
   createdAt: string;
   postId: string;
