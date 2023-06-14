@@ -4,6 +4,7 @@ import type { Comment } from '@/interfaces/post';
 import { useUserPostStore } from '@/stores/postsStore';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import Button from './button';
 import CodeEditor from './codeEditor';
@@ -73,8 +74,10 @@ export default function CommentSection({ comments, postId }: CommentProps) {
       setSyntax('');
       setPathFile('');
       setIsLoading(false);
+      toast.success(res.data.message);
     } catch (error) {
-      console.log(error);
+      // wip error handling
+      toast.error(error as string);
     }
   }
 

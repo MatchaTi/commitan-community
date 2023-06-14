@@ -5,6 +5,7 @@ import { useUiStore } from '@/stores/uiStore';
 import { listCategory } from '@/utils/data';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
 import Button from './button';
@@ -130,8 +131,10 @@ export default function UploadModal() {
       const newPosts = [res.data.post];
       addPosts(newPosts);
       toggleShowUploadModal(false);
+      toast.success(res.data.message);
     } catch (error) {
-      console.log(error);
+      // wip error handling
+      toast.error(error as string);
     }
   }
 

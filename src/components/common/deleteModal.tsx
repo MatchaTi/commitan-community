@@ -4,9 +4,11 @@ import { useUserPostStore } from '@/stores/postsStore';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import Button from './button';
 import ModalWrapper from './modalWrapper';
+import Spinner from './spinner';
 
 interface DeleteContext {
   home: string;
@@ -28,17 +30,19 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
 
   async function handleDeletePost() {
     setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
     try {
-      await axios.delete(`${process.env.API_URL}/posts/${postId}`);
+      const res = await axios.delete(`${process.env.API_URL}/posts/${postId}`);
       handleDeleteModal();
       setIsLoading(false);
       deletePost(postId);
+      toast.success(res.data.message);
       if (context == 'detail') {
         router.push('/');
       }
     } catch (error) {
-      // action error
-      console.log(error, 'error');
+      // wip error handling
+      toast.error(error as string);
     }
   }
 
@@ -54,8 +58,20 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
             <Button color='outline' onClick={handleDeleteModal}>
               Tutup
             </Button>
-            <Button disabled={isLoading} color={isLoading ? 'disabled' : 'delete'} onClick={handleDeletePost}>
-              {isLoading ? 'Loading...' : 'Hapus'}
+            <Button
+              type='button'
+              onClick={handleDeletePost}
+              disabled={isLoading}
+              color={isLoading ? 'loading' : 'delete'}
+            >
+              {isLoading ? (
+                <div className='flex items-center gap-2'>
+                  <Spinner size='sm' width='light' />
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                'Hapus'
+              )}
             </Button>
           </div>
         </ModalWrapper>

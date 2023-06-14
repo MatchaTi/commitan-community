@@ -4,6 +4,7 @@ import { Comment } from '@/interfaces/post';
 import { useUserPostStore } from '@/stores/postsStore';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import Button from './button';
 import CodeEditor from './codeEditor';
@@ -89,9 +90,10 @@ export default function EditCommentModal({
       const updatedComment = res.data.comment;
       editComment(postId, comment._id, updatedComment);
       handleEditCommentModal();
+      toast.success(res.data.message);
     } catch (error) {
-      // action error
-      console.log(error, 'error');
+      // wip error handling
+      toast.error(error as string);
     }
   }
 

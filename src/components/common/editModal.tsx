@@ -5,6 +5,7 @@ import { useUserPostStore } from '@/stores/postsStore';
 import { listCategory } from '@/utils/data';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import Button from './button';
 import CodeEditor from './codeEditor';
@@ -102,9 +103,10 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
       const updatedPost = res.data.post;
       editPost(post._id, updatedPost);
       handleEditModal();
+      toast.success(res.data.message);
     } catch (error) {
-      // action error
-      console.log(error, 'error');
+      // wip error handling
+      toast.error(error as string);
     }
   }
 

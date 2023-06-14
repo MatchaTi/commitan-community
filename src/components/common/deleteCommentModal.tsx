@@ -3,6 +3,7 @@
 import { useUserPostStore } from '@/stores/postsStore';
 import axios from 'axios';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { shallow } from 'zustand/shallow';
 import Button from './button';
 import ModalWrapper from './modalWrapper';
@@ -32,9 +33,10 @@ export default function DeleteCommentModal({
       handleDeleteCommentModal();
       setIsLoading(false);
       deleteComment(postId, commentId);
+      toast.success(res.data.message);
     } catch (error) {
-      // action error
-      console.log(error, 'error');
+      // wip error handling
+      toast.error(error as string);
     }
   }
 

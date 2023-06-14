@@ -4,6 +4,7 @@ import type { UserPost } from '@/interfaces/post';
 import { usePagination } from '@/libs/hooks';
 import { useUserPostStore } from '@/stores/postsStore';
 import { useEffect } from 'react';
+import { Toaster } from 'react-hot-toast';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { shallow } from 'zustand/shallow';
 import PostSkeleton from '../skeleton/postSkeleton';
@@ -24,6 +25,7 @@ export default function PostList() {
 
   return (
     <section className='max-w-full'>
+      <Toaster position='top-right' toastOptions={{ duration: 5000 }} />
       {error && <p className='py-4 text-center text-base font-semibold'>Mohon maaf, terjadi error ...</p>}
       {isLoading && <PostSkeleton />}
       {data && (
