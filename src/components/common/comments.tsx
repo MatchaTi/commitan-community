@@ -7,6 +7,7 @@ import CommentControl from './commentControl';
 import EditCommentModal from './editCommentModal';
 import ProfileImage from './profileImage';
 import { useState } from 'react';
+import DeleteCommentModal from './deleteCommentModal';
 
 interface IComment {
   postId: string;
@@ -54,6 +55,14 @@ export default function Comments({ postId, comment }: IComment) {
               comment={comment}
               showEditCommentModal={editModal}
               handleEditCommentModal={handleEditModal}
+            />
+          )}
+          {deleteModal && (
+            <DeleteCommentModal
+              postId={postId}
+              commentId={comment._id}
+              showDeleteCommentModal={deleteModal}
+              handleDeleteCommentModal={handleDeleteModal}
             />
           )}
         </div>

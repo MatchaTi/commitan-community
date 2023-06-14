@@ -7,4 +7,5 @@ export interface PostStore {
   deletePost: (postId: string) => void;
   addComment: (postId: string, newComment: Comment) => void;
   editComment: (postId: string, commentId: string, updatedComment: Comment) => void;
+  deleteComment: (postId: string, commentId: string) => void;
 }

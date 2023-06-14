@@ -29,7 +29,7 @@ export const useUserPostStore = create<PostStore>()((set) => ({
   },
   addComment: (postId, newComment) => {
     set((state) => {
-      const updatedPost = state.posts.map((post) => {
+      const updatedPosts = state.posts.map((post) => {
         if (post._id === postId) {
           return {
             ...post,
@@ -39,13 +39,13 @@ export const useUserPostStore = create<PostStore>()((set) => ({
         return post;
       });
       return {
-        posts: updatedPost,
+        posts: updatedPosts,
       };
     });
   },
   editComment: (postId, commentId, updatedComment) => {
     set((state) => {
-      const updatedPost = state.posts.map((post) => {
+      const updatedPosts = state.posts.map((post) => {
         if (post._id === postId) {
           const updatedComments = post.comments.map((comment) => {
             if (comment._id === commentId) {
@@ -64,7 +64,24 @@ export const useUserPostStore = create<PostStore>()((set) => ({
         return post;
       });
       return {
-        posts: updatedPost,
+        posts: updatedPosts,
+      };
+    });
+  },
+  deleteComment: (postId, commentId) => {
+    set((state) => {
+      const updatedPosts = state.posts.map((post) => {
+        if (post._id === postId) {
+          const updatedComments = post.comments.filter((comment) => comment._id !== commentId);
+          return {
+            ...post,
+            comments: updatedComments,
+          };
+        }
+        return post;
+      });
+      return {
+        posts: updatedPosts,
       };
     });
   },
