@@ -18,6 +18,7 @@ interface EditorContext {
   commented: string;
   detail: string;
   edit: string;
+  editComment: string;
 }
 
 interface ICode {
