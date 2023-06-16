@@ -26,24 +26,12 @@ interface IUpload {
 
 export default function UploadModal() {
   const [addPosts] = useUserPostStore((state) => [state.addPost], shallow);
-  const [
-    showUploadModal,
-    toggleShowUploadModal,
-    showLinkSourceCode,
-    toggleSourceCode,
-    showLinkLiveDemo,
-    toggleLiveDemo,
-  ] = useUiStore(
-    (state) => [
-      state.showUploadModal,
-      state.toggleShowUploadModal,
-      state.showLinkSourceCode,
-      state.toggleSourceCode,
-      state.showLinkLiveDemo,
-      state.toggleLiveDemo,
-    ],
+  const [showUploadModal, toggleShowUploadModal] = useUiStore(
+    (state) => [state.showUploadModal, state.toggleShowUploadModal],
     shallow
   );
+  const [showLinkSourceCode, setShowLinkSourceCode] = useState(false);
+  const [showLinkLiveDemo, setShowLinkLiveDemo] = useState(false);
   const [showCodeEditor, setShowCodeEditor] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [inputUserUpload, setInputUserUpload] = useState<IUpload>({
@@ -128,8 +116,8 @@ export default function UploadModal() {
       setSyntax('');
       setPathFile('');
       setIsLoading(false);
-      toggleSourceCode(false);
-      toggleLiveDemo(false);
+      setShowLinkSourceCode(false);
+      setShowLinkLiveDemo(false);
       const newPosts = [res.data.post];
       addPosts(newPosts);
       toggleShowUploadModal(false);
@@ -233,7 +221,7 @@ export default function UploadModal() {
               id='linkLiveDemo'
               value={inputUserUpload.linkLiveDemo}
               onChange={onChangeHandler}
-              className='mb-2 w-full rounded-lg bg-green-400/25 p-4 text-green-400 outline-none placeholder:text-green-800/25 dark:placeholder:text-green-300/25'
+              className='mb-2 mt-2 w-full rounded-lg bg-green-400/25 p-4 text-green-400 outline-none placeholder:text-green-800/25 dark:placeholder:text-green-300/25'
               autoComplete='off'
             />
           )}
@@ -245,8 +233,8 @@ export default function UploadModal() {
               toggleCodeEditor={toggleCodeEditor}
               showLinkSourceCode={showLinkSourceCode}
               showLinkLiveDemo={showLinkLiveDemo}
-              toggleLinkSourceCode={toggleSourceCode}
-              toggleLinkLiveDemo={toggleLiveDemo}
+              toggleLinkSourceCode={setShowLinkSourceCode}
+              toggleLinkLiveDemo={setShowLinkLiveDemo}
             />
             <Button
               type='submit'
