@@ -3,7 +3,7 @@
 import type { UserPost } from '@/interfaces/post';
 import { timeAgo } from '@/utils/utils';
 import { useState } from 'react';
-import { BiCodeCurly } from 'react-icons/bi';
+import { BiCodeCurly, BiCategory } from 'react-icons/bi';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge from './badge';
@@ -81,8 +81,9 @@ export default function Post({ data, context, postId, editorContext }: PostProps
             </div>
           </div>
           <div className='flex gap-2'>
-            <Badge color='random' visibility='hidden sm:flex'>
-              {data.category}
+            <Badge color='category' className='capitalize' visibility='hidden sm:flex'>
+              <BiCategory />
+              {data.category ? data.category : 'General'}
             </Badge>
             {data.linkSourceCode && (
               <a href={data.linkSourceCode} target='_blank'>
