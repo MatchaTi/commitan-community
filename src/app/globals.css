@@ -10,6 +10,10 @@
   .common-bg-secondary {
     @apply bg-light-secondary dark:bg-dark-secondary;
   }
+
+  .common-bg-reverse {
+    @apply bg-dark-secondary dark:bg-light-secondary;
+  }
 }
 
 /* ===== Scrollbar CSS ===== */
