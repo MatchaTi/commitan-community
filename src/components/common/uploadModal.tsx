@@ -6,6 +6,7 @@ import { listCategory } from '@/utils/data';
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { shallow } from 'zustand/shallow';
 import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
 import Button from './button';
@@ -44,6 +45,7 @@ export default function UploadModal() {
     shallow
   );
   const [showCodeEditor, setShowCodeEditor] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const [inputUserUpload, setInputUserUpload] = useState<IUpload>({
     title: '',
     desc: '',
@@ -141,6 +143,24 @@ export default function UploadModal() {
   return (
     <>
       <ConditionalUploadBtn handleModal={handleModal} toggleCodeEditor={toggleCodeEditor} />
+      <div
+        className='group fixed bottom-16 right-4 z-[9999] flex flex-col-reverse gap-4 sm:bottom-10 sm:right-10'
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onClick={handleModal}
+      >
+        <Button corner='full' size='std'>
+          <AiOutlinePlus className='text-xl font-bold duration-300 ease-in-out group-hover:rotate-45' />
+        </Button>
+        {isHovered && (
+          <OptionButton
+            context='speedDial'
+            textOnly={textOnly}
+            showCodeEditor={showCodeEditor}
+            toggleCodeEditor={toggleCodeEditor}
+          />
+        )}
+      </div>
       <ModalWrapper showModal={showUploadModal} title='Buat Postingan' toggleModal={handleModal}>
         <form onSubmit={handleSubmit}>
           <div className='mb-2 flex items-center gap-4'>
