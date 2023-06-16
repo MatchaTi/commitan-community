@@ -57,14 +57,15 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
     <div
       className={`${jetBrains.className} mt-4 overflow-hidden rounded-lg border-2 border-light-accent bg-light-code-editor text-xs dark:border-dark-accent dark:bg-dark-code-editor sm:text-sm`}
     >
-      <div className='flex w-full items-center justify-between border-b-2 border-inherit px-4 py-2'>
+      <div className='flex max-w-full items-center justify-between border-b-2 border-inherit px-4 py-2'>
         <input
           type='text'
           value={pathFile}
           onChange={(e) => setPathFile?.(e.target.value)}
           readOnly={context == 'posted' || context == 'commented' || context == 'detail'}
           placeholder='Path / file name'
-          className='bg-transparent outline-none'
+          className='max-w-full bg-transparent outline-none'
+          maxLength={80}
           required
         />
         {context == 'posted' || context == 'commented' || context == 'detail' ? (
@@ -83,7 +84,7 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
           context == 'posted' || context == 'commented'
             ? `${expandCode ? 'max-h-fit' : 'max-h-[250px] overflow-hidden'}`
             : `${context == 'detail' ? 'max-h-fit' : 'max-h-[430px] overflow-auto'}`
-        } relative w-full`}
+        } relative max-w-full`}
       >
         {showExpandButton && (
           <>
