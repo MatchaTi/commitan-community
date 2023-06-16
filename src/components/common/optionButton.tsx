@@ -8,6 +8,7 @@ interface OptionContext {
   comment: string;
   edit: string;
   editComment: string;
+  speedDial: string;
 }
 
 interface IOption {
@@ -32,13 +33,13 @@ export default function OptionButton({
   toggleLinkLiveDemo,
 }: IOption) {
   return (
-    <div className='flex items-center'>
+    <div className={`${context == 'speedDial' && 'flex-col-reverse gap-4 text-white'} flex items-center`}>
       <Button
         type='button'
         size='sm'
         color='transparent'
         onClick={textOnly}
-        className='group flex items-center hover:text-purple-400'
+        className={`${context == 'speedDial' && 'animate-speed-dial'} group flex items-center hover:text-purple-400`}
       >
         <BiEdit className='rounded-lg p-1 text-3xl group-hover:bg-purple-400/25' />
       </Button>
@@ -47,7 +48,9 @@ export default function OptionButton({
         size='sm'
         color='transparent'
         onClick={toggleCodeEditor}
-        className={`${showCodeEditor && 'text-sky-500'} group flex items-center hover:text-sky-400`}
+        className={`${showCodeEditor && 'text-sky-500'} ${
+          context == 'speedDial' && 'animate-speed-dial'
+        } group flex items-center hover:text-sky-400`}
       >
         <HiCode className={`${showCodeEditor && 'bg-sky-400/25'} rounded-lg p-1 text-3xl group-hover:bg-sky-400/25`} />
       </Button>
