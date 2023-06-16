@@ -64,7 +64,7 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
           onChange={(e) => setPathFile?.(e.target.value)}
           readOnly={context == 'posted' || context == 'commented' || context == 'detail'}
           placeholder='Path / file name'
-          className='max-w-full bg-transparent outline-none'
+          className='w-full overflow-auto bg-transparent outline-none'
           maxLength={80}
           required
         />
