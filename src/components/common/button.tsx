@@ -4,6 +4,7 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 interface IColors {
   primary: string;
   common: string;
+  common_reverse: string;
   outline: string;
   disabled: string;
   delete: string;
@@ -38,11 +39,12 @@ const buttonStyle = ({ color, size, corner, className, visibility }: ButtonProps
 
   const variants = {
     color: {
-      primary: 'bg-commitan-main hover:opacity-80 text-white',
+      primary: 'bg-commitan-main text-white',
       common: 'common-bg',
+      common_reverse: 'common-bg-reverse text-light-main dark:text-dark-main',
       outline: 'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white',
       disabled: 'cursor-not-allowed grayscale bg-commitan-main',
-      delete: 'bg-red-400 text-white hover:opacity-80',
+      delete: 'bg-red-400 text-white',
       transparent: 'bg-transparent',
       loading: 'bg-commitan-secondary text-white cursor-not-allowed',
     },
