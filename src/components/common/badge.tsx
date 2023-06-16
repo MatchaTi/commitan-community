@@ -5,6 +5,7 @@ interface IColors {
   sourceCode: string;
   liveDemo: string;
   random: string;
+  category: string;
 }
 
 interface BadgeProps {
@@ -14,7 +15,7 @@ interface BadgeProps {
   visibility?: string;
 }
 
-const badgeStyle = ({ color ,className,visibility}: BadgeProps) => {
+const badgeStyle = ({ color, className, visibility }: BadgeProps) => {
   const base =
     'cursor-pointer w-fit flex gap-2 items-center rounded-full bg-light-secondary px-2 py-1 text-xs font-semibold dark:bg-dark-secondary';
   const randomColors = [
@@ -33,12 +34,13 @@ const badgeStyle = ({ color ,className,visibility}: BadgeProps) => {
       sourceCode: 'text-pink-400',
       liveDemo: 'text-green-400',
       random: randomColor,
+      category: 'text-yellow-400',
     },
   };
 
-  return cn(base, variants.color[color || 'inherit'],className!, visibility!);
+  return cn(base, variants.color[color || 'inherit'], className!, visibility!);
 };
 
 export default function Badge({ color, children, className, visibility }: BadgeProps) {
-  return <span className={`${badgeStyle({ color ,className,visibility} as BadgeProps)} `}>{children}</span>;
+  return <span className={`${badgeStyle({ color, className, visibility } as BadgeProps)}`}>{children}</span>;
 }
