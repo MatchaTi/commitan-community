@@ -1,11 +1,12 @@
-import Image from 'next/image';
 import { cn } from '@/utils/utils';
+import Image from 'next/image';
 import noAvatar from '../../../public/images/no-avatar.webp';
 
 interface ISize {
   sm: string;
   std: string;
   medium: string;
+  lg: string;
 }
 
 interface ICorner {
@@ -29,6 +30,7 @@ const imageStyle = ({ size, corner, className, visibility }: ImageProps) => {
       sm: 'h-8 w-8',
       std: 'h-8 w-8 sm:h-12 sm:w-12',
       medium: 'h-10 w-10',
+      lg: 'h-28 w-28',
     },
     corner: {
       full: 'rounded-full',
