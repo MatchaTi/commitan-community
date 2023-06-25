@@ -57,7 +57,7 @@ export default function Sidebar() {
 
   return (
     <div className='order-1'>
-      <nav className='fixed bottom-0 left-0 z-[9999] w-full bg-white p-4 px-8 dark:bg-dark-main sm:top-0 sm:w-auto sm:px-4 xl:sticky xl:top-20 xl:bg-transparent xl:p-0 xl:dark:bg-transparent'>
+      <nav className='fixed bottom-0 left-0 z-[9999] w-full bg-white p-4 px-8 dark:bg-dark-main sm:top-0 sm:w-auto sm:px-2 xl:sticky xl:top-20 xl:bg-transparent xl:p-0 xl:dark:bg-transparent'>
         <ul className='relative flex items-center justify-between gap-4 sm:h-screen sm:flex-col sm:gap-10 sm:pt-3 xl:h-auto xl:items-start'>
           <li className='hidden sm:inline xl:hidden'>
             <Image src={commitanLogo} alt='Commitan Logo' width={28} height={28} />
@@ -68,9 +68,9 @@ export default function Sidebar() {
                 key={index}
                 className={`${
                   href == splitedPath[1] && 'text-commitan-main'
-                } ${order} flex items-center gap-4 duration-100 hover:text-commitan-main`}
+                } ${order} duration-100 hover:text-commitan-main`}
               >
-                <Link href={`/${href}`} className='flex gap-4 xl:w-40'>
+                <Link href={`/${href}`} className='flex items-center gap-4 xl:w-40'>
                   {icon} <span className='hidden xl:inline'>{label}</span>
                 </Link>
               </li>
