@@ -45,7 +45,12 @@ export default function ProfileSection() {
           <span>0 Followers</span>
           <span>0 Following</span>
         </div>
-        <div className='flex items-center gap-4'>
+        <div className='relative flex items-center gap-4'>
+          <div
+            className={`${
+              content == 1 ? 'left-0' : 'left-[122px]'
+            } absolute -top-[18px] w-[105px] border-t-2 duration-300 ease-in-out`}
+          ></div>
           <Button
             type='button'
             onClick={() => setContent(1)}
