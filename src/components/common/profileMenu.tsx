@@ -11,7 +11,7 @@ export default function ProfileMenu() {
   const username = pathName.split('/');
 
   return (
-    <Menu as='div' className={'relative z-50 flex items-center'}>
+    <Menu as='div' className={'relative z-50 translate-y-1'}>
       <Menu.Button>
         <div className='flex items-center gap-4'>
           <ProfileImage size='sm' />
@@ -28,12 +28,12 @@ export default function ProfileMenu() {
       >
         <Menu.Items
           className={
-            'common-bg absolute right-0 top-5 flex w-52 flex-col divide-y divide-light-accent overflow-hidden rounded outline-none dark:divide-dark-accent xl:-left-24'
+            'common-bg absolute right-0 top-2 flex w-52 flex-col divide-y divide-light-accent overflow-hidden rounded outline-none dark:divide-dark-accent xl:left-0'
           }
         >
           <Menu.Item>
             {({ active }) => (
-              <div className={`${active && 'bg-commitan-main text-white'} flex items-center gap-2 p-3`}>
+              <div className={`${active && 'bg-commitan-main text-white'} flex cursor-pointer items-center gap-2 p-3`}>
                 <ProfileImage size='medium' />
                 <div>
                   <h3 className='font-semibold capitalize'>{username[2]}</h3>
@@ -44,7 +44,11 @@ export default function ProfileMenu() {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <div className={`${active && 'bg-commitan-main text-white'} flex items-center gap-2 p-3 font-medium`}>
+              <div
+                className={`${
+                  active && 'bg-commitan-main text-white'
+                } flex cursor-pointer items-center gap-2 p-3 font-medium`}
+              >
                 <span className='text-xl'>
                   <BiUser />
                 </span>
@@ -54,7 +58,11 @@ export default function ProfileMenu() {
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <div className={`${active && 'bg-commitan-main text-white'} flex items-center gap-2 p-3 font-medium`}>
+              <div
+                className={`${
+                  active && 'bg-commitan-main text-white'
+                } flex cursor-pointer items-center gap-2 p-3 font-medium`}
+              >
                 <span className='text-xl'>
                   <FiSettings />
                 </span>
@@ -65,7 +73,9 @@ export default function ProfileMenu() {
           <Menu.Item>
             {({ active }) => (
               <div
-                className={`${active && 'bg-red-400 text-white'} flex items-center gap-2 p-3 font-medium text-red-400`}
+                className={`${
+                  active && 'bg-red-400 text-white'
+                } flex cursor-pointer items-center gap-2 p-3 font-medium text-red-400`}
               >
                 <span className='text-xl'>
                   <BiLogOut />
