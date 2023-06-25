@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import commitanLogo from '../../../public/images/commitan-logo.svg';
 import DarkModeBtn from '../common/darkModeBtn';
-import ProfileImage from '../common/profileImage';
+import ProfileMenu from '../common/profileMenu';
 
 export default function Navbar() {
   return (
@@ -19,10 +19,7 @@ export default function Navbar() {
         {/* row 2 end*/}
         {/* row 3 start*/}
         <div className='flex items-center justify-between gap-2 pl-4 sm:hidden xl:flex'>
-          <div className='flex items-center gap-4'>
-            <ProfileImage />
-            <h2 className='hidden font-bold xl:block'>Kumala</h2>
-          </div>
+          <ProfileMenu/>
           <div className='flex w-full items-center justify-end gap-4'>
             <button className='common-bg flex h-8 w-8 items-center justify-center rounded-full p-4'>n</button>
             <DarkModeBtn />
