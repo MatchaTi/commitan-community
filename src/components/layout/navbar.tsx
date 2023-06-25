@@ -18,9 +18,11 @@ export default function Navbar() {
         <button className='common-bg rounded-lg px-4 py-2 text-left sm:col-span-3 sm:py-3'>Pencarian...</button>
         {/* row 2 end*/}
         {/* row 3 start*/}
-        <div className='flex items-center justify-between gap-2 pl-4 sm:hidden xl:flex'>
-          <ProfileMenu/>
-          <div className='flex w-full items-center justify-end gap-4'>
+        <div className='flex items-center justify-between gap-4 pl-4 sm:hidden xl:flex xl:gap-2'>
+          <div className='order-2 xl:order-1'>
+            <ProfileMenu />
+          </div>
+          <div className='order-1 flex w-full items-center justify-end gap-4 xl:order-2'>
             <button className='common-bg flex h-8 w-8 items-center justify-center rounded-full p-4'>n</button>
             <DarkModeBtn />
           </div>
