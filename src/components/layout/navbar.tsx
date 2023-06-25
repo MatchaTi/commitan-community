@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import commitanLogo from '../../../public/images/commitan-logo.svg';
 import DarkModeBtn from '../common/darkModeBtn';
+import Notification from '../common/notification';
 import ProfileMenu from '../common/profileMenu';
 
 export default function Navbar() {
@@ -23,7 +24,7 @@ export default function Navbar() {
             <ProfileMenu />
           </div>
           <div className='order-1 flex w-full items-center justify-end gap-4 xl:order-2'>
-            <button className='common-bg flex h-8 w-8 items-center justify-center rounded-full p-4'>n</button>
+            <Notification />
             <DarkModeBtn />
           </div>
         </div>

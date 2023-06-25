@@ -5,11 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AiFillHome } from 'react-icons/ai';
 import { BsBookmarkFill, BsFillChatLeftDotsFill, BsFire } from 'react-icons/bs';
-import { IoIosNotifications } from 'react-icons/io';
 import { IoPersonCircle } from 'react-icons/io5';
 import commitanLogo from '../../../public/images/commitan-logo.svg';
-import Button from '../common/button';
 import DarkModeBtn from '../common/darkModeBtn';
+import Notification from '../common/notification';
 
 interface MenuItem {
   href: string;
@@ -77,10 +76,7 @@ export default function Sidebar() {
             );
           })}
           <li className='order-5 hidden flex-1 sm:inline xl:hidden'>
-            {/* notification */}
-            <Button corner='full' size='sm' color='transparent'>
-              <IoIosNotifications className='text-3xl' />
-            </Button>
+            <Notification />
           </li>
           <li className='order-7 hidden -translate-y-8 sm:inline xl:hidden '>
             <DarkModeBtn />
