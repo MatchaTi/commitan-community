@@ -49,7 +49,7 @@ export default function ProfileSection() {
           <div
             className={`${
               content == 1 ? 'left-0' : 'left-[122px]'
-            } absolute -top-[18px] w-[105px] border-t-2 duration-300 ease-in-out`}
+            } absolute -top-[18px] w-[105px] border-t-2 border-light-text duration-300 ease-in-out dark:border-dark-text`}
           ></div>
           <Button
             type='button'
