@@ -50,7 +50,7 @@ export default function LoginSection() {
             placeholder='Email'
             autoFocus
             autoComplete='off'
-            maxLength={16}
+            required
           />
           <label
             htmlFor='email'
@@ -68,7 +68,7 @@ export default function LoginSection() {
             className='peer w-full rounded bg-transparent px-4 py-2 placeholder-transparent outline-none ring ring-light-accent focus:ring-commitan-main dark:ring-dark-accent focus:dark:ring-commitan-main'
             placeholder='Kata sandi'
             autoComplete='off'
-            maxLength={16}
+            required
           />
           <label
             htmlFor='password'
