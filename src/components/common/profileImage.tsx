@@ -1,11 +1,10 @@
-import { cn } from '@/utils/utils';
+import { cn, generateAvatar } from '@/utils/utils';
 import Image from 'next/image';
-import noAvatar from '../../../public/images/no-avatar.webp';
 
 interface ISize {
   sm: string;
   std: string;
-  medium: string;
+  md: string;
   lg: string;
 }
 
@@ -15,6 +14,7 @@ interface ICorner {
 }
 
 type ImageProps = {
+  username?: string;
   className?: string;
   visibility?: string;
   size?: keyof ISize;
@@ -29,7 +29,7 @@ const imageStyle = ({ size, corner, className, visibility }: ImageProps) => {
     size: {
       sm: 'h-8 w-8',
       std: 'h-8 w-8 sm:h-12 sm:w-12',
-      medium: 'h-10 w-10',
+      md: 'h-10 w-10',
       lg: 'h-28 w-28',
     },
     corner: {
@@ -41,17 +41,24 @@ const imageStyle = ({ size, corner, className, visibility }: ImageProps) => {
   return cn(base, variants.size[size || 'std'], variants.corner[corner || 'full'], className!, visibility!);
 };
 
-export default function ProfileImage({ className, visibility, size, corner, src }: ImageProps) {
+export default function ProfileImage({ username, className, visibility, size, corner, src }: ImageProps) {
   return (
     <div
       className={`${imageStyle({
+        src,
         size,
         corner,
         className,
         visibility,
       } as ImageProps)}`}
     >
-      <Image src={src ? '' : noAvatar} alt='Profile Image' className='w-full translate-y-1 scale-125' />
+      <Image
+        src={src ? src : generateAvatar(username!)}
+        alt={username ? username : 'Avatar'}
+        className='h-full w-full object-cover'
+        width={128}
+        height={128}
+      />
     </div>
   );
 }
