@@ -1,13 +1,13 @@
 import { Comment } from '@/interfaces/post';
 import { timeAgo } from '@/utils/utils';
+import { useState } from 'react';
 import { GoPrimitiveDot } from 'react-icons/go';
 import Badge from './badge';
 import CodeEditor from './codeEditor';
 import CommentControl from './commentControl';
+import DeleteCommentModal from './deleteCommentModal';
 import EditCommentModal from './editCommentModal';
 import ProfileImage from './profileImage';
-import { useState } from 'react';
-import DeleteCommentModal from './deleteCommentModal';
 
 interface IComment {
   postId: string;
@@ -32,7 +32,7 @@ export default function Comments({ postId, comment }: IComment) {
       <div className='flex items-start justify-between'>
         <div className='mb-2 flex items-center gap-2'>
           <div>
-            <ProfileImage size='medium' />
+            <ProfileImage size='md' />
           </div>
           <div className='text-xs sm:text-sm'>
             <div className='flex items-center gap-1'>

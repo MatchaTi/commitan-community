@@ -14,7 +14,7 @@ export default function ProfileMenu() {
     <Menu as='div' className={'relative z-50 translate-y-1'}>
       <Menu.Button>
         <div className='flex items-center gap-4'>
-          <ProfileImage size='sm' />
+          <ProfileImage src={''} size='sm' username={username[2]} />
           <h2 className='hidden font-bold capitalize xl:block'>{username[2]}</h2>
         </div>
       </Menu.Button>
@@ -28,13 +28,15 @@ export default function ProfileMenu() {
       >
         <Menu.Items
           className={
-            'common-bg absolute right-0 top-2 flex w-52 flex-col divide-y divide-light-accent overflow-hidden rounded outline-none dark:divide-dark-accent xl:left-0'
+            'absolute right-0 top-2 flex w-52 flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent outline-none dark:divide-light-accent/5 dark:bg-dark-secondary dark:shadow-none xl:left-0'
           }
         >
           <Menu.Item>
             {({ active }) => (
               <div className={`${active && 'bg-commitan-main text-white'} flex cursor-pointer items-center gap-2 p-3`}>
-                <ProfileImage size='medium' />
+                <div>
+                  <ProfileImage size='md' username={username[2]} />
+                </div>
                 <div>
                   <h3 className='font-semibold capitalize'>{username[2]}</h3>
                   <span className='text-xs'>@{username[2]}6996</span>

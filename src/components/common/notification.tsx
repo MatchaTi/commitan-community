@@ -28,11 +28,11 @@ export default function Notification() {
             leaveTo='opacity-0 translate-y-1'
           >
             <Popover.Panel className='fixed right-0 top-20 z-20 w-full px-4 sm:left-12 sm:top-96 sm:w-96 xl:left-auto xl:right-16 xl:top-[72px] 2xl:-right-4'>
-              <div className='common-bg rounded-lg p-4'>
+              <div className='rounded-lg bg-light-main p-4 shadow-lg shadow-light-accent dark:bg-dark-secondary dark:shadow-none'>
                 <h3 className='pb-2 font-bold'>Notifikasi</h3>
-                <div className='max-h-96 w-full divide-y divide-light-accent overflow-y-auto dark:divide-dark-accent'>
-                  {notif.map(() => (
-                    <>
+                <div className='max-h-96 w-full divide-y divide-dark-accent/10 overflow-y-auto dark:divide-light-accent/5'>
+                  {notif.map((item) => (
+                    <Fragment key={item}>
                       <div className='flex w-full items-center gap-4 py-4'>
                         {/* profile picture user */}
                         <div>
@@ -44,7 +44,7 @@ export default function Notification() {
                           <span className='block text-xs'>9 jam yang lalu</span>
                         </div>
                       </div>
-                    </>
+                    </Fragment>
                   ))}
                 </div>
                 <div className='pt-2'>{notif.length} Notifikasi</div>

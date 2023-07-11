@@ -55,9 +55,9 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
 
   return (
     <div
-      className={`${jetBrains.className} mt-4 overflow-hidden rounded-lg border-2 border-light-accent bg-light-code-editor text-xs dark:border-dark-accent dark:bg-dark-code-editor sm:text-sm`}
+      className={`${jetBrains.className} common-accent mt-4 overflow-hidden rounded-lg border bg-light-code-editor text-xs dark:bg-dark-code-editor sm:text-sm`}
     >
-      <div className='flex max-w-full items-center justify-between border-b-2 border-inherit px-4 py-2'>
+      <div className='flex max-w-full items-center justify-between border-b border-inherit px-4 py-2'>
         <input
           type='text'
           value={pathFile}
@@ -72,7 +72,7 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
           <button
             type='button'
             onClick={handleCopy}
-            className='translate-x-2 rounded-lg border-2 border-inherit p-2 text-lg'
+            className='translate-x-2 rounded-lg border border-inherit p-2 text-lg'
           >
             {isCopied ? <BiCheckDouble className='text-green-400' /> : <HiOutlineClipboardDocumentList />}
           </button>

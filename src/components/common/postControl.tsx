@@ -23,7 +23,7 @@ export default function PostControl({ handleEditModal, handleDeleteModal }: ICon
   return (
     <>
       <div className='flex'>
-        <Menu as='div' className='relative z-50'>
+        <Menu as='div' className='relative'>
           <Menu.Button>
             <BsThreeDots />
           </Menu.Button>
@@ -37,7 +37,7 @@ export default function PostControl({ handleEditModal, handleDeleteModal }: ICon
           >
             <Menu.Items
               className={
-                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-light-accent overflow-hidden rounded bg-white dark:divide-dark-accent dark:bg-dark-main'
+                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-dark-accent/10 overflow-hidden rounded dark:divide-light-accent/5 bg-light-main shadow-lg shadow-light-accent dark:bg-dark-secondary dark:shadow-none'
               }
             >
               {itemControl.map(({ label, icon, onClick }, index) => (

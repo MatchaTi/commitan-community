@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AiFillHome } from 'react-icons/ai';
 import { BsBookmarkFill, BsFillChatLeftDotsFill, BsFire } from 'react-icons/bs';
@@ -22,31 +21,31 @@ const menuItems: MenuItem[] = [
     href: '',
     order: 'order-1',
     label: 'Beranda',
-    icon: <AiFillHome className='text-2xl group-hover:text-commitan-main sm:text-3xl' />,
+    icon: <AiFillHome className='text-2xl group-hover:text-commitan-main sm:text-xl xl:text-3xl' />,
   },
   {
     href: 'rekomendasi',
     order: 'order-2',
     label: 'Rekomendasi',
-    icon: <BsFire className='text-2xl group-hover:text-commitan-main sm:text-3xl' />,
+    icon: <BsFire className='text-2xl group-hover:text-commitan-main sm:text-xl xl:text-3xl' />,
   },
   {
     href: 'tersimpan',
     order: 'order-3',
     label: 'Tersimpan',
-    icon: <BsBookmarkFill className='text-xl group-hover:text-commitan-main sm:text-2xl' />,
+    icon: <BsBookmarkFill className='text-xl group-hover:text-commitan-main sm:text-lg xl:text-2xl' />,
   },
   {
     href: 'chat',
     order: 'order-4',
     label: 'Chat',
-    icon: <BsFillChatLeftDotsFill className='text-xl group-hover:text-commitan-main sm:text-2xl' />,
+    icon: <BsFillChatLeftDotsFill className='text-xl group-hover:text-commitan-main sm:text-lg xl:text-2xl' />,
   },
   {
     href: 'profil',
     order: 'order-6',
     label: 'Profil',
-    icon: <IoPersonCircle className='text-2xl group-hover:text-commitan-main sm:text-3xl xl:inline' />,
+    icon: <IoPersonCircle className='text-2xl group-hover:text-commitan-main sm:text-3xl' />,
   },
 ];
 
@@ -69,9 +68,9 @@ export default function Sidebar() {
                   href == splitedPath[1] && 'text-commitan-main'
                 } ${order} duration-100 hover:text-commitan-main`}
               >
-                <Link href={`/${href}`} className='flex items-center gap-4 xl:w-40'>
+                <a href={`/${href}`} className='flex items-center gap-4 xl:w-40'>
                   {icon} <span className='hidden xl:inline'>{label}</span>
-                </Link>
+                </a>
               </li>
             );
           })}

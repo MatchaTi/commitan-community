@@ -1,5 +1,5 @@
-import ProfileImage from '../common/profileImage';
 import { FcLike } from 'react-icons/fc';
+import ProfileImage from '../common/profileImage';
 
 interface ITrending {
   className?: string;
@@ -34,7 +34,7 @@ export default function Trending({ className, visibility }: ITrending) {
             <li key={index} className='mb-2 cursor-pointer'>
               <div className='flex w-full items-center gap-2'>
                 <div>
-                  <ProfileImage size='medium' />
+                  <ProfileImage size='md' />
                 </div>
                 <div className='text-xs sm:text-sm'>
                   <h3 className='font-semibold'>{username}</h3>

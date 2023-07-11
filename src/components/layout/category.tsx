@@ -1,5 +1,4 @@
 import { pilKategori } from '@/utils/data';
-import Link from 'next/link';
 
 interface ICategory {
   className?: string;
@@ -15,9 +14,9 @@ export default function Category({ className, visibility }: ICategory) {
           return (
             <li
               key={index}
-              className='block cursor-pointer rounded-full border border-light-main px-4 py-2 duration-0 hover:border-commitan-main hover:bg-commitan-main hover:text-white dark:border-dark-accent'
+              className='common-accent block cursor-pointer rounded-full border px-4 py-2 duration-0 hover:border-commitan-main hover:bg-commitan-main hover:text-white'
             >
-              <Link href={`/kategori?kategori=${item}`}>{item}</Link>
+              <a href={`/kategori?kategori=${item}`}>{item}</a>
             </li>
           );
         })}

@@ -16,7 +16,9 @@ export default function Following({ className, visibility }: IFollowing) {
         {persons.map((person, index) => {
           return (
             <li key={index} className='mb-2 flex cursor-pointer items-center gap-4'>
-              <ProfileImage size='medium' />
+              <div>
+                <ProfileImage size='md' />
+              </div>
               <span>{person}</span>
             </li>
           );
