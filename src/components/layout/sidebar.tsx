@@ -55,7 +55,7 @@ export default function Sidebar() {
 
   return (
     <div className='order-1'>
-      <nav className='fixed bottom-0 left-0 z-[9999] w-full bg-white p-4 px-8 dark:bg-dark-main sm:top-0 sm:w-auto sm:px-2 xl:sticky xl:top-20 xl:bg-transparent xl:p-0 xl:dark:bg-transparent'>
+      <nav className='common-bg fixed bottom-0 left-0 z-[9999] w-full p-4 px-8 shadow-none sm:top-0 sm:w-auto sm:px-2 xl:sticky xl:top-20 xl:border-none xl:bg-transparent xl:p-0 xl:dark:bg-transparent'>
         <ul className='relative flex items-center justify-between gap-4 sm:h-screen sm:flex-col sm:gap-10 sm:pt-3 xl:h-auto xl:items-start'>
           <li className='hidden sm:inline xl:hidden'>
             <Image src={commitanLogo} alt='Commitan Logo' width={28} height={28} />

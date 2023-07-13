@@ -91,7 +91,7 @@ export default function CommentSection({ comments, postId }: CommentProps) {
             ref={textAreaRef}
             value={text}
             placeholder='Ketik komentar anda disini...'
-            className='max-h-96 w-full resize-none bg-transparent sm:max-h-[430px]'
+            className='max-h-96 w-full resize-none bg-transparent text-slate-400 dark:text-slate-300 sm:max-h-[430px]'
             maxLength={4000}
             onChange={handleTextArea}
             autoFocus

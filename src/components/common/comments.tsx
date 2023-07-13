@@ -64,7 +64,7 @@ export default function Comments({ postId, comment }: IComment) {
       {/* bottom content */}
       <div className='mt-2'>
         <div className='mb-4 rounded-lg bg-light-secondary p-4 dark:bg-dark-secondary'>
-          <p>{comment.text}</p>
+          <p className='text-slate-400 dark:text-slate-300'>{comment.text}</p>
           {comment.code && (
             <>
               {comment.code.syntax && comment.code.pathFile ? (

@@ -3,8 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+  .bg-base {
+    @apply bg-light-base dark:bg-dark-base;
+  }
+
   .common-bg {
-    @apply bg-white shadow-lg shadow-light-accent dark:bg-dark-main dark:shadow-none;
+    @apply bg-light-main shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-main dark:shadow-none;
   }
 
   .common-bg-secondary {
@@ -13,6 +17,10 @@
 
   .common-bg-reverse {
     @apply bg-dark-secondary dark:bg-light-secondary;
+  }
+
+  .common-accent {
+    @apply border-dark-accent/10 dark:border-light-accent/5;
   }
 }
 

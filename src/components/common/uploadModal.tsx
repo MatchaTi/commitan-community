@@ -188,7 +188,7 @@ export default function UploadModal() {
             onChange={onChangeHandler}
             ref={textareaRef}
             placeholder='Bagikan atau tanya sesuatu kepada lainnya!'
-            className='mb-2 max-h-96 w-full resize-none bg-transparent outline-none'
+            className='mb-2 max-h-96 w-full resize-none bg-transparent text-slate-400 outline-none dark:text-slate-300'
             autoComplete='off'
             maxLength={4000}
           ></textarea>

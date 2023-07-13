@@ -3,7 +3,7 @@
 import type { UserPost } from '@/interfaces/post';
 import { timeAgo } from '@/utils/utils';
 import { useState } from 'react';
-import { BiCodeCurly, BiCategory } from 'react-icons/bi';
+import { BiCategory, BiCodeCurly } from 'react-icons/bi';
 import { GoPrimitiveDot } from 'react-icons/go';
 import { HiExternalLink } from 'react-icons/hi';
 import Badge from './badge';
@@ -60,7 +60,7 @@ export default function Post({ data, context, postId, editorContext }: PostProps
         {/* user image */}
         <ProfileImage />
         {/* hooks */}
-        <div className='mt-2 h-8 w-8 translate-x-2 border-b-4 border-l-4 border-light-accent dark:border-dark-accent '></div>
+        <div className='mt-2 h-8 w-8 translate-x-2 border-b-4 border-l-4 border-light-accent dark:border-dark-accent'></div>
       </div>
       {/* left side end */}
       {/* right side start */}
@@ -69,7 +69,9 @@ export default function Post({ data, context, postId, editorContext }: PostProps
         <div className='flex items-start justify-between'>
           <div className='mb-2'>
             <div className='flex items-center gap-2'>
-              <ProfileImage visibility='sm:hidden' size='medium' />
+              <div>
+                <ProfileImage visibility='sm:hidden' size='md' />
+              </div>
               <div className='text-xs sm:text-sm'>
                 <div className='flex items-center gap-1'>
                   <h2 className='font-semibold'>{data.username}</h2>
@@ -105,10 +107,10 @@ export default function Post({ data, context, postId, editorContext }: PostProps
         </div>
         {/* bottom content */}
         <div className='mt-2 max-w-full'>
-          <div className='mb-4 rounded-lg bg-light-secondary p-2 dark:bg-dark-secondary sm:p-4'>
+          <div className='common-bg-secondary mb-4 rounded-lg p-2 sm:p-4'>
             <h3 className='font-semibold sm:text-lg'>{data.title}</h3>
           </div>
-          <p>{data.desc}</p>
+          <p className='text-slate-400 dark:text-slate-300'>{data.desc}</p>
           {data.code && (
             <>
               {data.code.syntax && data.code.pathFile && (

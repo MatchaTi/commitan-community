@@ -37,7 +37,7 @@ export default function PostControl({ handleEditModal, handleDeleteModal }: ICon
           >
             <Menu.Items
               className={
-                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-dark-accent/10 overflow-hidden rounded dark:divide-light-accent/5 bg-light-main shadow-lg shadow-light-accent dark:bg-dark-secondary dark:shadow-none'
+                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none'
               }
             >
               {itemControl.map(({ label, icon, onClick }, index) => (
