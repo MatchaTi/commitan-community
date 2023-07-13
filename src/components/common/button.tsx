@@ -4,24 +4,25 @@ import { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
 interface IColors {
   primary: string;
   common: string;
-  common_reverse: string;
   outline: string;
-  disabled: string;
+  disable: string;
   delete: string;
   transparent: string;
   loading: string;
 }
 
 interface ISize {
+  std: string;
   none: string;
   sm: string;
-  std: string;
-  medium: string;
+  md: string;
+  lg: string;
 }
 
 interface ICorner {
   full: string;
-  round: string;
+  sm: string;
+  md: string;
   lg: string;
 }
 
@@ -32,31 +33,34 @@ type ButtonProps = {
   color?: keyof IColors;
   size?: keyof ISize;
   corner?: keyof ICorner;
+  fullField?: boolean;
 } & DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 
-const buttonStyle = ({ color, size, corner, className, visibility }: ButtonProps) => {
-  const base = 'font-semibold';
+const buttonStyle = ({ color, size, corner, className, visibility, fullField }: ButtonProps) => {
+  const base = `${fullField && 'w-full'} font-semibold flex items-center justify-center gap-2`;
 
   const variants = {
     color: {
-      primary: 'bg-commitan-main text-white',
+      primary: 'bg-commitan-main text-white hover:bg-sky-400 active:bg-commitan-main/50 duration-150 ease-in-out',
       common: 'common-bg',
-      common_reverse: 'common-bg-reverse text-light-main dark:text-dark-main',
-      outline: 'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white',
-      disabled: 'cursor-not-allowed grayscale bg-commitan-main',
-      delete: 'bg-red-400 text-white',
-      transparent: 'bg-transparent',
+      outline:
+        'bg-transparent border border-commitan-main text-commitan-main hover:bg-commitan-main hover:text-white duration-150 ease-in-out active:bg-commitan-main/50 active:border-opacity-0',
+      disable: 'cursor-not-allowed bg-commitan-main opacity-50',
+      delete: 'bg-red-500 text-white hover:bg-red-400 active:bg-red-500/50 duration-150 ease-in-out',
+      transparent: 'bg-transparent hover:text-commitan-main active:text-opacity-50 duration-150 ease-in-out',
       loading: 'bg-commitan-secondary text-white cursor-not-allowed',
     },
     size: {
       none: 'p-0',
-      sm: 'p-1',
       std: 'p-4',
-      medium: 'px-4 py-2',
+      sm: 'p-1',
+      md: 'px-4 py-2',
+      lg: 'px-6 py-4',
     },
     corner: {
       full: 'rounded-full',
-      round: 'rounded',
+      sm: 'rounded-sm',
+      md: 'rounded',
       lg: 'rounded-lg',
     },
   };
@@ -64,7 +68,7 @@ const buttonStyle = ({ color, size, corner, className, visibility }: ButtonProps
   return cn(
     base,
     variants.color[color || 'primary'],
-    variants.size[size || 'medium'],
+    variants.size[size || 'md'],
     variants.corner[corner || 'lg'],
     className!,
     visibility!
@@ -76,8 +80,9 @@ export default function Button({
   visibility,
   children,
   color = 'primary',
-  size = 'medium',
+  size = 'md',
   corner = 'lg',
+  fullField,
   ...props
 }: ButtonProps) {
   return (
@@ -89,6 +94,7 @@ export default function Button({
         corner,
         className,
         visibility,
+        fullField,
       } as ButtonProps)}`}
     >
       {children}

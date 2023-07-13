@@ -83,7 +83,7 @@ export default function LoginSection() {
         <div className='mb-8 text-right'>
           <Link href={'/auth/forgot'}>Lupa kata sandi?</Link>
         </div>
-        <Button type='submit' corner='full' className='w-full'>
+        <Button type='submit' corner='full' fullField={true}>
           Login
         </Button>
       </form>

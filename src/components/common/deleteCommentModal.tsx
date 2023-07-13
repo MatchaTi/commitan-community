@@ -59,10 +59,10 @@ export default function DeleteCommentModal({
               onClick={handleDeleteComment}
             >
               {isLoading ? (
-                <div className='flex items-center gap-2'>
+                <>
                   <Spinner size='sm' width='light' />
                   <span>Loading...</span>
-                </div>
+                </>
               ) : (
                 'Hapus'
               )}

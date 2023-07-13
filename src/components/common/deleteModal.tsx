@@ -65,10 +65,10 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
               color={isLoading ? 'loading' : 'delete'}
             >
               {isLoading ? (
-                <div className='flex items-center gap-2'>
+                <>
                   <Spinner size='sm' width='light' />
                   <span>Loading...</span>
-                </div>
+                </>
               ) : (
                 'Hapus'
               )}

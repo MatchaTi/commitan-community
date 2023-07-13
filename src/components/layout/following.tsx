@@ -24,7 +24,7 @@ export default function Following({ className, visibility }: IFollowing) {
           );
         })}
       </ul>
-      <Button type='button' color='outline' className='mt-4 w-full'>
+      <Button type='button' color='outline' className='mt-4' fullField={true}>
         Lihat lainnya
       </Button>
     </section>

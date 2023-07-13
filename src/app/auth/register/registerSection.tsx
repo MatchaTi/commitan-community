@@ -103,7 +103,7 @@ export default function RegisterSection() {
             {isShow ? <AiFillEyeInvisible /> : <AiFillEye />}
           </button>
         </div>
-        <Button type='submit' corner='full' className='w-full'>
+        <Button type='submit' corner='full' fullField={true}>
           Register
         </Button>
       </form>

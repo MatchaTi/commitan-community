@@ -138,13 +138,13 @@ export default function EditCommentModal({
               <Button
                 type='submit'
                 disabled={!inputUserEdit.text || isLoading}
-                color={!inputUserEdit.text ? 'disabled' : isLoading ? 'loading' : 'primary'}
+                color={!inputUserEdit.text ? 'disable' : isLoading ? 'loading' : 'primary'}
               >
                 {isLoading ? (
-                  <div className='flex items-center gap-2'>
+                  <>
                     <Spinner size='sm' width='light' />
                     <span>Loading...</span>
-                  </div>
+                  </>
                 ) : (
                   'Kirim'
                 )}

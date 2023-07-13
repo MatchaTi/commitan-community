@@ -204,13 +204,13 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
               <Button
                 type='submit'
                 disabled={!inputUserEdit.title || isLoading}
-                color={!inputUserEdit.title ? 'disabled' : isLoading ? 'loading' : 'primary'}
+                color={!inputUserEdit.title ? 'disable' : isLoading ? 'loading' : 'primary'}
               >
                 {isLoading ? (
-                  <div className='flex items-center gap-2'>
+                  <>
                     <Spinner size='sm' width='light' />
                     <span>Loading...</span>
-                  </div>
+                  </>
                 ) : (
                   'Kirim'
                 )}

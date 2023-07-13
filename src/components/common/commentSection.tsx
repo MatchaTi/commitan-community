@@ -110,7 +110,7 @@ export default function CommentSection({ comments, postId }: CommentProps) {
             <Button
               type='submit'
               disabled={!text || isLoading}
-              color={!text ? 'disabled' : isLoading ? 'loading' : 'primary'}
+              color={!text ? 'disable' : isLoading ? 'loading' : 'primary'}
             >
               {isLoading ? (
                 <div className='flex items-center gap-2'>

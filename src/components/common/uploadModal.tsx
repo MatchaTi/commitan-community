@@ -239,13 +239,13 @@ export default function UploadModal() {
             <Button
               type='submit'
               disabled={!inputUserUpload.title || isLoading}
-              color={!inputUserUpload.title ? 'disabled' : isLoading ? 'loading' : 'primary'}
+              color={!inputUserUpload.title ? 'disable' : isLoading ? 'loading' : 'primary'}
             >
               {isLoading ? (
-                <div className='flex items-center gap-2'>
+                <>
                   <Spinner size='sm' width='light' />
                   <span>Loading...</span>
-                </div>
+                </>
               ) : (
                 'Kirim'
               )}
