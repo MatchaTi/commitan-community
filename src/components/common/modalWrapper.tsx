@@ -1,14 +1,33 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 
-interface IWrapper {
+interface IWidth {
+  sm: string;
+  md: string;
+  lg: string;
+}
+
+type IWrapper = {
   title: string;
+  width?: keyof IWidth;
   children: React.ReactNode;
   showModal: boolean;
   toggleModal: () => void;
-}
+};
 
-export default function ModalWrapper({ title, children, showModal, toggleModal }: IWrapper) {
+const modalWidth = ({ width }: IWrapper) => {
+  const variants = {
+    width: {
+      sm: 'max-w-[350px]',
+      md: 'max-w-[600px]',
+      lg: 'max-w-[800px]',
+    },
+  };
+
+  return variants.width[width || 'lg'];
+};
+
+export default function ModalWrapper({ title, width, children, showModal, toggleModal }: IWrapper) {
   return (
     <>
       <Transition appear show={showModal} as={Fragment}>
@@ -36,7 +55,11 @@ export default function ModalWrapper({ title, children, showModal, toggleModal }
                 leaveFrom='opacity-100 scale-100'
                 leaveTo='opacity-0 scale-95'
               >
-                <Dialog.Panel className='common-bg w-full max-w-[800px] transform overflow-y-auto rounded-lg p-4 transition-all'>
+                <Dialog.Panel
+                  className={`${modalWidth({
+                    width,
+                  } as IWrapper)} common-bg w-full transform overflow-y-auto rounded-lg p-4 shadow-slate-400/25 transition-all`}
+                >
                   <Dialog.Title as='h3' className='text-center text-base font-medium'>
                     {title}
                   </Dialog.Title>
