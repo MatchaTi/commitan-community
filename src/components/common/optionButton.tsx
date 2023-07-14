@@ -1,5 +1,9 @@
+'use client';
+
+import { useUserUploadStore } from '@/stores/globalStore';
 import { BiCodeCurly, BiEdit } from 'react-icons/bi';
-import { HiCode, HiExternalLink } from 'react-icons/hi';
+import { HiCode, HiExternalLink, HiOutlinePhotograph } from 'react-icons/hi';
+import { shallow } from 'zustand/shallow';
 import Button from './button';
 import Tooltip from './tooltip';
 
@@ -33,10 +37,15 @@ export default function OptionButton({
   showLinkLiveDemo,
   toggleLinkLiveDemo,
 }: IOption) {
+  const [onChangeHandler, inputUserUpload] = useUserUploadStore(
+    (state) => [state.onChangeHandler, state.inputUserUpload],
+    shallow
+  );
+
   return (
     <div
       className={`${
-        context == 'speedDial' && 'flex-col-reverse gap-4 text-white'
+        context == 'speedDial' && 'hidden flex-col-reverse gap-4 group-hover:flex'
       } flex items-center text-slate-400 dark:text-slate-300`}
     >
       <div className='group relative'>
@@ -45,7 +54,9 @@ export default function OptionButton({
           size='sm'
           color='transparent'
           onClick={textOnly}
-          className={`${context == 'speedDial' && 'animate-speed-dial'} group flex items-center hover:text-purple-400`}
+          className={`${
+            context == 'speedDial' && 'animate-speed-dial text-purple-500'
+          } group flex items-center hover:text-purple-500`}
         >
           <BiEdit className='rounded-lg p-1 text-3xl group-hover:bg-purple-400/25' />
         </Button>
@@ -53,6 +64,38 @@ export default function OptionButton({
           <span className='flex w-full items-center justify-center font-semibold'>Hanya Teks</span>
         </Tooltip>
       </div>
+      {context == 'home' || context == 'upload' || context == 'edit' || context == 'speedDial' ? (
+        <div className='group relative'>
+          <label htmlFor='image' className='group cursor-pointer'>
+            <Button
+              type='button'
+              size='sm'
+              color='transparent'
+              className={`${context == 'speedDial' && 'animate-speed-dial'} ${
+                inputUserUpload.image && 'text-yellow-500'
+              } group flex items-center group-hover:text-yellow-500`}
+            >
+              <HiOutlinePhotograph
+                className={`${
+                  inputUserUpload.image && 'bg-yellow-400/25'
+                } rounded-lg p-1 text-3xl group-hover:bg-yellow-400/25`}
+              />
+            </Button>
+          </label>
+          <input
+            type='file'
+            id='image'
+            name='image'
+            accept='.jpg, .png, .jpeg'
+            max={1}
+            onChange={onChangeHandler}
+            className='absolute inset-0 h-full w-full cursor-pointer opacity-0'
+          />
+          <Tooltip position={context == 'speedDial' ? 'left' : 'topStart'}>
+            <span className='flex w-full items-center justify-center font-semibold'>Foto</span>
+          </Tooltip>
+        </div>
+      ) : null}
       <div className='group relative'>
         <Button
           type='button'
@@ -60,7 +103,7 @@ export default function OptionButton({
           color='transparent'
           onClick={toggleCodeEditor}
           className={`${showCodeEditor && 'text-sky-500'} ${
-            context == 'speedDial' && 'animate-speed-dial'
+            context == 'speedDial' && 'animate-speed-dial text-sky-500'
           } group flex items-center hover:text-sky-400`}
         >
           <HiCode

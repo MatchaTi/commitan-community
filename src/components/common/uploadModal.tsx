@@ -1,12 +1,14 @@
 'use client';
 
+import { useUserUploadStore } from '@/stores/globalStore';
 import { useUserPostStore } from '@/stores/postsStore';
-import { useUiStore } from '@/stores/uiStore';
 import { listCategory } from '@/utils/data';
 import axios from 'axios';
-import { useEffect, useRef, useState } from 'react';
-import toast from 'react-hot-toast';
+import Image from 'next/image';
+import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
+import { TfiClose } from 'react-icons/tfi';
 import { shallow } from 'zustand/shallow';
 import ConditionalUploadBtn from '../layout/conditionalUploadBtn';
 import Button from './button';
@@ -16,61 +18,35 @@ import OptionButton from './optionButton';
 import ProfileImage from './profileImage';
 import Spinner from './spinner';
 
-interface IUpload {
-  title: string;
-  desc: string;
-  category: string;
-  linkSourceCode: string;
-  linkLiveDemo: string;
-}
-
 export default function UploadModal() {
   const [addPosts] = useUserPostStore((state) => [state.addPost], shallow);
-  const [showUploadModal, toggleShowUploadModal] = useUiStore(
-    (state) => [state.showUploadModal, state.toggleShowUploadModal],
-    shallow
-  );
+  const [inputUserUpload, onChangeHandler, heightValue, imageMsg, imagePreview, clearField, clearImage] =
+    useUserUploadStore(
+      (state) => [
+        state.inputUserUpload,
+        state.onChangeHandler,
+        state.heightValue,
+        state.imageMsg,
+        state.imagePreview,
+        state.clearField,
+        state.clearImage,
+      ],
+      shallow
+    );
+  const [showUploadModal, setShowUploadModal] = useState(false);
   const [showLinkSourceCode, setShowLinkSourceCode] = useState(false);
   const [showLinkLiveDemo, setShowLinkLiveDemo] = useState(false);
   const [showCodeEditor, setShowCodeEditor] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [inputUserUpload, setInputUserUpload] = useState<IUpload>({
-    title: '',
-    desc: '',
-    category: 'general',
-    linkSourceCode: '',
-    linkLiveDemo: '',
-  });
   const [syntax, setSyntax] = useState('');
   const [pathFile, setPathFile] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [heightValue, setHeightValue] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const code = {
     syntax,
     pathFile,
   };
 
-  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
-    const { name, value } = e.target;
-
-    if (name == 'desc') {
-      setInputUserUpload({
-        ...inputUserUpload,
-        [name]: value,
-      });
-      setHeightValue(value);
-    } else {
-      setInputUserUpload({
-        ...inputUserUpload,
-        [name]: value,
-      });
-    }
-  }
-
-  function handleModal() {
-    toggleShowUploadModal(!showUploadModal);
-  }
+  const handleModal = () => setShowUploadModal(!showUploadModal);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -106,13 +82,7 @@ export default function UploadModal() {
         ...inputUserUpload,
         code,
       });
-      setInputUserUpload({
-        title: '',
-        desc: '',
-        category: '',
-        linkSourceCode: '',
-        linkLiveDemo: '',
-      });
+      clearField();
       setSyntax('');
       setPathFile('');
       setIsLoading(false);
@@ -120,7 +90,7 @@ export default function UploadModal() {
       setShowLinkLiveDemo(false);
       const newPosts = [res.data.post];
       addPosts(newPosts);
-      toggleShowUploadModal(false);
+      setShowUploadModal(false);
       toast.success(res.data.message);
     } catch (error) {
       // wip error handling
@@ -133,21 +103,17 @@ export default function UploadModal() {
       <ConditionalUploadBtn handleModal={handleModal} toggleCodeEditor={toggleCodeEditor} />
       <div
         className='group fixed bottom-16 right-4 z-[9999] flex flex-col-reverse gap-4 sm:bottom-10 sm:right-10'
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         onClick={handleModal}
       >
         <Button corner='full' size='std'>
           <AiOutlinePlus className='text-xl font-bold duration-300 ease-in-out group-hover:rotate-45' />
         </Button>
-        {isHovered && (
-          <OptionButton
-            context='speedDial'
-            textOnly={textOnly}
-            showCodeEditor={showCodeEditor}
-            toggleCodeEditor={toggleCodeEditor}
-          />
-        )}
+        <OptionButton
+          context='speedDial'
+          textOnly={textOnly}
+          showCodeEditor={showCodeEditor}
+          toggleCodeEditor={toggleCodeEditor}
+        />
       </div>
       <ModalWrapper showModal={showUploadModal} title='Buat Postingan' toggleModal={handleModal}>
         <form onSubmit={handleSubmit}>
@@ -169,6 +135,17 @@ export default function UploadModal() {
               </select>
             </div>
           </div>
+          {imageMsg && <p className='my-4 font-semibold text-red-500'>{imageMsg}</p>}
+          {imagePreview ? (
+            <div className='relative my-4 w-full'>
+              <div>
+                <Image src={imagePreview} alt={imagePreview} width={500} height={250} className='mx-auto rounded-lg' />
+              </div>
+              <Button type='button' color='transparent' onClick={clearImage} className='absolute right-0 top-0 text-lg'>
+                <TfiClose />
+              </Button>
+            </div>
+          ) : null}
           <input
             type='text'
             placeholder='Judul'
