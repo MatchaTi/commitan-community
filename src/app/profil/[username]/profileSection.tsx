@@ -2,6 +2,7 @@
 
 import Badge from '@/components/common/badge';
 import Button from '@/components/common/button';
+import EditProfileModal from '@/components/common/editProfileModal';
 import PostList from '@/components/common/postList';
 import ProfileImage from '@/components/common/profileImage';
 import { usePathname } from 'next/navigation';
@@ -11,8 +12,11 @@ import { BsBookmark, BsGrid3X3 } from 'react-icons/bs';
 
 export default function ProfileSection() {
   const [content, setContent] = useState(1);
+  const [editProfile, setEditProfile] = useState(false);
   const pathName = usePathname();
   const username = pathName.split('/');
+
+  const handleEditProfileModal = () => setEditProfile(!editProfile);
 
   return (
     <div className='mx-auto w-full pt-6'>
@@ -23,7 +27,7 @@ export default function ProfileSection() {
             <ProfileImage size='lg' username={username[2]} />
           </div>
           <h2 className='flex-1 text-xl font-semibold capitalize'>{username[2]}</h2>
-          <Button type='button' size='md' corner='md' color='outline'>
+          <Button type='button' size='md' corner='md' color='outline' onClick={handleEditProfileModal}>
             Edit Profil
           </Button>
         </div>
@@ -77,6 +81,7 @@ export default function ProfileSection() {
       {/* bottom content start */}
       <div>{content == 1 ? <PostList /> : 'world'}</div>
       {/* bottom content end */}
+      {editProfile && <EditProfileModal showEditModal={editProfile} handleEditProfileModal={handleEditProfileModal} />}
     </div>
   );
 }
