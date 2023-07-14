@@ -49,31 +49,27 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
   return (
     <>
       {showDeleteModal && (
-        <ModalWrapper showModal={showDeleteModal} title='Hapus Postingan' toggleModal={handleDeleteModal}>
-          <h2 className='text-base'>
+        <ModalWrapper showModal={showDeleteModal} title='Hapus Postingan' toggleModal={handleDeleteModal} width='sm'>
+          <h2 className='mb-10 text-base text-slate-400 dark:text-slate-300'>
             Anda yakin ingin menghapus postingan ini? Tindakan ini akan menghapus postingan ini secara permanen dan
             tidak dapat dipulihkan.
           </h2>
-          <div className='mt-4 flex w-full justify-end gap-4'>
-            <Button color='outline' onClick={handleDeleteModal}>
-              Tutup
-            </Button>
-            <Button
-              type='button'
-              onClick={handleDeletePost}
-              disabled={isLoading}
-              color={isLoading ? 'loading' : 'delete'}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner size='sm' width='light' />
-                  <span>Loading...</span>
-                </>
-              ) : (
-                'Hapus'
-              )}
-            </Button>
-          </div>
+          <Button
+            type='button'
+            onClick={handleDeletePost}
+            disabled={isLoading}
+            color={isLoading ? 'loading' : 'delete'}
+            fullField
+          >
+            {isLoading ? (
+              <>
+                <Spinner size='sm' width='light' />
+                <span>Loading...</span>
+              </>
+            ) : (
+              'Hapus'
+            )}
+          </Button>
         </ModalWrapper>
       )}
     </>

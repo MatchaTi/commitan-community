@@ -43,31 +43,32 @@ export default function DeleteCommentModal({
   return (
     <>
       {showDeleteCommentModal && (
-        <ModalWrapper showModal={showDeleteCommentModal} title='Hapus Komentar' toggleModal={handleDeleteCommentModal}>
-          <h2 className='text-base'>
+        <ModalWrapper
+          showModal={showDeleteCommentModal}
+          title='Hapus Komentar'
+          toggleModal={handleDeleteCommentModal}
+          width='sm'
+        >
+          <h2 className='mb-10 text-base text-slate-400 dark:text-slate-300'>
             Anda yakin ingin menghapus komentar ini? Tindakan ini akan menghapus komentar ini secara permanen dan tidak
             dapat dipulihkan.
           </h2>
-          <div className='mt-4 flex w-full justify-end gap-4'>
-            <Button type='button' color='outline' onClick={handleDeleteCommentModal}>
-              Tutup
-            </Button>
-            <Button
-              type='button'
-              disabled={isLoading}
-              color={isLoading ? 'loading' : 'delete'}
-              onClick={handleDeleteComment}
-            >
-              {isLoading ? (
-                <>
-                  <Spinner size='sm' width='light' />
-                  <span>Loading...</span>
-                </>
-              ) : (
-                'Hapus'
-              )}
-            </Button>
-          </div>
+          <Button
+            type='button'
+            disabled={isLoading}
+            color={isLoading ? 'loading' : 'delete'}
+            onClick={handleDeleteComment}
+            fullField
+          >
+            {isLoading ? (
+              <>
+                <Spinner size='sm' width='light' />
+                <span>Loading...</span>
+              </>
+            ) : (
+              'Hapus'
+            )}
+          </Button>
         </ModalWrapper>
       )}
     </>

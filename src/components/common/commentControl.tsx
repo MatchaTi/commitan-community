@@ -37,7 +37,7 @@ export default function CommentControl({ handleEditModal, handleDeleteModal }: I
           >
             <Menu.Items
               className={
-                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-light-accent overflow-hidden rounded bg-white dark:divide-dark-accent dark:bg-dark-main'
+                'absolute -left-20 top-0 z-50 flex flex-col divide-y divide-light-accent overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent dark:divide-dark-accent dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none'
               }
             >
               {itemControl.map(({ label, icon, onClick }, index) => (
