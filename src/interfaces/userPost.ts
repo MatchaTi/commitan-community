@@ -1,4 +1,4 @@
-import type { UserPost, Comment } from './post';
+import type { Comment, UserPost, UserUpload } from './post';
 
 export interface PostStore {
   posts: UserPost[];
@@ -8,4 +8,16 @@ export interface PostStore {
   addComment: (postId: string, newComment: Comment) => void;
   editComment: (postId: string, commentId: string, updatedComment: Comment) => void;
   deleteComment: (postId: string, commentId: string) => void;
+}
+
+export interface UserUploadStore {
+  inputUserUpload: UserUpload;
+  imageMsg: string;
+  imagePreview: string;
+  setImageMsg: (msg: string) => void;
+  setHeightValue: (value: string) => void;
+  heightValue: string;
+  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+  clearField: () => void;
+  clearImage: () => void;
 }
