@@ -1,11 +1,12 @@
 import type { UserPost } from '@/interfaces/post';
 import axios from 'axios';
+import { cache } from 'react';
 import DetailSection from './detailSection';
 
-async function getData(param: string) {
+const getData = cache(async (param: string) => {
   const res = await axios.get<UserPost>(`${process.env.API_URL}/posts/${param}`);
   return res.data;
-}
+});
 
 export default async function DetailPost({ params }: { params: { id: string } }) {
   const dataPost = await getData(params.id);
@@ -20,7 +21,5 @@ export default async function DetailPost({ params }: { params: { id: string } })
 export async function generateMetadata({ params }: { params: { id: string } }) {
   const dataPost = await getData(params.id);
 
-  return {
-    title: dataPost.title,
-  };
+  return { title: dataPost.title };
 }
