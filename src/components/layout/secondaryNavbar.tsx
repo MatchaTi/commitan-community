@@ -17,7 +17,7 @@ export default function SecondaryNavbar() {
         <div className='lg:hidden'>
           <Image src={CommitanIcon} alt='Commitan Icon' width={28} height={28} />
         </div>
-        <Button type='button' color='transparent' onClick={() => setIsClicked(!isClicked)}>
+        <Button type='button' color='transparent' size='none' onClick={() => setIsClicked(!isClicked)}>
           {isClicked ? <CgClose /> : <FaBars />}
         </Button>
       </div>
