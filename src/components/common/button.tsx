@@ -69,7 +69,7 @@ const buttonStyle = ({ color, size, corner, className, visibility, fullField }: 
     base,
     variants.color[color || 'primary'],
     variants.size[size || 'md'],
-    variants.corner[corner || 'lg'],
+    variants.corner[corner || 'md'],
     className!,
     visibility!
   );
@@ -81,7 +81,7 @@ export default function Button({
   children,
   color = 'primary',
   size = 'md',
-  corner = 'lg',
+  corner = 'md',
   fullField,
   ...props
 }: ButtonProps) {

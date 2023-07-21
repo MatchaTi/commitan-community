@@ -45,9 +45,7 @@ export default function SecondaryNavbar() {
           </ul>
           <div className='flex justify-end xl:w-1/6'>
             <a href='/auth/login'>
-              <Button type='button' corner='md'>
-                Gabung Sekarang!
-              </Button>
+              <Button type='button'>Gabung Sekarang!</Button>
             </a>
           </div>
         </div>
