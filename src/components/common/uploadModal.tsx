@@ -153,7 +153,7 @@ export default function UploadModal() {
             id='title'
             value={inputUserUpload.title}
             onChange={onChangeHandler}
-            className='common-bg-secondary mb-2 w-full rounded-lg p-4 text-base font-semibold outline-none'
+            className='common-bg-secondary headings mb-2 w-full rounded-lg p-4 text-base font-semibold outline-none'
             maxLength={96}
             autoComplete='off'
             required
@@ -165,7 +165,7 @@ export default function UploadModal() {
             onChange={onChangeHandler}
             ref={textareaRef}
             placeholder='Bagikan atau tanya sesuatu kepada lainnya!'
-            className='mb-2 max-h-96 w-full resize-none bg-transparent text-slate-400 outline-none dark:text-slate-300'
+            className='paragraphs mb-2 max-h-96 w-full resize-none bg-transparent outline-none'
             autoComplete='off'
             maxLength={4000}
           ></textarea>

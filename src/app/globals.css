@@ -19,6 +19,14 @@
     @apply bg-dark-secondary dark:bg-light-secondary;
   }
 
+  .headings {
+    @apply text-light-headings dark:text-dark-headings;
+  }
+
+  .paragraphs {
+    @apply text-light-text dark:text-dark-text;
+  }
+
   .common-accent {
     @apply border-dark-accent/10 dark:border-light-accent/5;
   }

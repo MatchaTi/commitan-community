@@ -24,13 +24,13 @@ export default function SecondaryNavbar() {
       <nav
         className={`${
           isClicked ? 'left-0' : '-left-full'
-        } common-bg fixed top-0 z-50 mx-auto h-screen w-full max-w-[1440px] border-none backdrop-blur-sm duration-300 ease-in-out xl:left-0 xl:right-0 xl:h-auto xl:bg-transparent xl:px-20 xl:dark:bg-transparent 2xl:px-0`}
+        } common-bg fixed top-0 z-50 mx-auto h-screen w-full max-w-[1440px] border-none shadow-none backdrop-blur-sm duration-300 ease-in-out xl:left-0 xl:right-0 xl:h-auto xl:bg-transparent xl:px-20 xl:dark:bg-transparent 2xl:px-0`}
       >
         <div className='flex h-full w-full flex-col items-center justify-center gap-8 px-4 py-4 xl:flex-row xl:justify-between xl:gap-0 xl:px-0'>
           <div className='hidden xl:block xl:w-1/6'>
             <Image src={CommitanIcon} alt='Commitan Icon' width={28} height={28} />
           </div>
-          <ul className='flex flex-col items-start justify-center gap-4 text-slate-400 dark:text-slate-300 xl:flex-1 xl:flex-row xl:items-center xl:gap-8'>
+          <ul className='paragraphs flex flex-col items-start justify-center gap-4 xl:flex-1 xl:flex-row xl:items-center xl:gap-8'>
             <li className='underline-offset-8 opacity-60 duration-150 ease-in-out hover:underline hover:opacity-100'>
               <a href='/'>Beranda</a>
             </li>

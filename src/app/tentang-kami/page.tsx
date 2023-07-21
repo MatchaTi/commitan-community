@@ -3,7 +3,7 @@ export default function About() {
     <div className='mt-32'>
       <div className='text-center'>
         <h1 className='mb-6 text-base font-semibold text-commitan-main'>Tentang Kami</h1>
-        <h2 className='mx-auto max-w-5xl text-4xl font-bold leading-normal sm:max-w-3xl sm:text-5xl xl:max-w-5xl xl:text-7xl'>
+        <h2 className='headings mx-auto max-w-5xl text-4xl font-bold leading-normal sm:max-w-3xl sm:text-5xl xl:max-w-5xl xl:text-7xl'>
           Jelajahi Dunia Ngoding Bersama Komunitas yang Inspiratif.
         </h2>
       </div>
