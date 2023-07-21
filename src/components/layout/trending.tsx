@@ -26,19 +26,22 @@ const posts = [
 
 export default function Trending({ className, visibility }: ITrending) {
   return (
-    <section className={`${visibility} ${className} common-bg mt-4 w-full rounded-lg p-4`}>
-      <h4 className='mb-4 text-base font-bold text-commitan-main'>Trending</h4>
+    <section className={`${visibility} ${className} common-bg mt-4 w-full rounded-lg pt-4`}>
+      <h4 className='mb-4 px-4 text-base font-bold text-commitan-main'>Trending</h4>
       <ul>
         {posts.map(({ username, content, likes }, index) => {
           return (
-            <li key={index} className='mb-2 cursor-pointer'>
+            <li
+              key={index}
+              className='cursor-pointer px-4 py-2 duration-150 ease-in-out hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5'
+            >
               <div className='flex w-full items-center gap-2'>
                 <div>
                   <ProfileImage size='md' />
                 </div>
-                <div className='text-xs sm:text-sm'>
+                <div className='overflow-hidden text-xs sm:text-sm'>
                   <h3 className='font-semibold'>{username}</h3>
-                  <p className='headings font-semibold'>{content}</p>
+                  <p className='headings truncate font-semibold'>{content}</p>
                   <span className='flex items-center gap-2'>
                     <FcLike /> {likes}
                   </span>

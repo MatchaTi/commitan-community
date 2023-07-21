@@ -1,5 +1,4 @@
 import { infoItems } from '@/utils/data';
-import Link from 'next/link';
 
 interface IInfo {
   className?: string;
@@ -13,9 +12,9 @@ export default function Information({ className, visibility }: IInfo) {
         {infoItems.map(({ href, label }, index) => {
           return (
             <li key={index}>
-              <Link href={`/${href}`} className='opacity-60 hover:underline hover:opacity-100'>
+              <a href={`/${href}`} className='opacity-60 hover:underline hover:opacity-100'>
                 {label}
-              </Link>
+              </a>
             </li>
           );
         })}
