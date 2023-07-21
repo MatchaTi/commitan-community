@@ -39,9 +39,9 @@ export default function Trending({ className, visibility }: ITrending) {
                 <div>
                   <ProfileImage size='md' />
                 </div>
-                <div className='overflow-hidden text-xs sm:text-sm'>
+                <div className='text-xs sm:text-sm'>
                   <h3 className='font-semibold'>{username}</h3>
-                  <p className='headings truncate font-semibold'>{content}</p>
+                  <p className='headings font-semibold'>{content}</p>
                   <span className='flex items-center gap-2'>
                     <FcLike /> {likes}
                   </span>
