@@ -1,4 +1,4 @@
-import type { UserUploadStore } from '@/interfaces/userPost';
+import type { UserUploadStore } from '@/interfaces/globalStore';
 import { create } from 'zustand';
 
 export const useUserUploadStore = create<UserUploadStore>((set) => ({
@@ -25,7 +25,6 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
       if (file) {
         if (file.size > 1048576) {
           set((state) => ({
-            ...state,
             imageMsg: 'Ukuran file terlalu besar. Maksimum 1MB!',
             imagePreview: '',
             inputUserUpload: { ...state.inputUserUpload, image: null },
@@ -34,7 +33,6 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
           reader.readAsDataURL(file);
           reader.onloadend = () => {
             set((state) => ({
-              ...state,
               imageMsg: '',
               imagePreview: reader.result as string,
               inputUserUpload: { ...state.inputUserUpload, image: file },
@@ -46,13 +44,11 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
 
     if (name === 'desc') {
       set((state) => ({
-        ...state,
         inputUserUpload: { ...state.inputUserUpload, [name]: value },
         heightValue: value,
       }));
     } else {
       set((state) => ({
-        ...state,
         inputUserUpload: { ...state.inputUserUpload, [name]: value },
       }));
     }

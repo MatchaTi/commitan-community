@@ -1,5 +1,5 @@
+import type { PostStore } from '@/interfaces/postsStore';
 import { create } from 'zustand';
-import type { PostStore } from '@/interfaces/userPost';
 
 export const useUserPostStore = create<PostStore>()((set) => ({
   posts: [],
