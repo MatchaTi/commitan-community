@@ -43,11 +43,7 @@ export default function OptionButton({
   );
 
   return (
-    <div
-      className={`${
-        context == 'speedDial' && 'hidden flex-col-reverse gap-4 group-hover:flex'
-      } flex items-center text-slate-400 dark:text-slate-300`}
-    >
+    <div className={`${context == 'speedDial' && 'hidden flex-col-reverse gap-4 group-hover:flex'} flex items-center`}>
       <div className='group relative'>
         <Button
           type='button'

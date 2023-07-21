@@ -13,7 +13,7 @@ export default function Navbar() {
           <div>
             <Image src={commitanLogo} alt='Commitan Logo' width={28} height={28} priority />
           </div>
-          <h1 className='font-bold sm:text-xl'>Commitan.</h1>
+          <h1 className='headings font-bold sm:text-xl'>Commitan.</h1>
         </a>
         {/* row 1 end*/}
         {/* row 2 start*/}

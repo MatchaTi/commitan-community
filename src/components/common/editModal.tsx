@@ -118,7 +118,7 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
             <div className='mb-2 flex items-center gap-4'>
               <ProfileImage />
               <div>
-                <h2 className='text-base font-semibold'>Kumala</h2>
+                <h2 className='headings text-base font-semibold'>Kumala</h2>
                 <select
                   name='category'
                   id='category'
@@ -141,7 +141,7 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
               id='title'
               value={inputUserEdit.title}
               onChange={onChangeHandler}
-              className='common-bg-secondary mb-2 w-full rounded-lg p-4 text-base font-semibold outline-none'
+              className='common-bg-secondary headings mb-2 w-full rounded-lg p-4 text-base font-semibold outline-none'
               maxLength={96}
               autoComplete='off'
               required
@@ -153,7 +153,7 @@ export default function EditModal({ post, showEditModal, handleEditModal }: IEdi
               onChange={onChangeHandler}
               ref={textareaRef}
               placeholder='Bagikan atau tanya sesuatu kepada lainnya!'
-              className='mb-2 max-h-96 w-full resize-none bg-transparent outline-none text-slate-400 dark:text-slate-300'
+              className='mb-2 max-h-96 w-full resize-none bg-transparent outline-none '
               autoComplete='off'
               maxLength={4000}
             ></textarea>

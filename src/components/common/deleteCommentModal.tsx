@@ -49,7 +49,7 @@ export default function DeleteCommentModal({
           toggleModal={handleDeleteCommentModal}
           width='sm'
         >
-          <h2 className='mb-10 text-base text-slate-400 dark:text-slate-300'>
+          <h2 className='mb-10 text-base'>
             Anda yakin ingin menghapus komentar ini? Tindakan ini akan menghapus komentar ini secara permanen dan tidak
             dapat dipulihkan.
           </h2>

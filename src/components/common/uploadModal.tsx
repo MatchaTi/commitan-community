@@ -120,7 +120,7 @@ export default function UploadModal() {
           <div className='mb-2 flex items-center gap-4'>
             <ProfileImage />
             <div>
-              <h2 className='text-base font-semibold'>Kumala</h2>
+              <h2 className='headings text-base font-semibold'>Kumala</h2>
               <select
                 name='category'
                 id='category'

@@ -108,9 +108,9 @@ export default function Post({ data, context, postId, editorContext }: PostProps
         {/* bottom content */}
         <div className='mt-2 max-w-full'>
           <div className='common-bg-secondary mb-4 rounded-lg p-2 sm:p-4'>
-            <h3 className='font-semibold sm:text-lg'>{data.title}</h3>
+            <h3 className='headings font-semibold sm:text-lg'>{data.title}</h3>
           </div>
-          <p className='text-slate-400 dark:text-slate-300'>{data.desc}</p>
+          <p>{data.desc}</p>
           {data.code && (
             <>
               {data.code.syntax && data.code.pathFile && (

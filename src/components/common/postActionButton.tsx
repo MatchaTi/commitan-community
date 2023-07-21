@@ -15,7 +15,7 @@ interface IPostAction {
 
 export default function PostActionButton({ postId, isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
   return (
-    <div className='mt-2 flex w-full items-center text-slate-400 dark:text-slate-300'>
+    <div className='mt-2 flex w-full items-center'>
       <div className='flex flex-1 items-center gap-1 sm:gap-4'>
         <div className='group relative'>
           <Button

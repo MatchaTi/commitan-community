@@ -50,7 +50,7 @@ export default function DeleteModal({ postId, context, showDeleteModal, handleDe
     <>
       {showDeleteModal && (
         <ModalWrapper showModal={showDeleteModal} title='Hapus Postingan' toggleModal={handleDeleteModal} width='sm'>
-          <h2 className='mb-10 text-base text-slate-400 dark:text-slate-300'>
+          <h2 className='mb-10 text-base'>
             Anda yakin ingin menghapus postingan ini? Tindakan ini akan menghapus postingan ini secara permanen dan
             tidak dapat dipulihkan.
           </h2>

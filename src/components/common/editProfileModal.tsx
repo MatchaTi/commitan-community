@@ -7,14 +7,6 @@ import ModalWrapper from './modalWrapper';
 import ProfileImage from './profileImage';
 import Spinner from './spinner';
 
-interface IEdit {
-  title: string;
-  desc: string;
-  category: string;
-  linkSourceCode: string;
-  linkLiveDemo: string;
-}
-
 interface IEditPost {
   showEditModal: boolean;
   handleEditProfileModal: () => void;
@@ -55,7 +47,7 @@ export default function EditProfileModal({ showEditModal, handleEditProfileModal
               <ProfileImage size='lg' />
               <div>
                 <h2 className='font-semibold'>Set Foto Profil</h2>
-                <p className='text-slate-400 dark:text-slate-300'>Unggah foto atau ganti foto profil</p>
+                <p>Unggah foto atau ganti foto profil</p>
               </div>
             </div>
             <label htmlFor='username' className='mb-2 block font-semibold'>
@@ -82,7 +74,7 @@ export default function EditProfileModal({ showEditModal, handleEditProfileModal
               onChange={onChangeHandler}
               ref={textareaRef}
               placeholder='Bio'
-              className='common-accent max-h-96 w-full resize-none rounded-lg border bg-transparent p-2.5 text-slate-400 outline-none dark:text-slate-300'
+              className='common-accent max-h-96 w-full resize-none rounded-lg border bg-transparent p-2.5 outline-none'
               autoComplete='off'
               maxLength={150}
             ></textarea>

@@ -31,13 +31,13 @@ export default function SecondaryNavbar() {
             <Image src={CommitanIcon} alt='Commitan Icon' width={28} height={28} />
           </div>
           <ul className='paragraphs flex flex-col items-start justify-center gap-4 xl:flex-1 xl:flex-row xl:items-center xl:gap-8'>
-            <li className='underline-offset-8 opacity-60 duration-150 ease-in-out hover:underline hover:opacity-100'>
+            <li className='underline-offset-8 duration-150 ease-in-out hover:text-light-headings hover:underline hover:dark:text-dark-headings'>
               <a href='/'>Beranda</a>
             </li>
             {infoItems.map(({ label, href }, i) => (
               <li
                 key={i}
-                className='underline-offset-8 opacity-60 duration-150 ease-in-out hover:underline hover:opacity-100'
+                className='underline-offset-8 duration-150 ease-in-out hover:text-light-headings hover:underline hover:dark:text-dark-headings'
               >
                 <a href={href}>{label}</a>
               </li>

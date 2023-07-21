@@ -60,7 +60,7 @@ export default function ModalWrapper({ title, width, children, showModal, toggle
                     width,
                   } as IWrapper)} common-bg w-full transform overflow-y-auto rounded-lg p-4 shadow-slate-400/25 transition-all`}
                 >
-                  <Dialog.Title as='h3' className='text-center text-base font-medium'>
+                  <Dialog.Title as='h3' className='headings text-center text-base font-medium'>
                     {title}
                   </Dialog.Title>
                   <div className='mt-2'>{children}</div>
