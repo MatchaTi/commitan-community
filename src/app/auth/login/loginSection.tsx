@@ -40,6 +40,7 @@ export default function LoginSection() {
       setIsLoading(false);
       router.push('/');
     } catch (error) {
+      setIsLoading(false);
       toast.error(`${error}`);
     }
   }
