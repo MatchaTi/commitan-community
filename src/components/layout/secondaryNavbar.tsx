@@ -2,6 +2,7 @@
 
 import { infoItems } from '@/utils/data';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useState } from 'react';
 import { CgClose } from 'react-icons/cg';
 import { FaBars } from 'react-icons/fa';
@@ -42,9 +43,10 @@ export default function SecondaryNavbar() {
             {infoItems.map(({ label, href }, i) => (
               <li
                 key={i}
+                onClick={() => setIsClicked(false)}
                 className='text-xl underline-offset-8 duration-150 ease-in-out hover:text-light-headings hover:underline hover:dark:text-dark-headings sm:text-base lg:text-sm'
               >
-                <a href={href}>{label}</a>
+                <Link href={href}>{label}</Link>
               </li>
             ))}
           </ul>
