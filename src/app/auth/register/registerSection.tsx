@@ -1,49 +1,100 @@
 'use client';
 
 import Button from '@/components/common/button';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useState } from 'react';
+import Spinner from '@/components/common/spinner';
+import { RegisterResponse } from '@/interfaces/auth';
+import { otpVerify, register } from '@/libs/auth';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
-import CommitanLogo from '../../../../public/images/commitan-logo.svg';
 
 interface UserInput {
   fullname: string;
   email: string;
   password: string;
+  otp_number: string;
+}
+
+interface Props {
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  email?: string;
+  isLoading: boolean;
 }
 
 export default function RegisterSection() {
-  const [isShow, setIsShow] = useState(false);
   const [userInput, setUserInput] = useState<UserInput>({
     fullname: '',
     email: '',
     password: '',
+    otp_number: '',
   });
-
-  function handleShowHide() {
-    setIsShow(!isShow);
-  }
+  const [isVerify, setIsVerify] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     const { name, value } = e.target;
     setUserInput({ ...userInput, [name]: value });
   }
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmitRegis(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.table(userInput);
+    setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
+    try {
+      const res: RegisterResponse = await register({ ...userInput });
+      if (res.error) throw res.error[0].msg;
+      if (res.status) if (res.status >= 400) throw new Error(res.message);
+      setIsVerify(true);
+      setIsLoading(false);
+      toast.success(`${res.message}`);
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(`${error}`);
+    }
+  }
+
+  async function handleSubmitOtp(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsLoading(true);
+    await new Promise((r) => setTimeout(r, 3000));
+    try {
+      const res = await otpVerify({ ...userInput });
+      if (res.error) throw res.error[0].msg;
+      if (res.status) if (res.status >= 400) throw new Error(res.message);
+      toast.success(`${res.message}`);
+      router.push('/');
+    } catch (error) {
+      setIsLoading(false);
+      toast.error(`${error}`);
+    }
   }
 
   return (
-    <div className='common-bg flex w-full max-w-fit flex-col items-center rounded-lg p-10'>
-      <Link href={'/'} className='mb-20 flex items-center gap-2'>
-        <div className='h-7 w-7'>
-          <Image src={CommitanLogo} className='w-full' alt='Commitan Logo' />
-        </div>
-        <h1 className='text-xl font-bold'>Commitan.</h1>
-      </Link>
-      <h2 className='mb-10 text-xl font-semibold'>Selamat datang di Commitan</h2>
+    <>
+      {isVerify ? (
+        <UserVerify
+          email={userInput.email}
+          handleSubmit={handleSubmitOtp}
+          onChangeHandler={onChangeHandler}
+          isLoading={isLoading}
+        />
+      ) : (
+        <UserRegister handleSubmit={handleSubmitRegis} onChangeHandler={onChangeHandler} isLoading={isLoading} />
+      )}
+    </>
+  );
+}
+
+function UserRegister({ handleSubmit, onChangeHandler, isLoading }: Props) {
+  const [isShow, setIsShow] = useState(false);
+
+  const handleShowHide = () => setIsShow(!isShow);
+
+  return (
+    <>
       <form onSubmit={handleSubmit} className='mb-8 w-full'>
         <div className='relative mb-8 w-full'>
           <input
@@ -59,7 +110,7 @@ export default function RegisterSection() {
           />
           <label
             htmlFor='fullname'
-            className='common-bg absolute -top-2.5 left-4 cursor-text text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
+            className='common-bg absolute -top-2.5 left-4 -translate-x-2 cursor-text border-none px-2 text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
           >
             Fullname
           </label>
@@ -77,7 +128,7 @@ export default function RegisterSection() {
           />
           <label
             htmlFor='email'
-            className='common-bg absolute -top-2.5 left-4 cursor-text text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
+            className='common-bg absolute -top-2.5 left-4 -translate-x-2 cursor-text border-none px-2 text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
           >
             Email
           </label>
@@ -95,7 +146,7 @@ export default function RegisterSection() {
           />
           <label
             htmlFor='password'
-            className='common-bg absolute -top-2.5 left-4 cursor-text text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
+            className='common-bg absolute -top-2.5 left-4 -translate-x-2 cursor-text border-none px-2 text-xs shadow-none duration-300 ease-in-out peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm peer-placeholder-shown:opacity-30 peer-focus:-top-2.5 peer-focus:text-xs peer-focus:opacity-100'
           >
             Kata sandi
           </label>
@@ -103,16 +154,58 @@ export default function RegisterSection() {
             {isShow ? <AiFillEyeInvisible /> : <AiFillEye />}
           </button>
         </div>
-        <Button type='submit' corner='full' fullField={true}>
-          Register
+        <Button type='submit' corner='full' fullField color={isLoading ? 'loading' : 'primary'} disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Spinner size='sm' width='light' />
+              <span>Loading...</span>
+            </>
+          ) : (
+            'Kirim'
+          )}
         </Button>
       </form>
-      <div>
+      <div className='mt-4'>
         <span>Sudah punya akun? </span>
         <span className='text-commitan-main underline'>
-          <Link href={'/auth/login'}>Login</Link>
+          <a href={'/auth/login'}>Login</a>
         </span>
       </div>
-    </div>
+    </>
+  );
+}
+
+function UserVerify({ handleSubmit, onChangeHandler, email, isLoading }: Props) {
+  return (
+    <>
+      <div className='foemdi mb-4 text-slate-400 dark:text-slate-300'>
+        Kami sudah mengirim kode OTP ke email Anda: <span className='font-medium text-white'>{email}</span>
+      </div>
+      <form onSubmit={handleSubmit} className='w-full'>
+        <div className='w-full'>
+          <input
+            type='text'
+            className='mb-4 w-full scale-150 bg-transparent text-center tracking-[16px] outline-none placeholder:scale-75 placeholder:tracking-normal'
+            max={6}
+            name='otp_number'
+            autoComplete='off'
+            onChange={onChangeHandler}
+            maxLength={6}
+            autoFocus
+            placeholder='Masukkan 6 digit kode OTP'
+          />
+        </div>
+        <Button type='submit' corner='full' fullField color={isLoading ? 'loading' : 'primary'} disabled={isLoading}>
+          {isLoading ? (
+            <>
+              <Spinner size='sm' width='light' />
+              <span>Loading...</span>
+            </>
+          ) : (
+            'Kirim'
+          )}
+        </Button>
+      </form>
+    </>
   );
 }
