@@ -2,8 +2,10 @@
 
 import Button from '@/components/common/button';
 import Spinner from '@/components/common/spinner';
-import { RegisterResponse } from '@/interfaces/auth';
+import { RegisterResponse, VerifyResponse } from '@/interfaces/auth';
 import { otpVerify, register } from '@/libs/auth';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { toast } from 'react-hot-toast';
@@ -19,6 +21,7 @@ interface UserInput {
 interface Props {
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  sendOtp?: () => void;
   email?: string;
   isLoading: boolean;
 }
@@ -56,14 +59,22 @@ export default function RegisterSection() {
     }
   }
 
+  async function sendOtp() {
+    setIsLoading(true);
+    const res = await axios.post(`${process.env.API_URL}/auth/send-otp`, { email: userInput.email });
+    toast.success(res.data.message);
+    setIsLoading(false);
+  }
+
   async function handleSubmitOtp(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
     await new Promise((r) => setTimeout(r, 3000));
     try {
-      const res = await otpVerify({ ...userInput });
+      const res: VerifyResponse = await otpVerify({ ...userInput });
       if (res.error) throw res.error[0].msg;
       if (res.status) if (res.status >= 400) throw new Error(res.message);
+      if (res.token) Cookies.set('token', res.token, { secure: true, expires: 30 });
       toast.success(`${res.message}`);
       router.push('/');
     } catch (error) {
@@ -79,6 +90,7 @@ export default function RegisterSection() {
           email={userInput.email}
           handleSubmit={handleSubmitOtp}
           onChangeHandler={onChangeHandler}
+          sendOtp={sendOtp}
           isLoading={isLoading}
         />
       ) : (
@@ -175,13 +187,13 @@ function UserRegister({ handleSubmit, onChangeHandler, isLoading }: Props) {
   );
 }
 
-function UserVerify({ handleSubmit, onChangeHandler, email, isLoading }: Props) {
+function UserVerify({ handleSubmit, onChangeHandler, email, isLoading, sendOtp }: Props) {
   return (
     <>
       <div className='foemdi mb-4 text-slate-400 dark:text-slate-300'>
         Kami sudah mengirim kode OTP ke email Anda: <span className='font-medium text-white'>{email}</span>
       </div>
-      <form onSubmit={handleSubmit} className='w-full'>
+      <form onSubmit={handleSubmit} className='mb-8 w-full'>
         <div className='w-full'>
           <input
             type='text'
@@ -206,6 +218,11 @@ function UserVerify({ handleSubmit, onChangeHandler, email, isLoading }: Props) 
           )}
         </Button>
       </form>
+      <div>
+        <Button type='button' color='transparent' size='none' onClick={sendOtp} disabled={isLoading}>
+          Kirim ulang kode OTP
+        </Button>
+      </div>
     </>
   );
 }
