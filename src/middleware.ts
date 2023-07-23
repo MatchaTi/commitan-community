@@ -13,5 +13,9 @@ export function middleware(request: NextRequest) {
     if (token) return NextResponse.redirect(new URL(request.nextUrl.host));
   }
 
+  if (request.nextUrl.pathname.startsWith('/rekomendasi')) {
+    if (!token) return NextResponse.redirect(new URL('/auth/login', request.url));
+  }
+
   return response;
 }
