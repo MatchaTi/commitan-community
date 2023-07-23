@@ -19,7 +19,7 @@ export default async function About() {
       </div>
       <div className='mx-auto mt-10 w-full xl:w-4/6'>
         <div className='flex w-full flex-wrap items-center justify-center gap-4 sm:gap-0'>
-          <div className='rounded-full bg-light-headings p-3 duration-300 ease-in-out hover:bg-light-text dark:bg-dark-main hover:dark:bg-dark-secondary'>
+          <div className='rounded-full bg-light-headings/5 p-3 duration-300 ease-in-out hover:bg-light-text/10 dark:bg-dark-main hover:dark:bg-dark-secondary'>
             <div className='h-24 w-24 overflow-hidden rounded-full sm:h-32 sm:w-32'>
               <Image
                 src={adi.avatar_url}
@@ -31,10 +31,10 @@ export default async function About() {
               />
             </div>
           </div>
-          <div className='relative hidden w-40 border-b-4 border-light-headings dark:border-dark-main sm:block'>
-            <div className='absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1.5 rounded-full bg-light-headings dark:bg-dark-main'></div>
+          <div className='relative hidden w-40 border-b-4 border-light-headings/5 dark:border-dark-main sm:block'>
+            <div className='absolute left-1/2 top-0 h-4 w-4 -translate-x-1/2 -translate-y-1.5 rounded-full bg-[#E8ECF0] dark:bg-dark-main'></div>
           </div>
-          <div className='rounded-full bg-light-headings p-3 duration-300 ease-in-out hover:bg-light-text dark:bg-dark-main hover:dark:bg-dark-secondary'>
+          <div className='rounded-full bg-light-headings/5 p-3 duration-300 ease-in-out hover:bg-light-text/10 dark:bg-dark-main hover:dark:bg-dark-secondary'>
             <div className='h-24 w-24 overflow-hidden rounded-full sm:h-32 sm:w-32'>
               <Image
                 src={dipa.avatar_url}
