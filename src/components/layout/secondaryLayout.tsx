@@ -5,7 +5,9 @@ export default function SecondaryLayout({ children }: { children: React.ReactNod
   return (
     <>
       <SecondaryNavbar />
-      <section className='mx-auto w-full max-w-[1440px] px-4 pb-10 pt-16 xl:px-20 2xl:px-0'>{children}</section>
+      <section className='mx-auto w-full max-w-[1440px] px-4 pb-10 pt-16 text-base xl:px-20 2xl:px-0'>
+        {children}
+      </section>
       <Footer />
     </>
   );
