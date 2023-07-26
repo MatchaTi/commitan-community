@@ -3,6 +3,7 @@ import commitanLogo from '../../../public/images/commitan-logo.svg';
 import DarkModeBtn from '../common/darkModeBtn';
 import Notification from '../common/notification';
 import ProfileMenu from '../common/profileMenu';
+import SearchModal from '../common/searchModal';
 
 export default function Navbar() {
   return (
@@ -17,7 +18,7 @@ export default function Navbar() {
         </a>
         {/* row 1 end*/}
         {/* row 2 start*/}
-        <button className='common-bg rounded-lg px-4 py-2 text-left sm:col-span-3 sm:py-3'>Pencarian...</button>
+        <SearchModal />
         {/* row 2 end*/}
         {/* row 3 start*/}
         <div className='flex items-center justify-between gap-4 pl-4 sm:hidden xl:flex xl:gap-2'>
