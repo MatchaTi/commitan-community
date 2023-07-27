@@ -7,15 +7,21 @@ interface IWidth {
   lg: string;
 }
 
+interface IPosition {
+  top: string;
+  mid: string;
+}
+
 type IWrapper = {
   title: string;
   width?: keyof IWidth;
+  position?: keyof IPosition;
   children: React.ReactNode;
   showModal: boolean;
   toggleModal: () => void;
 };
 
-const modalWidth = ({ width }: IWrapper) => {
+const modalWidth = ({ width, position }: IWrapper) => {
   const variants = {
     width: {
       sm: 'max-w-[350px]',
@@ -27,7 +33,17 @@ const modalWidth = ({ width }: IWrapper) => {
   return variants.width[width || 'lg'];
 };
 
-export default function ModalWrapper({ title, width, children, showModal, toggleModal }: IWrapper) {
+const modalPosition = ({ position }: IWrapper) => {
+  const variants = {
+    postion: {
+      top: 'top-20',
+      mid: 'top-1/2 -translate-y-1/3',
+    },
+  };
+
+  return variants.postion[position || 'top'];
+};
+export default function ModalWrapper({ title, width, position, children, showModal, toggleModal }: IWrapper) {
   return (
     <>
       <Transition appear show={showModal} as={Fragment}>
@@ -44,7 +60,7 @@ export default function ModalWrapper({ title, width, children, showModal, toggle
             {/* backdrop */}
             <div className='fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm' />
           </Transition.Child>
-          <div className='fixed inset-0 top-20 overflow-y-auto px-4'>
+          <div className={`${modalPosition({ position } as IWrapper)} fixed inset-0 overflow-y-auto px-4`}>
             <div className='flex min-h-full items-start justify-center'>
               <Transition.Child
                 as={Fragment}
