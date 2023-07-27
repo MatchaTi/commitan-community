@@ -10,7 +10,7 @@ export default function Following({ className, visibility }: IFollowing) {
   const persons = ['Kumala', 'YJJA', 'Anjayani'];
 
   return (
-    <section className={`${visibility} ${className} common-bg mt-4 w-full rounded-lg py-4`}>
+    <section className={`${visibility} ${className} common-bg w-full rounded-lg py-4`}>
       <h4 className='mb-4 px-4 text-base font-bold text-commitan-main'>Following</h4>
       <ul>
         {persons.map((person, index) => {

@@ -7,7 +7,7 @@ interface IInfo {
 
 export default function Information({ className, visibility }: IInfo) {
   return (
-    <section className={`${className} ${visibility} mb-10 mt-4 pb-10`}>
+    <section className={`${className} ${visibility} mb-10 pb-10`}>
       <ul className='flex flex-wrap gap-4'>
         {infoItems.map(({ href, label }, index) => {
           return (

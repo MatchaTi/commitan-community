@@ -26,7 +26,7 @@ const posts = [
 
 export default function Trending({ className, visibility }: ITrending) {
   return (
-    <section className={`${visibility} ${className} common-bg mt-4 w-full rounded-lg pt-4`}>
+    <section className={`${visibility} ${className} common-bg w-full rounded-lg pt-4`}>
       <h4 className='mb-4 px-4 text-base font-bold text-commitan-main'>Trending</h4>
       <ul>
         {posts.map(({ username, content, likes }, index) => {
