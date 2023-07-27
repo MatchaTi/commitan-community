@@ -49,10 +49,7 @@ export default async function About() {
         </div>
       </div>
       <div className='relative mt-10 text-base'>
-        {/* <div className='bg-base absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2 border-none px-4'>
-          Commitan.
-        </div> */}
-        <div className='common-accent mx-auto w-full space-y-6 rounded-lg p-8 xl:w-4/6'>
+        <div className='mx-auto w-full space-y-6 rounded-lg xl:w-4/6'>
           <p>
             Selamat datang di Commitan! Commitan hadir sebagai tempat yang menginspirasi bagi para developer untuk
             berkolaborasi dan tumbuh bersama. Bersama-sama, kita akan menjelajahi berbagai topik teknologi terbaru,
