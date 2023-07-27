@@ -27,13 +27,13 @@ export default function Notification() {
             leaveFrom='opacity-100 translate-y-0'
             leaveTo='opacity-0 translate-y-1'
           >
-            <Popover.Panel className='fixed right-0 top-20 z-20 w-full px-4 sm:left-12 sm:top-96 sm:w-96 xl:left-auto xl:right-16 xl:top-[72px] 2xl:-right-4'>
-              <div className='rounded-lg bg-light-main p-4 shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none'>
-                <h3 className='pb-2 font-bold'>Notifikasi</h3>
+            <div className='fixed left-0 top-16 z-10 grid w-full grid-cols-12 items-center gap-4 px-4 py-4 lg:px-0'>
+              <Popover.Panel className='col-span-12 rounded-lg bg-light-main py-4 shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:col-start-8 lg:col-span-3 lg:col-start-9'>
+                <h3 className='px-4 pb-2 font-bold'>Notifikasi</h3>
                 <div className='max-h-96 w-full divide-y divide-dark-accent/10 overflow-y-auto dark:divide-light-accent/5'>
                   {notif.map((item) => (
                     <Fragment key={item}>
-                      <div className='flex w-full items-center gap-4 py-4'>
+                      <div className='flex w-full items-center gap-4 px-4 py-4 duration-150 ease-in-out hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5'>
                         {/* profile picture user */}
                         <div>
                           <ProfileImage size='sm' />
@@ -47,9 +47,9 @@ export default function Notification() {
                     </Fragment>
                   ))}
                 </div>
-                <div className='pt-2'>{notif.length} Notifikasi</div>
-              </div>
-            </Popover.Panel>
+                <div className='px-4 pt-2'>{notif.length} Notifikasi</div>
+              </Popover.Panel>
+            </div>
           </Transition>
         </>
       </Popover>
