@@ -7,9 +7,15 @@ import Button from './button';
 
 interface IProps {
   visibility?: string;
+  context?: keyof DarkContext;
 }
 
-export default function DarkModeBtn({ visibility }: IProps) {
+interface DarkContext {
+  sidebar: string;
+  navbar: string;
+}
+
+export default function DarkModeBtn({ visibility, context }: IProps) {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
@@ -26,11 +32,12 @@ export default function DarkModeBtn({ visibility }: IProps) {
       <Button
         type='button'
         size='none'
-        color='common'
-        corner='full'
+        color={context === 'sidebar' ? 'primary' : 'common'}
+        corner={context === 'sidebar' ? 'md' : 'full'}
         className='inline-flex h-8 w-8 items-center justify-center'
         visibility={visibility}
         onClick={() => setTheme(theme == 'light' ? 'dark' : 'light')}
+        fullField={context === 'sidebar'}
       >
         {theme == 'light' ? <BsFillMoonFill /> : <BsFillSunFill />}
       </Button>
