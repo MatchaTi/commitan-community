@@ -1,21 +1,16 @@
 'use client';
 
 import { Menu, Transition } from '@headlessui/react';
-import { usePathname } from 'next/navigation';
 import { BiLogOut, BiUser } from 'react-icons/bi';
-import { FiSettings } from 'react-icons/fi';
 import ProfileImage from './profileImage';
 
 export default function ProfileMenu() {
-  const pathName = usePathname();
-  const username = pathName.split('/');
-
   return (
-    <Menu as='div' className={'relative z-50 translate-y-1'}>
+    <Menu as='div' className={'relative z-50 translate-y-0.5'}>
       <Menu.Button>
         <div className='flex items-center gap-4'>
-          <ProfileImage src={''} size='sm' username={username[2]} />
-          <h2 className='hidden font-bold capitalize xl:block'>{username[2]}</h2>
+          <ProfileImage src={''} size='sm' username={''} />
+          <h2 className='headings hidden font-bold capitalize sm:block'>AdiIfai</h2>
         </div>
       </Menu.Button>
       <Transition
@@ -28,25 +23,13 @@ export default function ProfileMenu() {
       >
         <Menu.Items
           className={
-            'absolute right-0 top-2 flex w-52 flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent outline-none dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none xl:left-0'
+            'absolute right-0 top-2 flex w-52 flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent outline-none dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:left-0'
           }
         >
           <Menu.Item>
             {({ active }) => (
-              <div className={`${active && 'bg-commitan-main text-white'} flex cursor-pointer items-center gap-2 p-3`}>
-                <div>
-                  <ProfileImage size='md' username={username[2]} />
-                </div>
-                <div>
-                  <h3 className='font-semibold capitalize'>{username[2]}</h3>
-                  <span className='text-xs'>@{username[2]}6996</span>
-                </div>
-              </div>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <div
+              <a
+                // href={}
                 className={`${
                   active && 'bg-commitan-main text-white'
                 } flex cursor-pointer items-center gap-2 p-3 font-medium`}
@@ -55,26 +38,14 @@ export default function ProfileMenu() {
                   <BiUser />
                 </span>
                 <span>Profil</span>
-              </div>
+              </a>
             )}
           </Menu.Item>
           <Menu.Item>
             {({ active }) => (
-              <div
-                className={`${
-                  active && 'bg-commitan-main text-white'
-                } flex cursor-pointer items-center gap-2 p-3 font-medium`}
-              >
-                <span className='text-xl'>
-                  <FiSettings />
-                </span>
-                <span>Pengaturan</span>
-              </div>
-            )}
-          </Menu.Item>
-          <Menu.Item>
-            {({ active }) => (
-              <div
+              <button
+                type='button'
+                // onClick={logout}
                 className={`${
                   active && 'bg-red-400 text-white'
                 } flex cursor-pointer items-center gap-2 p-3 font-medium text-red-400`}
@@ -83,7 +54,7 @@ export default function ProfileMenu() {
                   <BiLogOut />
                 </span>
                 <span>Log Out</span>
-              </div>
+              </button>
             )}
           </Menu.Item>
         </Menu.Items>
