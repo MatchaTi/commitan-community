@@ -24,10 +24,6 @@ export const infoItems: InfoItem[] = [
     label: 'Tentang Kami',
   },
   {
-    href: 'kontak',
-    label: 'Kontak',
-  },
-  {
     href: 'peraturan',
     label: 'Peraturan',
   },
@@ -69,7 +65,7 @@ export const disclosureItems: DisclosureItem[] = [
     desc: 'Berikan penjelasan singkat atau komentar yang jelas pada kode yang Anda bagikan, agar pengguna lain dapat memahami fungsionalitas dan tujuan dari kode tersebut.',
   },
   {
-    title: 'Source Code Aman dan Bebas Bug',
+    title: 'Source Code Aman',
     desc: 'Pastikan kode yang Anda bagikan tidak mengandung kerentanan keamanan atau bug yang dapat menyebabkan masalah di aplikasi pengguna lain.',
   },
   {
