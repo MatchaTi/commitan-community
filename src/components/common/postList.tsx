@@ -24,8 +24,8 @@ export default function PostList() {
   }, [data, addPost]);
 
   return (
-    <section className='max-w-full'>
-      <Toaster position='top-right' toastOptions={{ duration: 5000 }} />
+    <section className='w-full max-w-full sm:col-span-7 sm:col-start-2 lg:col-span-6 lg:col-start-4'>
+      <Toaster toastOptions={{ duration: 5000 }} />
       {error && <p className='py-4 text-center text-base font-semibold'>Mohon maaf, terjadi error ...</p>}
       {isLoading && <PostSkeleton />}
       {data && (
