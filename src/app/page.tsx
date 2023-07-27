@@ -3,14 +3,15 @@ import UploadModal from '@/components/common/uploadModal';
 import Category from '@/components/layout/category';
 import Following from '@/components/layout/following';
 import Information from '@/components/layout/information';
+import MainLayout from '@/components/layout/mainLayout';
 import Navbar from '@/components/layout/navbar';
 import Sidebar from '@/components/layout/sidebar';
 import Trending from '@/components/layout/trending';
 
 export default function Home() {
   return (
-    <div className='min-h-[4000px]'>
-      <main className='grid gap-4 px-4 pb-10 sm:grid-cols-12 lg:px-0'>
+    <div className='min-h-[2000px]'>
+      <MainLayout>
         <Navbar />
         <Sidebar />
         <UploadModal />
@@ -23,7 +24,7 @@ export default function Home() {
           </div>
         </aside>
         <PostList />
-      </main>
+      </MainLayout>
     </div>
   );
 }
