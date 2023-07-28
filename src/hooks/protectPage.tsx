@@ -18,14 +18,23 @@ export function useAuthVerify(): boolean {
 
     async function fetchAuthResult() {
       const token = Cookies.get('token');
-      const payload: any = token && (await verifyToken(token));
 
-      const result: IAuthVerify = {
-        isAuthenticated: !payload.error,
-      };
+      if (token) {
+        try {
+          const payload: any = await verifyToken(token);
 
-      if (isMounted) {
-        setAuthResult(result);
+          const result: IAuthVerify = {
+            isAuthenticated: !payload.error,
+          };
+
+          if (isMounted) {
+            setAuthResult(result);
+          }
+        } catch (error) {
+          if (isMounted) {
+            setAuthResult({ isAuthenticated: false });
+          }
+        }
       }
     }
 
