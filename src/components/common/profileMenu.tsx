@@ -1,10 +1,30 @@
 'use client';
 
+import { useAuthVerify } from '@/hooks/protectPage';
 import { Menu, Transition } from '@headlessui/react';
+import Cookies from 'js-cookie';
 import { BiLogOut, BiUser } from 'react-icons/bi';
+import Button from './button';
 import ProfileImage from './profileImage';
 
 export default function ProfileMenu() {
+  const verified = useAuthVerify();
+
+  function logout() {
+    Cookies.remove('token');
+    window.location.reload();
+  }
+
+  if (!verified) {
+    return (
+      <div>
+        <a href='/auth/login'>
+          <Button type='button'>Login</Button>
+        </a>
+      </div>
+    );
+  }
+
   return (
     <Menu as='div' className={'relative z-50 translate-y-0.5'}>
       <Menu.Button>
@@ -45,7 +65,7 @@ export default function ProfileMenu() {
             {({ active }) => (
               <button
                 type='button'
-                // onClick={logout}
+                onClick={logout}
                 className={`${
                   active && 'bg-red-400 text-white'
                 } flex cursor-pointer items-center gap-2 p-3 font-medium text-red-400`}
