@@ -15,7 +15,7 @@ export default function ProfileMenu() {
     window.location.reload();
   }
 
-  if (!verified) {
+  if (verified) {
     return (
       <div>
         <a href='/auth/login'>
@@ -43,7 +43,7 @@ export default function ProfileMenu() {
       >
         <Menu.Items
           className={
-            'absolute right-0 top-2 flex w-52 flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent outline-none dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:left-0'
+            'absolute right-0 top-2 flex w-40 flex-col divide-y divide-dark-accent/10 overflow-hidden rounded bg-light-main shadow-lg shadow-light-accent outline-none dark:divide-light-accent/5 dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none xl:left-0'
           }
         >
           <Menu.Item>
