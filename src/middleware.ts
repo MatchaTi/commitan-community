@@ -14,10 +14,6 @@ export async function middleware(request: NextRequest) {
 
   if (request.nextUrl.pathname.startsWith('/auth') && !verifiedToken) return;
 
-  if (request.url.includes('/profil') && !verifiedToken) {
-    return NextResponse.redirect(new URL('/auth/login', request.nextUrl.origin));
-  }
-
   if (request.url.includes('/auth') && verifiedToken) {
     return NextResponse.redirect(new URL(request.nextUrl.origin));
   }
@@ -30,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/auth/:path*', '/profil/:path*', '/rekomendasi', '/tersimpan/:path*'],
+  matcher: ['/auth/:path*', '/rekomendasi'],
 };
