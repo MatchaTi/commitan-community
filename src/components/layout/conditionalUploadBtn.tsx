@@ -15,16 +15,13 @@ export default function ConditionalUploadBtn({ handleModal, toggleCodeEditor }: 
 
   if (!verified)
     return (
-      <section className='common-bg mt-20 w-full space-y-2 rounded-lg p-4 text-center sm:col-span-7 sm:col-start-2 lg:col-span-6 lg:col-start-4'>
+      <section className='common-bg relative z-10 mt-20 w-full space-y-2 rounded-lg p-4 text-center'>
         <UnAuthorizedBtn />
       </section>
     );
 
   return (
-    <section
-      onClick={handleModal}
-      className='common-bg relative z-10 mt-20 w-full rounded-lg p-4 sm:col-span-7 sm:col-start-2 lg:col-span-6 lg:col-start-4'
-    >
+    <section onClick={handleModal} className='common-bg relative z-10 mt-20 w-full rounded-lg p-4'>
       <AuthorizedBtn toggleCodeEditor={toggleCodeEditor} />
     </section>
   );
