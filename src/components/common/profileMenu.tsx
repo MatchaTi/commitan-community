@@ -15,7 +15,7 @@ export default function ProfileMenu() {
     window.location.reload();
   }
 
-  if (verified) {
+  if (!verified) {
     return (
       <div>
         <a href='/auth/login'>
