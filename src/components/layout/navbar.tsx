@@ -5,11 +5,11 @@ import SearchModal from '../common/searchModal';
 
 export default function Navbar() {
   return (
-    <nav className='fixed left-0 top-0 z-50 grid w-full grid-cols-12 items-center gap-4 px-4 py-4 backdrop-blur-sm lg:px-0'>
-      <div className='col-span-7 sm:col-start-2 lg:col-span-6 lg:col-start-4'>
+    <nav className='fixed left-0 top-0 z-50 grid w-full grid-cols-11 items-center gap-4 px-4 py-4 backdrop-blur-sm xl:px-0 xl:pl-[3.35rem]'>
+      <div className='col-span-7 sm:col-start-2 xl:col-span-5 xl:col-start-3'>
         <SearchModal />
       </div>
-      <div className='col-span-5 flex items-center justify-between sm:col-span-4 lg:col-span-2'>
+      <div className='col-span-4 flex items-center justify-between sm:col-span-3 xl:col-span-2'>
         <ProfileMenu />
         <DarkModeBtn visibility='sm:hidden' />
         <Notification />
