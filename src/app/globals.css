@@ -30,6 +30,10 @@
   .common-accent {
     @apply border-dark-accent/10 dark:border-light-accent/5;
   }
+
+  .text-balance {
+    text-wrap: balance;
+  }
 }
 
 /* ===== Scrollbar CSS ===== */
