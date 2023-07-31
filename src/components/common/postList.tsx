@@ -9,15 +9,23 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import { shallow } from 'zustand/shallow';
 import PostSkeleton from '../skeleton/postSkeleton';
 import Post from './post';
+import axios from 'axios';
 
 export default function PostList() {
   const [posts, addPost] = useUserPostStore((state) => [state.posts, state.addPost], shallow);
   const { data, isReachingEnd, isLoading, error, mutate, size, setSize } = usePagination<UserPost>(
-    `${process.env.API_URL}/posts`
+    `${process.env.API_URL}/post/index`
   );
 
   useEffect(() => {
+    // const res = async () => {
+    //   const response = await axios.get(`${process.env.API_URL}/post/index/0/5`);
+    //   console.log(response.data);
+    // };
+    // res();
+
     if (data) {
+      console.log(data);
       const newPosts = data.flat();
       addPost(newPosts);
     }

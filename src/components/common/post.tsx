@@ -14,6 +14,7 @@ import EditModal from './editModal';
 import PostActionButton from './postActionButton';
 import PostControl from './postControl';
 import ProfileImage from './profileImage';
+import Image from 'next/image';
 
 interface EditorContext {
   upload: string;
@@ -74,11 +75,11 @@ export default function Post({ data, context, postId, editorContext }: PostProps
               </div>
               <div className='text-xs sm:text-sm'>
                 <div className='flex items-center gap-1'>
-                  <h2 className='font-semibold'>{data.username}</h2>
+                  <h2 className='font-semibold'>{data.users.username}</h2>
                   <GoPrimitiveDot />
                   <time>{timeAgo(data.createdAt)}</time>
                 </div>
-                <Badge>{data.badge}</Badge>
+                <Badge>{data.users.job}</Badge>
               </div>
             </div>
           </div>
@@ -110,7 +111,18 @@ export default function Post({ data, context, postId, editorContext }: PostProps
           <div className='common-bg-secondary mb-4 rounded-lg p-2 sm:p-4'>
             <h3 className='headings font-semibold sm:text-lg'>{data.title}</h3>
           </div>
-          <p>{data.desc}</p>
+          <p>{data.description}</p>
+          {data.image && (
+            <div className='my-4'>
+              <Image
+                src={`${process.env.API_URL}${data.image}`}
+                alt='gambar'
+                width={200}
+                height={200}
+                className='mx-auto'
+              />
+            </div>
+          )}
           {data.code && (
             <>
               {data.code.syntax && data.code.pathFile && (
@@ -122,9 +134,9 @@ export default function Post({ data, context, postId, editorContext }: PostProps
             postId={postId}
             isCommentOpen={isCommentOpen}
             toggleCommentSection={toggleCommentSection}
-            lengthComment={data.comments.length}
+            lengthComment={data.comment.length}
           />
-          {isCommentOpen && <CommentSection postId={postId} comments={data.comments} />}
+          {isCommentOpen && <CommentSection postId={postId} comments={data.comment} />}
           {editModal && <EditModal post={data} showEditModal={editModal} handleEditModal={handleEditModal} />}
           {deleteModal && (
             <DeleteModal

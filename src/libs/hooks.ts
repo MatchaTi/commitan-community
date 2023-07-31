@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useSWRInfinite from 'swr/infinite';
 
-const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+const fetcher = (url: string) => axios.get(url).then((res) => res.data.data);
 const PAGE_SIZE = 2;
 
 export function usePagination<T>(url: string) {

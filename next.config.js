@@ -5,7 +5,7 @@ const nextConfig = {
     JWT_SECRET: process.env.JWT_SECRET,
   },
   images: {
-    domains: ['ui-avatars.com', 'avatars.githubusercontent.com'],
+    domains: ['ui-avatars.com', 'avatars.githubusercontent.com', 'localhost'],
   },
 };
 

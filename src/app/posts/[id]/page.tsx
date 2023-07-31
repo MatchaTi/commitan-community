@@ -3,9 +3,14 @@ import axios from 'axios';
 import { cache } from 'react';
 import DetailSection from './detailSection';
 
+interface PostData {
+  data: UserPost;
+}
+
 const getData = cache(async (param: string) => {
-  const res = await axios.get<UserPost>(`${process.env.API_URL}/posts/${param}`);
-  return res.data;
+  const res = await axios.get<PostData>(`${process.env.API_URL}/post/index/${param}`);
+
+  return res.data.data;
 });
 
 export default async function DetailPost({ params }: { params: { id: string } }) {
