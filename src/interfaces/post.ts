@@ -1,30 +1,36 @@
+import { IUser } from './user';
+
 export interface Code {
   syntax: string;
   pathFile: string;
 }
 
-export interface Comment {
+export interface IComment {
   _id: string;
-  username: string;
-  createdAt: string;
-  postId: string;
-  text: string;
+  post_id: string;
+  user_id: string;
+  users: IUser;
+  description: string;
+  isEdited: boolean;
+  created_at: string;
   code?: Code;
 }
 
 export interface UserPost {
   _id: string;
-  username: string;
+  user_id: string;
+  users: IUser;
   title: string;
-  desc?: string;
-  createdAt: string;
-  badge: string;
-  like: number;
   category: string;
-  linkSourceCode?: string;
-  linkLiveDemo?: string;
+  description: string;
   code?: Code;
-  comments: Comment[];
+  image: string;
+  isEdited: boolean;
+  likes: number;
+  linkSourceCode: string;
+  linkLiveDemo: string;
+  comment: Array<IComment>;
+  createdAt: string;
 }
 
 export interface PostComment {
