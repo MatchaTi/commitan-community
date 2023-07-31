@@ -33,7 +33,7 @@ export const useUserPostStore = create<PostStore>()((set) => ({
         if (post._id === postId) {
           return {
             ...post,
-            comments: [...post.comments, newComment],
+            comments: [...post.comment, newComment],
           };
         }
         return post;
@@ -47,7 +47,7 @@ export const useUserPostStore = create<PostStore>()((set) => ({
     set((state) => {
       const updatedPosts = state.posts.map((post) => {
         if (post._id === postId) {
-          const updatedComments = post.comments.map((comment) => {
+          const updatedComments = post.comment.map((comment) => {
             if (comment._id === commentId) {
               return {
                 ...comment,
@@ -72,7 +72,7 @@ export const useUserPostStore = create<PostStore>()((set) => ({
     set((state) => {
       const updatedPosts = state.posts.map((post) => {
         if (post._id === postId) {
-          const updatedComments = post.comments.filter((comment) => comment._id !== commentId);
+          const updatedComments = post.comment.filter((comment) => comment._id !== commentId);
           return {
             ...post,
             comments: updatedComments,
