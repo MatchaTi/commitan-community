@@ -24,6 +24,8 @@ export default function SearchModal() {
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
+      await new Promise((r) => setTimeout(r, 2000));
       try {
         if (inputUser.startsWith('@')) {
           console.log(inputUser, 'user');
@@ -31,10 +33,13 @@ export default function SearchModal() {
           setIsUser(true);
         } else {
           setIsUser(false);
+          setIsLoading(false);
           console.log(isLoading, 'loading');
           console.log(inputUser, 'postingan');
         }
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         console.log(error);
       }
     }
@@ -56,7 +61,7 @@ export default function SearchModal() {
         <button
           type='button'
           onClick={handleModal}
-          className='common-bg w-full rounded px-4 py-2 text-left sm:col-span-3 sm:py-3'
+          className='common-bg w-full rounded-lg px-4 py-2 text-left sm:col-span-3 sm:py-3'
         >
           Search...
         </button>
@@ -82,7 +87,7 @@ export default function SearchModal() {
       <button
         type='button'
         onClick={handleModal}
-        className='common-bg w-full rounded px-4 py-2 text-left sm:col-span-3 sm:py-3'
+        className='common-bg w-full rounded-lg px-4 py-2 text-left sm:col-span-3 sm:py-3'
       >
         Search...
       </button>
