@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className='min-h-[2000px]'>
+    <div className='w-full'>
       <MainLayout>{children}</MainLayout>
     </div>
   );

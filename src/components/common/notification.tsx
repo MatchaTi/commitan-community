@@ -27,8 +27,8 @@ export default function Notification() {
             leaveFrom='opacity-100 translate-y-0'
             leaveTo='opacity-0 translate-y-1'
           >
-            <div className='fixed left-0 top-16 z-10 grid w-full grid-cols-12 items-center gap-4 px-4 py-4 lg:px-0'>
-              <Popover.Panel className='col-span-12 rounded-lg bg-light-main py-4 shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:col-start-8 lg:col-span-3 lg:col-start-9'>
+            <div className='fixed left-0 top-16 z-10 grid w-full grid-cols-12 items-center gap-4 px-4 py-4 xl:px-0 xl:pl-[3.35rem]'>
+              <Popover.Panel className='col-span-12 rounded-lg bg-light-main py-4 shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:col-start-8 xl:col-span-3 xl:col-start-8'>
                 <h3 className='px-4 pb-2 font-bold'>Notifikasi</h3>
                 <div className='max-h-96 w-full divide-y divide-dark-accent/10 overflow-y-auto dark:divide-light-accent/5'>
                   {notif.map((item) => (
