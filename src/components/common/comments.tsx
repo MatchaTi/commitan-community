@@ -1,4 +1,4 @@
-import { Comment } from '@/interfaces/post';
+import { IComment } from '@/interfaces/post';
 import { timeAgo } from '@/utils/utils';
 import { useState } from 'react';
 import { GoPrimitiveDot } from 'react-icons/go';
@@ -9,12 +9,12 @@ import DeleteCommentModal from './deleteCommentModal';
 import EditCommentModal from './editCommentModal';
 import ProfileImage from './profileImage';
 
-interface IComment {
+interface IComments {
   postId: string;
-  comment: Comment;
+  comment: IComment;
 }
 
-export default function Comments({ postId, comment }: IComment) {
+export default function Comments({ postId, comment }: IComments) {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
@@ -36,9 +36,9 @@ export default function Comments({ postId, comment }: IComment) {
           </div>
           <div className='text-xs sm:text-sm'>
             <div className='flex items-center gap-1'>
-              <h2 className='font-semibold'>{comment.username}</h2>
+              <h2 className='font-semibold'>{comment.users.username}</h2>
               <GoPrimitiveDot />
-              <time>{timeAgo(comment.createdAt)}</time>
+              <time>{timeAgo(comment.created_at)}</time>
             </div>
             <Badge>Wengdev</Badge>
           </div>
@@ -64,7 +64,7 @@ export default function Comments({ postId, comment }: IComment) {
       {/* bottom content */}
       <div className='mt-2'>
         <div className='common-bg-secondary mb-4 rounded-lg p-4'>
-          <p>{comment.text}</p>
+          <p>{comment.description}</p>
           {comment.code && (
             <>
               {comment.code.syntax && comment.code.pathFile ? (
