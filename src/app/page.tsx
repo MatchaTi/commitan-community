@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className='min-h-[2000px]'>
       <MainLayout>
-        <div className='order-1 sm:col-span-11 sm:col-start-2 xl:col-span-6 xl:col-start-3'>
+        <div className='order-1 mt-20 sm:col-span-11 sm:col-start-2 xl:col-span-6 xl:col-start-3'>
           <UploadModal />
         </div>
         <section className='order-2 sm:col-span-11 sm:col-start-2 xl:fixed xl:left-0 xl:top-0 xl:order-3 xl:mt-20 xl:grid xl:grid-cols-12 xl:gap-4 xl:pl-[3.35rem]'>
