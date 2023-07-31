@@ -55,7 +55,7 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
 
   return (
     <div
-      className={`${jetBrains.className} common-accent mt-4 overflow-hidden rounded-lg border bg-light-code-editor text-xs dark:bg-dark-code-editor sm:text-sm`}
+      className={`${jetBrains.className} common-accent headings mt-4 overflow-hidden rounded-lg border bg-light-code-editor text-xs dark:bg-dark-code-editor sm:text-sm`}
     >
       <div className='flex max-w-full items-center justify-between border-b border-inherit px-4 py-2'>
         <input
