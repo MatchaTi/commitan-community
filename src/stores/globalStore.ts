@@ -23,21 +23,32 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
       const reader = new FileReader();
 
       if (file) {
-        if (file.size > 1048576) {
+        const validExtensions = ['jpg', 'png', 'jpeg'];
+        const fileType = validExtensions.includes(file.name.split('.')[1]);
+
+        if (fileType) {
+          if (file.size > 1048576) {
+            set((state) => ({
+              imageMsg: 'Ukuran file terlalu besar. Maksimum 1MB!',
+              imagePreview: '',
+              inputUserUpload: { ...state.inputUserUpload, image: null },
+            }));
+          } else {
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+              set((state) => ({
+                imageMsg: '',
+                imagePreview: reader.result as string,
+                inputUserUpload: { ...state.inputUserUpload, image: file },
+              }));
+            };
+          }
+        } else {
           set((state) => ({
-            imageMsg: 'Ukuran file terlalu besar. Maksimum 1MB!',
+            imageMsg: 'Ekstensi File harus jpg, png, jpeg',
             imagePreview: '',
             inputUserUpload: { ...state.inputUserUpload, image: null },
           }));
-        } else {
-          reader.readAsDataURL(file);
-          reader.onloadend = () => {
-            set((state) => ({
-              imageMsg: '',
-              imagePreview: reader.result as string,
-              inputUserUpload: { ...state.inputUserUpload, image: file },
-            }));
-          };
         }
       }
     }
