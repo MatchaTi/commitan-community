@@ -113,8 +113,14 @@ export default function Post({ data, context, postId, editorContext }: PostProps
           </div>
           <p>{data.description}</p>
           {data.image && (
-            <div>
-              <Image src={`http://localhost:5000/${data.image}`} alt='gambar' width={200} height={200} />
+            <div className='my-4'>
+              <Image
+                src={`${process.env.API_URL}${data.image}`}
+                alt='gambar'
+                width={200}
+                height={200}
+                className='mx-auto'
+              />
             </div>
           )}
           {data.code && (
