@@ -1,5 +1,5 @@
-import HomeLayout from '@/components/layout/homeLayout';
+import MainLayout from '@/components/layout/mainLayout';
 
 export default function DetailPostLayout({ children }: { children: React.ReactNode }) {
-  return <HomeLayout>{children}</HomeLayout>;
+  return <MainLayout>{children}</MainLayout>;
 }
