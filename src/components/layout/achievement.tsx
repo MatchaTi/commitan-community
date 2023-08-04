@@ -58,9 +58,9 @@ function AchievementItem({ title, label, isAchieved, origin }: IAchievementItem)
     <li
       className={`${
         isAchieved
-          ? 'border-none bg-dark-secondary/5 text-blue-500 text-opacity-100 dark:bg-light-secondary/5'
+          ? 'border-none bg-commitan-main text-white text-opacity-100'
           : 'text-light-text/25 dark:text-dark-text/25'
-      } common-accent flex aspect-square items-center justify-center border text-center text-xs`}
+      } common-accent flex aspect-square items-center justify-center border text-center text-xs hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5`}
     >
       <div className='group relative'>
         <div className='text-3xl'>
