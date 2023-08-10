@@ -17,6 +17,7 @@ import ModalWrapper from './modalWrapper';
 import OptionButton from './optionButton';
 import ProfileImage from './profileImage';
 import Spinner from './spinner';
+import Cookies from 'js-cookie';
 
 export default function UploadModal() {
   const [addPosts] = useUserPostStore((state) => [state.addPost], shallow);
@@ -72,29 +73,37 @@ export default function UploadModal() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setIsLoading(true);
-    await new Promise((r) => setTimeout(r, 3000));
-    const username = '@bangalex';
-    const badge = 'wengdev';
+    // await new Promise((r) => setTimeout(r, 3000));
+    // const username = '@bangalex';
+    // const badge = 'wengdev';
+    console.table(inputUserUpload);
     try {
-      const res = await axios.post(`${process.env.API_URL}/posts`, {
-        username,
-        badge,
-        ...inputUserUpload,
-        code,
-      });
-      clearField();
-      setSyntax('');
-      setPathFile('');
-      setIsLoading(false);
-      setShowLinkSourceCode(false);
-      setShowLinkLiveDemo(false);
-      const newPosts = [res.data.post];
-      addPosts(newPosts);
-      setShowUploadModal(false);
-      toast.success(res.data.message);
+      const res = await axios.post(
+        `${process.env.API_URL}/post/create`,
+        {
+          ...inputUserUpload,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get('token')}`,
+          },
+        }
+      );
+      console.log(res.data);
+      // clearField();
+      // setSyntax('');
+      // setPathFile('');
+      // setIsLoading(false);
+      // setShowLinkSourceCode(false);
+      // setShowLinkLiveDemo(false);
+      // // const newPosts = [res.data.post];
+      // // addPosts(newPosts);
+      // setShowUploadModal(false);
+      // toast.success(res.data.message);
     } catch (error) {
       // wip error handling
-      toast.error(error as string);
+      // toast.error(error as string);
+      console.log(error);
     }
   }
 
@@ -169,15 +178,7 @@ export default function UploadModal() {
             autoComplete='off'
             maxLength={4000}
           ></textarea>
-          {showCodeEditor && (
-            <CodeEditor
-              context='upload'
-              syntax={syntax}
-              setSyntax={setSyntax}
-              pathFile={pathFile}
-              setPathFile={setPathFile}
-            />
-          )}
+          {showCodeEditor && <CodeEditor context='upload' onChangeHandler={onChangeHandler} />}
           {showLinkSourceCode && (
             <input
               type='text'
