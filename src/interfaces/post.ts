@@ -40,7 +40,7 @@ export interface PostComment {
   code: Code;
 }
 
-export interface UserUpload {
+export interface UserUpload extends Code {
   title: string;
   desc: string;
   category: string;
