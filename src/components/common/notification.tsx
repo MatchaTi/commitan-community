@@ -7,7 +7,7 @@ import ProfileImage from './profileImage';
 
 export default function Notification() {
   const notif = [1, 2, 3, 4, 5, 6, 7, 8];
-
+ 
   return (
     <>
       <Popover
