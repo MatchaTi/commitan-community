@@ -7,7 +7,6 @@ import ProfileMenu from '../common/profileMenu';
 import SearchModal from '../common/searchModal';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { verifyToken } from '@/libs/auth';
 
 export default function Navbar() {
   const [data, setData] = useState<{
@@ -19,8 +18,7 @@ export default function Navbar() {
   useEffect(() => {
     const token = Cookies.get('token');
     const getdata = async () => {
-      const decode: any = token && (await verifyToken(token));
-      const response = await axios.get(`${process.env.API_URL}/user/profile/${decode._id}`, {
+      const response = await axios.get(`${process.env.API_URL}/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
