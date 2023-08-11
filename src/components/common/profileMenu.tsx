@@ -57,7 +57,9 @@ export default function ProfileMenu({ username }: { username: string }) {
                 <span className='text-xl'>
                   <BiUser />
                 </span>
-                <span>Profil</span>
+                <a href={`profil/${username}`}>
+                  <span>Profil</span>
+                </a>
               </a>
             )}
           </Menu.Item>
