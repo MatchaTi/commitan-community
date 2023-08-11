@@ -18,6 +18,7 @@ export interface IUser {
   saved: Array<string>;
   interest: Array<string>;
   notification: Array<INotification>;
+  createdAt: string;
 }
 
 export interface IBadge {
