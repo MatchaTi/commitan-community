@@ -1,11 +1,27 @@
 'use client';
 
 import Button from '@/components/common/button';
-import { useState } from 'react';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 import { BsBookmark, BsGrid3X3 } from 'react-icons/bs';
 
-export default function ProfileSection() {
+export default function ProfileSection({ id }: any) {
   const [content, setContent] = useState(1);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const token = Cookies.get('token');
+    const getdata = async () => {
+      const response = await axios.get(`${process.env.API_URL}/user/savedpost/${id}/0/2`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setData(response.data.data[0]);
+    };
+    getdata();
+  }, []);
 
   return (
     <div className='relative z-10 mx-auto w-full pt-6'>
