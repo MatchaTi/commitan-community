@@ -87,7 +87,7 @@ export default function Profile() {
         </div>
       </section>
       <section className='order-3 h-[2000px] sm:col-span-11 sm:col-start-2 xl:order-2 xl:col-span-6 xl:col-start-3'>
-        <ProfileSection id={data._id} />
+        {data._id !== '' && <ProfileSection id={data._id} />}
       </section>
       <section className='order-2 sm:col-span-11 sm:col-start-2 xl:order-3 xl:col-span-2 xl:col-start-9'>
         <div className='xl:sticky xl:top-20 xl:z-10 xl:h-screen xl:overflow-auto'>
