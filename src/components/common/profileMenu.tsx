@@ -7,7 +7,7 @@ import { BiLogOut, BiUser } from 'react-icons/bi';
 import Button from './button';
 import ProfileImage from './profileImage';
 
-export default function ProfileMenu() {
+export default function ProfileMenu({ username }: { username: string }) {
   const verified = useAuthVerify();
 
   function logout() {
@@ -29,8 +29,8 @@ export default function ProfileMenu() {
     <Menu as='div' className={'relative z-50 translate-y-0.5'}>
       <Menu.Button>
         <div className='flex items-center gap-4'>
-          <ProfileImage src={''} size='sm' username={''} />
-          <h2 className='headings hidden font-bold capitalize sm:block'>AdiIfai</h2>
+          <ProfileImage src={''} size='sm' username={username} />
+          <h2 className='headings hidden font-bold capitalize sm:block'>{username}</h2>
         </div>
       </Menu.Button>
       <Transition
@@ -57,7 +57,9 @@ export default function ProfileMenu() {
                 <span className='text-xl'>
                   <BiUser />
                 </span>
-                <span>Profil</span>
+                <a href={`profil/${username}`}>
+                  <span>Profil</span>
+                </a>
               </a>
             )}
           </Menu.Item>

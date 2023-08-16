@@ -9,12 +9,21 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
     linkSourceCode: '',
     linkLiveDemo: '',
     image: null,
+    pathFile: '',
+    syntax: '',
   },
   imageMsg: '',
   heightValue: '',
   imagePreview: '',
   setImageMsg: (msg) => set(() => ({ imageMsg: msg })),
   setHeightValue: (value) => set(() => ({ heightValue: value })),
+  setSyntax: (value) =>
+    set((state) => ({
+      inputUserUpload: {
+        ...state.inputUserUpload,
+        syntax: value,
+      },
+    })),
   onChangeHandler: (e) => {
     const { name, value } = e.target;
 
@@ -73,6 +82,8 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
         linkSourceCode: '',
         linkLiveDemo: '',
         image: null,
+        pathFile: '',
+        syntax: '',
       },
       imageMsg: '',
       imagePreview: '',
