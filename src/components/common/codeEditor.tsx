@@ -1,5 +1,6 @@
 'use client';
 
+import { useUserUploadStore } from '@/stores/globalStore';
 import '@/style/CodeEditor.css';
 import { JetBrains_Mono } from 'next/font/google';
 import { highlight, languages } from 'prismjs';
@@ -8,6 +9,7 @@ import { useEffect, useRef, useState } from 'react';
 import { BiCheckDouble } from 'react-icons/bi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import Editor from 'react-simple-code-editor';
+import { shallow } from 'zustand/shallow';
 
 const jetBrains = JetBrains_Mono({ subsets: ['latin'] });
 
@@ -23,17 +25,15 @@ interface EditorContext {
 
 interface ICode {
   context?: keyof EditorContext;
-  syntax: string;
-  setSyntax?: (syntax: string) => void;
-  pathFile: string;
-  setPathFile?: (pathFile: string) => void;
+  onChangeHandler: (e: any) => void;
 }
 
-export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPathFile }: ICode) {
+export default function CodeEditor({ context, onChangeHandler }: ICode) {
   const [showExpandButton, setShowExpandButton] = useState(false);
   const [expandCode, setExpandCode] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
+  const [inputUserUpload, setSyntax] = useUserUploadStore((state) => [state.inputUserUpload, state.setSyntax], shallow);
 
   useEffect(() => {
     if (context == 'posted' || context == 'commented') {
@@ -44,7 +44,8 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
 
   function handleCopy() {
     if (context == 'posted' || context == 'commented' || context == 'detail') {
-      navigator.clipboard.writeText(syntax).then(() => {
+      navigator.clipboard.writeText(inputUserUpload.syntax).then(() => {
+        //ini diperbaiki
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);
@@ -60,8 +61,8 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
       <div className='flex max-w-full items-center justify-between border-b border-inherit px-4 py-2'>
         <input
           type='text'
-          value={pathFile}
-          onChange={(e) => setPathFile?.(e.target.value)}
+          name='pathFile'
+          onChange={onChangeHandler}
           readOnly={context == 'posted' || context == 'commented' || context == 'detail'}
           placeholder='Path / file name'
           className='w-full overflow-auto bg-transparent outline-none'
@@ -101,8 +102,11 @@ export default function CodeEditor({ context, syntax, setSyntax, pathFile, setPa
           </>
         )}
         <Editor
-          value={syntax}
-          onValueChange={(code) => setSyntax?.(code)}
+          name='syntax'
+          value={inputUserUpload.syntax}
+          onValueChange={(e) => {
+            setSyntax(e);
+          }}
           highlight={(code) => highlight(code, languages['jsx'], '')}
           padding={16}
           placeholder='Tulis kode anda disini...'

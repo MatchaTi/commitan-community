@@ -7,6 +7,8 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata = {
   title: 'Home | Commitan',
   description: 'Commitan Community',
+  manifest: '/manifest.json',
+  icons: { apple: '/icon.png' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

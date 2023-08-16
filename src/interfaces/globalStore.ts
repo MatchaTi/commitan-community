@@ -6,6 +6,7 @@ export interface UserUploadStore {
   imagePreview: string;
   setImageMsg: (msg: string) => void;
   setHeightValue: (value: string) => void;
+  setSyntax: (value: string) => void;
   heightValue: string;
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   clearField: () => void;
