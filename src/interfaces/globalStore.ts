@@ -11,4 +11,5 @@ export interface UserUploadStore {
   onChangeHandler: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
   clearField: () => void;
   clearImage: () => void;
+  clearCode: () => void;
 }

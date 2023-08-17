@@ -1,16 +1,12 @@
-// import ProfileSection from './profileSection';
-'use client';
-
 import Badge from '@/components/common/badge';
 import Button from '@/components/common/button';
 import Achievement from '@/components/layout/achievement';
+import axios from 'axios';
+import moment from 'moment';
+import { cookies } from 'next/headers';
+import { notFound } from 'next/navigation';
 import { AiFillCalendar } from 'react-icons/ai';
 import ProfileSection from './profileSection';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation';
-import Cookies from 'js-cookie';
-import moment from 'moment';
 
 interface IProfileUser<T> {
   _id: T;
@@ -23,31 +19,22 @@ interface IProfileUser<T> {
   bio: T;
 }
 
-export default function Profile() {
-  const params = useParams();
-  const [data, setData] = useState<IProfileUser<string>>({
-    _id: '',
-    fullname: '',
-    username: '',
-    job: '',
-    followers: [],
-    following: [],
-    createdAt: '',
-    bio: '',
+async function getData(username: string, token: string) {
+  const response = await axios.get(`${process.env.API_URL}/user/profile/${username}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
-  useEffect(() => {
-    const token = Cookies.get('token');
-    const getdata = async () => {
-      const response = await axios.get(`${process.env.API_URL}/user/profile/${params.username}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
 
-      setData(response.data.data[0]);
-    };
-    getdata();
-  }, []);
+  if (response.data.data.length === 0) notFound();
+  return response.data.data[0];
+}
+
+export default async function Profile({ params }: { params: { username: string } }) {
+  const nextCookie = cookies();
+
+  const token = nextCookie.get('token')?.value;
+  const data: IProfileUser<string> = token && (await getData(params.username, token));
 
   return (
     <>

@@ -38,6 +38,7 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
         if (fileType) {
           if (file.size > 1048576) {
             set((state) => ({
+              ...state,
               imageMsg: 'Ukuran file terlalu besar. Maksimum 1MB!',
               imagePreview: '',
               inputUserUpload: { ...state.inputUserUpload, image: null },
@@ -46,6 +47,7 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
             reader.readAsDataURL(file);
             reader.onloadend = () => {
               set((state) => ({
+                ...state,
                 imageMsg: '',
                 imagePreview: reader.result as string,
                 inputUserUpload: { ...state.inputUserUpload, image: file },
@@ -54,6 +56,7 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
           }
         } else {
           set((state) => ({
+            ...state,
             imageMsg: 'Ekstensi File harus jpg, png, jpeg',
             imagePreview: '',
             inputUserUpload: { ...state.inputUserUpload, image: null },
@@ -92,5 +95,9 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
     set(() => ({
       imageMsg: '',
       imagePreview: '',
+    })),
+  clearCode: () =>
+    set((state) => ({
+      inputUserUpload: { ...state.inputUserUpload, pathFile: '', syntax: '' },
     })),
 }));

@@ -1,12 +1,12 @@
 'use client';
 
+import axios from 'axios';
+import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import DarkModeBtn from '../common/darkModeBtn';
 import Notification from '../common/notification';
 import ProfileMenu from '../common/profileMenu';
 import SearchModal from '../common/searchModal';
-import axios from 'axios';
-import Cookies from 'js-cookie';
 
 export default function Navbar() {
   const [data, setData] = useState<{
@@ -26,9 +26,14 @@ export default function Navbar() {
         },
       });
 
-      setData(response.data.data[0]);
+      if (response.status > 400) {
+        setData({ username: '' });
+      } else {
+        setData(response.data.data[0]);
+      }
     };
-    getdata();
+
+    if (token) getdata();
   }, []);
 
   return (
