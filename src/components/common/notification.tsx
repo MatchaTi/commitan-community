@@ -4,10 +4,16 @@ import { Popover, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 import { IoIosNotifications } from 'react-icons/io';
 import ProfileImage from './profileImage';
+import { useState, useEffect } from 'react';
+import { timeAgo } from '@/utils/utils';
 
-export default function Notification() {
-  const notif = [1, 2, 3, 4, 5, 6, 7, 8];
- 
+export default function Notification({ notification }: any) {
+  const [notif, setNotif] = useState(notification);
+
+  useEffect(() => {
+    setNotif(notification);
+  }, [notification]);
+
   return (
     <>
       <Popover
@@ -15,7 +21,9 @@ export default function Notification() {
       >
         <>
           <Popover.Button className={'flex h-full w-full items-center justify-center rounded-full'}>
-            <div className='absolute right-0 top-0 h-2 w-2 rounded-full bg-red-400 after:absolute after:right-0 after:top-0 after:h-2 after:w-2 after:animate-ping after:rounded-full after:bg-red-400'></div>
+            {notif.length > 0 && (
+              <div className='absolute right-0 top-0 h-2 w-2 rounded-full bg-red-400 after:absolute after:right-0 after:top-0 after:h-2 after:w-2 after:animate-ping after:rounded-full after:bg-red-400'></div>
+            )}{' '}
             <IoIosNotifications className={`text-xl font-bold`} />
           </Popover.Button>
           <Transition
@@ -31,21 +39,23 @@ export default function Notification() {
               <Popover.Panel className='col-span-12 rounded-lg bg-light-main py-4 shadow-lg shadow-light-accent dark:border dark:border-light-accent/5 dark:bg-dark-secondary dark:shadow-none sm:col-start-8 xl:col-span-3 xl:col-start-8'>
                 <h3 className='px-4 pb-2 font-bold'>Notifikasi</h3>
                 <div className='max-h-96 w-full divide-y divide-dark-accent/10 overflow-y-auto dark:divide-light-accent/5'>
-                  {notif.map((item) => (
-                    <Fragment key={item}>
-                      <div className='flex w-full items-center gap-4 px-4 py-4 duration-150 ease-in-out hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5'>
-                        {/* profile picture user */}
-                        <div>
-                          <ProfileImage size='sm' />
+                  {notif.length > 0 &&
+                    notif.map((item: any, index: number) => (
+                      <Fragment key={index}>
+                        <div className='flex w-full items-center gap-4 px-4 py-4 duration-150 ease-in-out hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5'>
+                          {/* profile picture user */}
+                          <div>
+                            <ProfileImage size='sm' />
+                          </div>
+                          {/* name, desc, and time */}
+                          <div>
+                            <span className='block'>{item.description}</span>
+                            <span className='block text-xs'>{timeAgo(item.created_at)}</span>
+                          </div>
                         </div>
-                        {/* name, desc, and time */}
-                        <div>
-                          <span className='block'>Kumala menyukai postingan Anda</span>
-                          <span className='block text-xs'>9 jam yang lalu</span>
-                        </div>
-                      </div>
-                    </Fragment>
-                  ))}
+                      </Fragment>
+                    ))}
+                  {notif.length == 0 && <h1 className='px-4'>Tidak ada notifikasi</h1>}
                 </div>
                 <div className='px-4 pt-2'>{notif.length} Notifikasi</div>
               </Popover.Panel>
