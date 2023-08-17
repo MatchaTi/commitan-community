@@ -50,7 +50,7 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
                 ...state,
                 imageMsg: '',
                 imagePreview: reader.result as string,
-                inputUserUpload: { ...state.inputUserUpload, image: value },
+                inputUserUpload: { ...state.inputUserUpload, image: file },
               }));
             };
           }
@@ -95,5 +95,9 @@ export const useUserUploadStore = create<UserUploadStore>((set) => ({
     set(() => ({
       imageMsg: '',
       imagePreview: '',
+    })),
+  clearCode: () =>
+    set((state) => ({
+      inputUserUpload: { ...state.inputUserUpload, pathFile: '', syntax: '' },
     })),
 }));
