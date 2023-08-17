@@ -9,7 +9,7 @@ import Button from './button';
 import Tooltip from './tooltip';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IPostAction {
   user_id: string;
@@ -30,7 +30,14 @@ export default function PostActionButton({
 }: IPostAction) {
   const [like, setLike] = useState(likes);
   const [isLike, setIslike] = useState(false);
+  const [postLiked, setPostLiked] = useState<string[]>([]);
   const token = Cookies.get('token');
+
+  useEffect(() => {
+    const postLikeStorage = localStorage.getItem('postLikeStorage');
+    if (postLikeStorage) setPostLiked(JSON.parse(postLikeStorage));
+  }, []);
+
   const likeAction = async () => {
     const res = await axios.patch(
       `${process.env.API_URL}/user/likes/${postId}/${user_id}`,
@@ -43,6 +50,7 @@ export default function PostActionButton({
     );
     if (res.status < 400) {
       setIslike(!isLike);
+      postLiked.push(postId);
       setLike(like + 1);
     }
   };
@@ -58,23 +66,34 @@ export default function PostActionButton({
     );
     if (res.status < 400) {
       setIslike(!isLike);
+      setPostLiked(postLiked.filter((item) => item != postId));
       setLike(like - 1);
     }
   };
+
+  console.log(postLiked.includes(postId), postId);
+
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('postLikeStorage', JSON.stringify(postLiked));
+  });
 
   return (
     <div className='mt-2 flex w-full items-center'>
       <div className='flex flex-1 items-center gap-1 sm:gap-4'>
         <div className='group relative'>
           <Button
-            onClick={isLike ? unlikeAction : likeAction}
+            onClick={postLiked.includes(postId) ? unlikeAction : likeAction}
             type='button'
             size='sm'
             color='transparent'
-            className={`group flex items-center gap-1 hover:text-pink-400 ${isLike && 'text-pink-400'}`}
+            className={`group flex items-center gap-1 hover:text-pink-400 ${
+              postLiked.includes(postId) && 'text-pink-400'
+            }`}
           >
             <AiOutlineHeart
-              className={`rounded-lg p-1 text-3xl group-hover:bg-pink-400/25 ${isLike && 'bg-pink-400/25'}`}
+              className={`rounded-lg p-1 text-3xl group-hover:bg-pink-400/25 ${
+                postLiked.includes(postId) && 'bg-pink-400/25'
+              }`}
             />{' '}
             <span>{like}</span>
           </Button>

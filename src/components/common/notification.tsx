@@ -40,8 +40,8 @@ export default function Notification({ notification }: any) {
                 <h3 className='px-4 pb-2 font-bold'>Notifikasi</h3>
                 <div className='max-h-96 w-full divide-y divide-dark-accent/10 overflow-y-auto dark:divide-light-accent/5'>
                   {notif.length > 0 &&
-                    notif.map((item: any) => (
-                      <Fragment key={item}>
+                    notif.map((item: any, index: number) => (
+                      <Fragment key={index}>
                         <div className='flex w-full items-center gap-4 px-4 py-4 duration-150 ease-in-out hover:bg-dark-secondary/5 hover:dark:bg-light-secondary/5'>
                           {/* profile picture user */}
                           <div>
@@ -55,7 +55,7 @@ export default function Notification({ notification }: any) {
                         </div>
                       </Fragment>
                     ))}
-                  {notif.length == 0 && <h1>tidak ada notifikasi</h1>}
+                  {notif.length == 0 && <h1 className='px-4'>Tidak ada notifikasi</h1>}
                 </div>
                 <div className='px-4 pt-2'>{notif.length} Notifikasi</div>
               </Popover.Panel>
