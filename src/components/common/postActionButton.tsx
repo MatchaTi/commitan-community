@@ -1,3 +1,5 @@
+'use client';
+
 import { AiOutlineHeart } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import { BsBookmark } from 'react-icons/bs';
@@ -5,27 +7,76 @@ import { FiSend } from 'react-icons/fi';
 import { HiExternalLink } from 'react-icons/hi';
 import Button from './button';
 import Tooltip from './tooltip';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { useState } from 'react';
 
 interface IPostAction {
+  user_id: string;
   postId: string;
   isCommentOpen: boolean;
   toggleCommentSection: () => void;
   lengthComment: number;
+  likes: number;
 }
 
-export default function PostActionButton({ postId, isCommentOpen, toggleCommentSection, lengthComment }: IPostAction) {
+export default function PostActionButton({
+  postId,
+  isCommentOpen,
+  toggleCommentSection,
+  lengthComment,
+  user_id,
+  likes,
+}: IPostAction) {
+  const [like, setLike] = useState(likes);
+  const [isLike, setIslike] = useState(false);
+  const token = Cookies.get('token');
+  const likeAction = async () => {
+    const res = await axios.patch(
+      `${process.env.API_URL}/user/likes/${postId}/${user_id}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status < 400) {
+      setIslike(!isLike);
+      setLike(like + 1);
+    }
+  };
+  const unlikeAction = async () => {
+    const res = await axios.patch(
+      `${process.env.API_URL}/user/unlikes/${postId}`,
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    if (res.status < 400) {
+      setIslike(!isLike);
+      setLike(like - 1);
+    }
+  };
+
   return (
     <div className='mt-2 flex w-full items-center'>
       <div className='flex flex-1 items-center gap-1 sm:gap-4'>
         <div className='group relative'>
           <Button
+            onClick={isLike ? unlikeAction : likeAction}
             type='button'
             size='sm'
             color='transparent'
-            className='group flex items-center gap-1 hover:text-pink-400'
+            className={`group flex items-center gap-1 hover:text-pink-400 ${isLike && 'text-pink-400'}`}
           >
-            <AiOutlineHeart className='rounded-lg p-1 text-3xl group-hover:bg-pink-400/25' />{' '}
-            <span>{lengthComment}</span>
+            <AiOutlineHeart
+              className={`rounded-lg p-1 text-3xl group-hover:bg-pink-400/25 ${isLike && 'bg-pink-400/25'}`}
+            />{' '}
+            <span>{like}</span>
           </Button>
           <Tooltip position='topStart'>
             <span className='flex w-full items-center justify-center font-semibold'>Suka</span>

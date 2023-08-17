@@ -11,8 +11,10 @@ import Cookies from 'js-cookie';
 export default function Navbar() {
   const [data, setData] = useState<{
     username: string;
+    notification: [];
   }>({
     username: '',
+    notification: [],
   });
 
   useEffect(() => {
@@ -37,7 +39,7 @@ export default function Navbar() {
       <div className='col-span-6 flex items-center justify-between sm:col-span-3 xl:col-span-2'>
         <ProfileMenu username={data.username} />
         <DarkModeBtn visibility='sm:hidden' />
-        <Notification />
+        <Notification notification={data.notification} />
       </div>
     </nav>
   );

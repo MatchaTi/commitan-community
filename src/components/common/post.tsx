@@ -131,6 +131,8 @@ export default function Post({ data, context, postId, editorContext }: PostProps
             </>
           )}
           <PostActionButton
+            user_id={data.user_id}
+            likes={data.likes}
             postId={postId}
             isCommentOpen={isCommentOpen}
             toggleCommentSection={toggleCommentSection}
