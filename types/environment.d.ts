@@ -3,6 +3,8 @@ declare global {
     interface ProcessEnv {
       API_URL;
       JWT_SECRET;
+      SOCKET_URL;
+      SOCKET_HEADER;
     }
   }
 }
