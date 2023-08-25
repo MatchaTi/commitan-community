@@ -137,6 +137,7 @@ export default function Post({ data, context, postId, editorContext }: PostProps
             isCommentOpen={isCommentOpen}
             toggleCommentSection={toggleCommentSection}
             lengthComment={data.comment.length}
+            username={data.users.username}
           />
           {isCommentOpen && <CommentSection postId={postId} comments={data.comment} />}
           {editModal && <EditModal post={data} showEditModal={editModal} handleEditModal={handleEditModal} />}

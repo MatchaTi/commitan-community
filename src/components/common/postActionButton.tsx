@@ -10,6 +10,7 @@ import Tooltip from './tooltip';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
+import { useSocketStore } from '@/stores/socketStore';
 
 interface IPostAction {
   user_id: string;
@@ -18,6 +19,7 @@ interface IPostAction {
   toggleCommentSection: () => void;
   lengthComment: number;
   likes: number;
+  username: string;
 }
 
 export default function PostActionButton({
@@ -27,10 +29,12 @@ export default function PostActionButton({
   lengthComment,
   user_id,
   likes,
+  username,
 }: IPostAction) {
   const [like, setLike] = useState(likes);
   const [isLike, setIslike] = useState(false);
   const [postLiked, setPostLiked] = useState<string[]>([]);
+  const socket = useSocketStore().socket;
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -38,7 +42,8 @@ export default function PostActionButton({
     if (postLikeStorage) setPostLiked(JSON.parse(postLikeStorage));
   }, []);
 
-  const likeAction = async () => {
+  const likeAction = async (e: any) => {
+    e.preventDefault();
     const res = await axios.patch(
       `${process.env.API_URL}/user/likes/${postId}/${user_id}`,
       {},
@@ -52,6 +57,7 @@ export default function PostActionButton({
       setIslike(!isLike);
       postLiked.push(postId);
       setLike(like + 1);
+      socket.emit('kirim-notifikasi', { username, data: res.data.data });
     }
   };
   const unlikeAction = async () => {
@@ -70,8 +76,6 @@ export default function PostActionButton({
       setLike(like - 1);
     }
   };
-
-  console.log(postLiked.includes(postId), postId);
 
   window.addEventListener('beforeunload', () => {
     localStorage.setItem('postLikeStorage', JSON.stringify(postLiked));

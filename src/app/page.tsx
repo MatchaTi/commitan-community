@@ -1,3 +1,5 @@
+'use client';
+
 import PostList from '@/components/common/postList';
 import UploadModal from '@/components/common/uploadModal';
 import Category from '@/components/layout/category';
@@ -5,8 +7,39 @@ import Following from '@/components/layout/following';
 import Information from '@/components/layout/information';
 import MainLayout from '@/components/layout/mainLayout';
 import Trending from '@/components/layout/trending';
+import { INotification } from '@/interfaces/user';
+import { verifyToken } from '@/libs/auth';
+import { useSocketStore } from '@/stores/socketStore';
+import Cookies from 'js-cookie';
+import { useEffect } from 'react';
+import { shallow } from 'zustand/shallow';
 
 export default function Home() {
+  const [socket, setNotificationData] = useSocketStore((state) => [state.socket, state.setNotificationData], shallow);
+  const token = Cookies.get('token');
+  useEffect(() => {
+    const socketInitialize = async () => {
+      if (token) {
+        const { username } = await verifyToken(token);
+        if (username) {
+          socket?.on('connect', () => {
+            socket.emit('addSocketUserId', { username });
+          });
+          socket?.on('notifikasi-baru', (notif: INotification) => {
+            setNotificationData([notif]);
+          });
+          socket?.on('connect_error', (err: Error) => {
+            console.log(`connect_error due to ${err.message}`);
+          });
+          return () => {
+            socket.disconnect();
+          };
+        }
+      }
+    };
+    socketInitialize();
+  }, [socket]);
+
   return (
     <div className='min-h-[2000px]'>
       <MainLayout>
