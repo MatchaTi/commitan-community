@@ -2,6 +2,7 @@
 
 import type { UserPost } from '@/interfaces/post';
 import { timeAgo } from '@/utils/utils';
+import Image from 'next/image';
 import { useState } from 'react';
 import { BiCategory, BiCodeCurly } from 'react-icons/bi';
 import { GoPrimitiveDot } from 'react-icons/go';
@@ -14,7 +15,6 @@ import EditModal from './editModal';
 import PostActionButton from './postActionButton';
 import PostControl from './postControl';
 import ProfileImage from './profileImage';
-import Image from 'next/image';
 
 interface EditorContext {
   upload: string;
@@ -55,7 +55,7 @@ export default function Post({ data, context, postId, editorContext }: PostProps
   }
 
   return (
-    <article className='common-bg mt-4 flex max-w-full items-start gap-4 rounded-lg p-4'>
+    <article className='common-bg relative z-20 mt-4 flex max-w-full items-start gap-4 rounded-lg p-4'>
       {/* left side start */}
       <div className='hidden flex-col items-end sm:flex'>
         {/* user image */}
